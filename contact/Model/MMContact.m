@@ -8,8 +8,6 @@
 
 #import "MMContact.h"
 #import "MMPhoneticAbbr.h"
-#import <AddressBook/AddressBook.h>
-#import "MMAddressBook.h"
 #import "MMGlobalData.h"
 #import "MMCommonAPI.h"
 #import "MMServerContactManager.h"
@@ -1144,9 +1142,7 @@
 - (void)killSelf {	
 	
 	do{		
-        [MMAddressBook clearAddressBook];
-		
-		if(![[self db]  goodConnection]) {            
+		if(![[self db]  goodConnection]) {
             break;
         }
         

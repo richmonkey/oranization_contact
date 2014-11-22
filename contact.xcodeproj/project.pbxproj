@@ -22,7 +22,6 @@
 		6D16D61A1A08A36A001D0939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D6181A08A36A001D0939 /* InfoPlist.strings */; };
 		6D16D61C1A08A36A001D0939 /* contactTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D61B1A08A36A001D0939 /* contactTests.m */; };
 		6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6301A08A6BB001D0939 /* DbStruct.m */; };
-		6D16D6381A08A6BB001D0939 /* MMAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6321A08A6BB001D0939 /* MMAddressBook.m */; };
 		6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6341A08A6BB001D0939 /* MMContact.m */; };
 		6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6361A08A6BB001D0939 /* MMModel.mm */; };
 		6D16D65C1A08A89C001D0939 /* MMPhoneticAbbr.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D65B1A08A89C001D0939 /* MMPhoneticAbbr.mm */; };
@@ -110,8 +109,6 @@
 		6D16D61B1A08A36A001D0939 /* contactTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = contactTests.m; sourceTree = "<group>"; };
 		6D16D62F1A08A6BB001D0939 /* DbStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DbStruct.h; sourceTree = "<group>"; };
 		6D16D6301A08A6BB001D0939 /* DbStruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DbStruct.m; sourceTree = "<group>"; };
-		6D16D6311A08A6BB001D0939 /* MMAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddressBook.h; sourceTree = "<group>"; };
-		6D16D6321A08A6BB001D0939 /* MMAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAddressBook.m; sourceTree = "<group>"; };
 		6D16D6331A08A6BB001D0939 /* MMContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMContact.h; sourceTree = "<group>"; };
 		6D16D6341A08A6BB001D0939 /* MMContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMContact.m; sourceTree = "<group>"; };
 		6D16D6351A08A6BB001D0939 /* MMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMModel.h; sourceTree = "<group>"; };
@@ -379,8 +376,6 @@
 				6D16D65A1A08A89C001D0939 /* MMPhoneticAbbr.h */,
 				6D16D65B1A08A89C001D0939 /* MMPhoneticAbbr.mm */,
 				6D16D6301A08A6BB001D0939 /* DbStruct.m */,
-				6D16D6311A08A6BB001D0939 /* MMAddressBook.h */,
-				6D16D6321A08A6BB001D0939 /* MMAddressBook.m */,
 				6D16D6331A08A6BB001D0939 /* MMContact.h */,
 				6D16D6341A08A6BB001D0939 /* MMContact.m */,
 				6D16D6351A08A6BB001D0939 /* MMModel.h */,
@@ -678,7 +673,6 @@
 				6D16D6D61A08A9AE001D0939 /* MMGlobalPara.m in Sources */,
 				6D16D7251A08AC01001D0939 /* ASINetworkQueue.m in Sources */,
 				6D16D6C71A08A921001D0939 /* PLDatabaseMigrationManager.m in Sources */,
-				6D16D6381A08A6BB001D0939 /* MMAddressBook.m in Sources */,
 				6D16D6CB1A08A921001D0939 /* PLSqlitePreparedStatement.m in Sources */,
 				6D16D7211A08AC01001D0939 /* ASIDownloadCache.m in Sources */,
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
@@ -910,6 +904,7 @@
 				6D16D6211A08A36A001D0939 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6D16D6221A08A36A001D0939 /* Build configuration list for PBXNativeTarget "contactTests" */ = {
 			isa = XCConfigurationList;
@@ -918,6 +913,7 @@
 				6D16D6241A08A36A001D0939 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
