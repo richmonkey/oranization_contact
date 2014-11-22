@@ -468,9 +468,6 @@
 }
 
 
-+ (MMMomoUserInfo*)loginUserInfo {
-    return nil;
-}
 
 
 +(NSString *)changeToValidNumber:(NSString*)mobile {

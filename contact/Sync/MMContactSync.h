@@ -17,14 +17,10 @@
 }
 
 -(BOOL) isCancelled;
--(BOOL) clearSyncDb;
+
 @end
 
 
 @interface MMContactSync(Contact)
 -(BOOL) downloadContactToMomo;
-
-
--(NSMutableArray*)getContactSyncInfoList;
-
 @end

@@ -536,34 +536,6 @@
 	return value;
 }
 
-+ (NSArray*)getContactChangeHistory:(NSInteger)page withErrorString:(NSString**)errorString {
-    NSString* requestUrl = [NSString stringWithFormat:@"contact/get_history.json?page=%d&page_size=100", page];
-    
-    NSArray *arrayValue = nil;
-    NSInteger statusCode = [MMUapRequest getSync:requestUrl jsonValue:&arrayValue compress:YES];
-    if (statusCode != 200 || !arrayValue) {
-        *errorString = @"获取联系人变更历史失败";
-        return nil;
-    }
-    
-    NSMutableArray* retArray = [NSMutableArray array];
-    for (NSDictionary* dict in arrayValue) {
-        MMContactChangeInfo* changeInfo = [[[MMContactChangeInfo alloc] initWithDictionary:dict] autorelease];
-        [retArray addObject:changeInfo];
-    }
-    
-    return retArray;
-}
-
-+ (BOOL)recoverContactChangeHistory:(NSInteger)dateLine {
-    NSDictionary* dict = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:dateLine] forKey:@"dateline"];
-    NSDictionary* retDict = nil;
-    NSInteger statusCode = [MMUapRequest postSync:@"contact/recover_history.json" withObject:dict jsonValue:&retDict];
-    if (statusCode != 200) {
-        return NO;
-    }
-    return YES;
-}
 
 @end
 

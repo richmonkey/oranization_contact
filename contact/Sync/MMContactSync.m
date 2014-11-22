@@ -43,23 +43,4 @@
 }
 
 
-
--(BOOL) clearSyncDb {
-	if (![[self db]  executeUpdate:@"delete from category_member_sync"]) {
-		MLOG(@"delete from about fail");            
-		return NO;
-	} 
-	
-	if (![[self db]  executeUpdate:@"delete from category_sync"]) {
-		MLOG(@"delete from about fail"); 
-		return NO;
-	} 
-	
-	if (![[self db]  executeUpdate:@"delete from contact_sync"]) {
-		MLOG(@"delete from feed fail"); 
-		return NO;
-	} 
-
-	return YES;
-}
 @end
