@@ -10,7 +10,6 @@
 #import "SBJSON.h"
 #import "RegexKitLite.h"
 #import "MMGlobalData.h"
-//#import "MMUapRequest.h"
 #import "MMPhoneticAbbr.h"
 
 @implementation DbContactId 
@@ -21,7 +20,7 @@
 }
 
 - (NSUInteger)hash {
-    return contactId;
+    return (NSUInteger)contactId;
 }
 
 @end
@@ -42,7 +41,7 @@
 
 //简单联系人
 @implementation DbContactSimple
-@synthesize firstName,middleName,lastName,avatarUrl,namePhonetic, cellPhoneNums;
+@synthesize firstName,middleName,lastName,avatarUrl,namePhonetic;
 
 - (BOOL)isEnglishName {
     NSString* tmpString = [NSString stringWithFormat:@"%@%@%@", PARSE_NULL_STR(lastName), PARSE_NULL_STR(middleName), PARSE_NULL_STR(firstName)];
@@ -82,13 +81,6 @@
     return [avatarUrl stringByReplacingOccurrencesOfString:@"_130." withString:desireSizeStr];
 }
 
--(void)setPhoneCid:(NSInteger)pid {
-	contactId = pid;
-}
--(NSInteger)phoneCid {
-	return contactId;
-}
-
 -(id)init{
 	self = [super init];
 	if (self) {
@@ -97,7 +89,6 @@
 		lastName = @"";
 		avatarUrl = @"";
 		namePhonetic = @"";
-        self.cellPhoneNums = [NSMutableSet set];
     }
     return self;
 }
@@ -108,54 +99,10 @@
 	self.middleName = nil;
 	self.lastName = nil;
 	self.namePhonetic = nil;
-    self.cellPhoneNums = nil;
 	[super dealloc];
 }
 @end
-@implementation MMLunarDate
-@synthesize year, month, day, nyear, nmonth, nday;
 
--(NSString*)year {
-    return [array_ objectAtIndex:3];
-}
--(NSString*)month {
-    return [array_ objectAtIndex:1];
-}
--(NSString*)day {
-    return [array_ objectAtIndex:2];
-}
--(NSInteger)nyear {
-    return [[array_ objectAtIndex:0] intValue];
-}
--(NSInteger)nmonth {
-    return [[array_ objectAtIndex:4] intValue];
-}
--(NSInteger)nday {
-    return [[array_ objectAtIndex:5] intValue];
-}
-
-- (NSString *)description {
-    return [array_ componentsJoinedByString:@","];
-}
-
--(id)initWithString:(NSString*)str {
-    self = [super init];
-    if (self) {
-        if ([str length] > 0) {
-            array_ = [str componentsSeparatedByString:@","];
-            assert([array_ count] == 8);
-            [array_ retain];
-        }
-    }
-    return self;
-}
-
--(void)dealloc {
-    [array_ release];
-    [super dealloc];
-}
-
-@end
 //联系人
 @implementation DbContact
 @synthesize organization,department;
@@ -327,158 +274,4 @@
 	*postal = [[[array objectAtIndex:5] copy] autorelease];
 	return;
 }
-@end
-
-@implementation MMDataRecord
-
-@synthesize dataRecordState;
-@synthesize reserve;
-
-- (id)init{
-    self = [super init];
-    if (self) {
-        self.dataRecordState = MMDataRecordExist;
-		self.reserve = @"";
-    }
-    return self;
-}
-- (void)dealloc {
-	self.reserve = nil;
-	[super dealloc];
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-	MMDataRecord *newDataRcd = [[MMDataRecord allocWithZone:zone] init];
-	
-	newDataRcd.rowId = self.rowId;
-	newDataRcd.contactId = self.contactId;
-	newDataRcd.property = self.property;
-	newDataRcd.label = [[self.label copyWithZone:zone] autorelease];
-	newDataRcd.value = [[self.value copyWithZone:zone] autorelease];
-	
-	newDataRcd.dataRecordState = self.dataRecordState;
-	newDataRcd.reserve = [[self.reserve copyWithZone:zone] autorelease];
-	
-	return newDataRcd;
-}
-
-//对号码与邮箱进行排序 主号码总在最前。号码在邮箱之前。
-- (NSComparisonResult)compareWithOther:(MMDataRecord *)other {
-	
-	assert(other.property == kMoTel || other.property == kMoMail);
-    
-	if (self.isMainTelephone && !other.isMainTelephone) {
-		return NSOrderedAscending;
-	}
-	
-	if (!self.isMainTelephone && other.isMainTelephone) {
-		return NSOrderedDescending;
-	}
-    
-	if (self.property == kMoTel && other.property == kMoMail) {
-		return NSOrderedAscending;
-	}
-	
-	if (self.property == kMoMail && other.property == kMoTel) {
-		return NSOrderedDescending;
-	}
-	
-	return NSOrderedSame;	
-}
-
-//对微博排序 微博在前，开心网在后。
-- (NSComparisonResult)compareUrlWithOther:(MMDataRecord *)other {
-	
-	assert(other.property == kMoUrl);
-    
-    if ([self.label isEqualToString:@"weibo.com"]) {
-        return NSOrderedAscending; 
-    }
-    
-    if ([self.label isEqualToString:@"kaixin001.com"]) {
-        return NSOrderedDescending;
-    }
-    
-    return NSOrderedSame;
-}
-
-
-@end
-
-//图片
-@implementation DbContactImage
-@synthesize url,image;
-
-- (void)dealloc {
-	self.url = nil;
-	self.image = nil;
-	[super dealloc];
-}
-@end
-
-//分组成员
-@implementation DbCategoryMember
-@synthesize contactId,categoryId,categoryName,contactName;
-
-- (void)dealloc {
-	self.categoryName = nil;
-	self.contactName = nil;
-	[super dealloc];
-}
-
-@end
-
-//分组成员
-@implementation DbCategory
-@synthesize categoryId,categoryName,phoneCategoryId;
-
-- (BOOL)isEqual:(id)object {
-    return self.categoryId == [object categoryId];
-}
-
-- (NSUInteger)hash {
-    return categoryId;
-}
-
-- (void)dealloc {
-	self.categoryName = nil;
-	[super dealloc];
-}
-
-@end
-
-@interface MMImageInfo : NSObject {
-    NSInteger	imageId;
-	NSString	*url;
-	NSString	*originalUrl;
-	NSInteger	lastUpdateTime;
-	NSData		*imageData;
-	NSData		*originalImageData;
-	NSInteger	createState;
-	NSInteger	updateState;
-	NSInteger	deleteState;
-}
-@property (nonatomic)			NSInteger	imageId;
-@property (nonatomic,retain)	NSString	*url;
-@property (nonatomic,retain)	NSString	*originalUrl;
-@property (nonatomic)			NSInteger	lastUpdateTime;
-@property (nonatomic,retain)	NSData		*imageData;
-@property (nonatomic,retain)	NSData		*originalImageData;
-
-@property (nonatomic)			NSInteger	createState;
-@property (nonatomic)			NSInteger	updateState;
-@property (nonatomic)			NSInteger	deleteState;
-
-@end
-
-@interface MMSimpleImageInfo : NSObject {
-    NSInteger	imageId;
-	NSString	*url;
-	NSString	*originalUrl;	
-}
-@property (nonatomic)			NSInteger	imageId;
-@property (nonatomic,retain)	NSString	*url;
-@property (nonatomic,retain)	NSString	*originalUrl;
-
-
 @end

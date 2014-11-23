@@ -33,11 +33,11 @@
 		}];
 		
 		if (NSNotFound == index) {
-			[idsToDown addObject:[NSNumber numberWithInteger:c.contactId]];
+			[idsToDown addObject:[NSNumber numberWithLongLong:c.contactId]];
 		} else {
 			DbContactSyncInfo *info = [contacts objectAtIndex:index];
 			if (c.modifyDate > info.modifyDate ) {
-				[idsToDown addObject:[NSNumber numberWithInteger:c.contactId]];
+				[idsToDown addObject:[NSNumber numberWithLongLong:c.contactId]];
 				[contactsToUpdate addObject:info];
 			}
 			[contacts removeObjectAtIndex:index];
@@ -76,13 +76,13 @@
             }
             if (NSNotFound == index) {
                 if ([[MMContactManager instance] insertContact:contact withDataList:contact.properties] != MM_DB_OK) {
-                    MLOG(@"insert contact fail, contact id:%d", contact.contactId);
+                    MLOG(@"insert contact fail, contact id:%lld", contact.contactId);
                 }
                 
 
             } else {
                 if ([[MMContactManager instance] updateContact:contact withDataList:contact.properties] != MM_DB_OK) {
-                    MLOG(@"update contact fail contact id:%d", contact.contactId);
+                    MLOG(@"update contact fail contact id:%lld", contact.contactId);
                 }
             }
             

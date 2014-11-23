@@ -14,56 +14,10 @@
 #import "oauth.h"
 #import "MMGlobalData.h"
 
-@implementation MMMomoContact
 
--(void)setPhoneCid:(NSInteger)pid {
-	phoneCid = pid;
-}
-
--(NSInteger)phoneCid {
-	return phoneCid;
-}
-
-@end
 
 @implementation MMServerContactManager
 
-
-+(NSString*)getOriginUrl:(NSString*)md5 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:[NSArray arrayWithObject:md5] forKey:@"md5"];
-    [dic setObject:[NSNumber numberWithInt:0] forKey:@"size"];
-
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithPath:@"photo/origin.json" withObject:dic];
-    [ASIHTTPRequest startSynchronous:request];
-    if ([request responseStatusCode] != 200) {
-        return nil;
-    }
-    NSArray *array = [request responseObject];
-    if ([array count] == 0) {
-        return nil;
-    }
-    return [[array objectAtIndex:0] objectForKey:@"src"];
-}
-
-+(BOOL)uploadAvatar:(NSData*)imgData url:(NSString**)url {
-    assert(url);
-	if (nil == imgData) {
-		*url = @"";
-		return YES;
-	}
-	NSString* md5 = [MMUapRequest data_md5:imgData];
-	NSString *originUrl = [self getOriginUrl:md5];
-    if (originUrl && [originUrl length] > 0) {
-        *url = [[originUrl retain] autorelease];
-        return YES;
-    }
-    *url = [MMUapRequest uploadPhoto:imgData];
-    if (nil == *url) {
-        return NO;
-    }
-    return YES;
-}
 
 +(NSArray*)getSimpleContactList {
 	NSArray *response = nil;
@@ -163,7 +117,7 @@
 
 +(NSDictionary*)encodeContact:(MMFullContact *)contact {
 	NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-	[dic setObject:[NSNumber numberWithInt:contact.contactId] forKey:@"id"];
+	[dic setObject:[NSNumber numberWithLongLong:contact.contactId] forKey:@"id"];
 	[dic setObject:PARSE_NULL_STR(contact.lastName) forKey:@"family_name"];
 	[dic setObject:PARSE_NULL_STR(contact.firstName) forKey:@"given_name"];
 	[dic setObject:PARSE_NULL_STR(contact.middleName) forKey:@"middle_name"];
@@ -178,7 +132,7 @@
 	[dic setObject:PARSE_NULL_STR(contact.jobTitle) forKey:@"title"];
 	[dic setObject:PARSE_NULL_STR(contact.note) forKey:@"note"];
     
-	[dic setObject:[NSNumber numberWithInteger:contact.modifyDate] forKey:@"modified_at"];
+	[dic setObject:[NSNumber numberWithLongLong:contact.modifyDate] forKey:@"modified_at"];
 	[dic setObject:PARSE_NULL_STR(contact.avatarUrl) forKey:@"avatar"];
     
     
@@ -399,142 +353,6 @@
 }
 
 
-
-
-
-+(NSInteger)addContacts:(NSArray*)contacts response:(NSArray**)response {
-	NSMutableArray *array = [NSMutableArray array];
-	for (MMMomoContact *contact in contacts ) {
-		NSDictionary *dic = [self encodeContact:contact];
-		[array addObject:dic];
-	}
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:array forKey:@"data"];
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/create_batch.json" withObject:dic jsonValue:response];
-    return statusCode;
-}
-
-+(NSInteger)addContact:(MMMomoContact*)contact response:(NSDictionary**)res {
-	NSArray *array = [NSArray arrayWithObject:contact];
-	NSArray *response = nil;
-	NSInteger statusCode = [self addContacts:array response:&response];
-	if (statusCode != 200) {
-		return statusCode;
-	}
-	assert([response count] == 1);
-	*res = [response objectAtIndex:0];
-	return statusCode;
-}
-+(NSInteger)updateContact:(MMMomoContact*)contact response:(NSDictionary**)response{
-//    NSLog(@"update contactId:%d",contact.contactId);
-//    NSLog(@"update name:%@",contact.fullName);
-    
-	NSDictionary *dic = [self encodeContact:contact];
-	NSString *request = [NSString stringWithFormat:@"contact/update/%d.json", contact.contactId];
-	return [MMUapRequest postSync:request withObject:dic jsonValue:response];
-}
-
-+(BOOL)deleteContacts:(NSArray*)contactIds {
-	if ([contactIds count] == 0) {
-		return YES;
-	}
-	NSMutableString *str = [NSMutableString string];
-	for (NSNumber *n in contactIds) {
-		if ([str length] > 0) {
-			[str appendString:@","];
-		}
-		[str appendFormat:@"%d", [n intValue]];
-	}
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:str forKey:@"ids"];
-	id response = nil;
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/destroy_batch.json" withObject:dic jsonValue:&response];
-	if (statusCode != 200) {
-		return NO;
-	}
-	return YES;
-}
-
-+(BOOL)deleteContacts:(NSArray*)contactIds response:(NSArray**)response {
-	if ([contactIds count] == 0) {
-		return YES;
-	}
-	NSMutableString *str = [NSMutableString string];
-	for (NSNumber *n in contactIds) {
-		if ([str length] > 0) {
-			[str appendString:@","];
-		}
-		[str appendFormat:@"%d", [n intValue]];
-	}
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:str forKey:@"ids"];
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/destroy_batch.json" withObject:dic jsonValue:response];
-	if (statusCode != 200) {
-		return NO;
-	}
-	return YES;
-}
-
-
-+(NSInteger)deleteContact:(NSInteger)contactId {
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d", contactId] forKey:@"ids"];
-	NSArray *response = nil;
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/destroy_batch.json" withObject:dic jsonValue:&response];
-	if (statusCode != 200) {
-		NSDictionary *dic = (NSDictionary*)response;
-		NSString *error = [dic objectForKey:@"error"];
-		if (error) {
-			error = [error substringToIndex:6];
-			return [error intValue];
-		} else {
-			return statusCode;
-		}
-	}
-	assert([response count] == 1);
-	dic = [response objectAtIndex:0];
-	statusCode = [[dic objectForKey:@"status"] intValue];
-	if (statusCode != 200) {
-		return statusCode;
-	}
-	return 0;
-}
-
-+(NSArray*)addContactStarState:(NSArray*)contactIds {
-	if ([contactIds count] == 0) {
-		return nil;
-	}
-	NSMutableString *str = [NSMutableString string];
-	for (NSNumber *n in contactIds) {
-		if ([str length] > 0) {
-			[str appendString:@","];
-		}
-		[str appendFormat:@"%d", [n intValue]];
-	}
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:str forKey:@"ids"];
-	NSArray *value = nil;
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/favorite_batch.json" withObject:dic jsonValue:&value];
-	if (statusCode != 200) {
-		return nil;
-	}
-	return value;
-}
-
-+(NSArray*)removeContactStarState:(NSArray*)contactIds {
-	if ([contactIds count] == 0) {
-		return nil;
-	}
-	NSMutableString *str = [NSMutableString string];
-	for (NSNumber *n in contactIds) {
-		if ([str length] > 0) {
-			[str appendString:@","];
-		}
-		[str appendFormat:@"%d", [n intValue]];
-	}
-	NSDictionary *dic = [NSDictionary dictionaryWithObject:str forKey:@"ids"];
-	NSArray *value = nil;
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/remove_favorite_batch.json" withObject:dic jsonValue:&value];
-	if (statusCode != 200) {
-		return nil;
-	}
-	return value;
-}
 
 
 @end

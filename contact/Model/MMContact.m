@@ -47,11 +47,6 @@
         contactSimple.lastName = [results stringForColumn:@"last_name"];
         contactSimple.avatarUrl = [results stringForColumn:@"avatar_url"];
         contactSimple.namePhonetic = [results stringForColumn:@"name_phonetic"];
-        
-        if (![results isNullForColumn:@"phone_cid"]) {
-            contactSimple.phoneCid = [results intForColumn:@"phone_cid"];
-        }
-        
     }
     return self;
 }
@@ -90,13 +85,10 @@
 
 @end
 
-@interface MMContactManager() 
-@property (nonatomic, retain) NSMutableArray *contactArray;
-@end
 
 @implementation MMContactManager
 
-@synthesize contactArray = contactArray_;
+
 
 +(MMContactManager*) instance{
     static id _instance = nil;
@@ -109,17 +101,12 @@
 
 - (id)init {
 	if (self = [super init]) {
-		contactArray_ = [(NSMutableArray *)[self getSimpleContactListNew:nil] retain];
-        
-		friendArray_ = [[NSMutableArray alloc] init];
-        
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[contactArray_ release];
-	[friendArray_ release];
+
 	[super dealloc];
 }
 
@@ -170,29 +157,6 @@
 	
 }
 
--(NSArray*)getContactSyncInfoList:(NSArray*)ids withError:(MMErrorType*)error {
-	NSString* strContactIds = [ids componentsJoinedByString:@", "];
-	
-	NSMutableArray *array = [NSMutableArray array];
-	NSError *outError = nil;
-	NSString* sql = [NSString stringWithFormat:@"select * from contact where contact_id in (%@)", strContactIds];
-	id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:sql];
-	
-	if(SQLITE_OK != [outError code]) {
-		return nil;
-	}
-	PLResultSetStatus status = [results nextAndReturnError:nil];
-	while (status) {
-		DbContactSyncInfo* info = [[[DbContactSyncInfo alloc] init] autorelease];
-		info.contactId = [results intForColumn:@"contact_id"];
-		info.modifyDate = [results bigIntForColumn:@"modify_date"];
-		[array addObject:info];
-		status = [results nextAndReturnError:nil];
-	}
-	[results close];
-	return array;
-}
-
 - (DbContactSimple *)dbContactSimpleFromPLResultSet:(id)object {
 	id<PLResultSet> results = object;
 	
@@ -201,7 +165,7 @@
 	return contactSimple;
 }
 
-- (NSArray*) getSimpleContactListNew:(MMErrorType*)error {
+- (NSArray*) getSimpleContactList:(MMErrorType*)error {
     // 错误码
     MMErrorType ret = MM_DB_OK;
     // 结果存放处
@@ -236,15 +200,6 @@
             status = [results nextAndReturnError:nil];
         }
         [results close];
-        
-        //读取手机号
-        NSDictionary* allPhoneDataDict = [self getAllTelDict:nil];
-        for (DbContactSimple* contactSimple in array) {
-            NSArray* telList = [allPhoneDataDict objectForKey:[NSNumber numberWithInt:contactSimple.contactId]];
-            if (telList.count > 0) {
-                [contactSimple.cellPhoneNums addObjectsFromArray:telList];
-            }
-        }
     }
     while(0);
     
@@ -256,125 +211,11 @@
     return array;
 }
 
-- (NSInteger) getContactCount {
-	return [contactArray_ count];
-}
-
-- (NSArray*) getSimpleContactList:(MMErrorType*)error {
-    NSArray* tmpArray = [NSArray arrayWithArray:contactArray_];
-	return tmpArray;
-}
-
-- (NSDictionary*) getAllTelDict:(MMErrorType*)error {
-    // 错误码
-    MMErrorType ret = MM_DB_OK;
-    NSError* outError = nil;
-    
-    // 结果存放处
-    NSMutableDictionary* retDict = [NSMutableDictionary dictionary];
-    
-    PLResultSetStatus status;
-    do{
-        // 如果数据没打开
-        if(![[self db]  goodConnection]) {
-            ret = MM_DB_FAILED_OPEN;
-            break;
-        }
-        
-        // 返回结果
-        id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:@"SELECT contact_id, value from data "
-                                   @" where property = 1"];
-        
-        if(SQLITE_OK != [outError code]) {
-            ret = MM_DB_FAILED_QUERY;
-            break;
-        }
-        
-        // 如果出错
-        status = [results nextAndReturnError:nil];
-        
-        // 循环返回结果
-        while(status) {
-            NSInteger contactId = [results intForColumn:@"contact_id"];
-            NSString* value = [results stringForColumn:@"value"];
-            
-            if (value.length > 0) {
-                NSMutableArray* array = [retDict objectForKey:[NSNumber numberWithInt:contactId]];
-                if (!array) {
-                    array = [NSMutableArray array];
-                    [retDict setObject:array forKey:[NSNumber numberWithInt:contactId]];
-                }
-                [array addObject:value];
-            }
-            
-            status = [results nextAndReturnError:nil];
-        }
-        [results close];
-    }
-    while(0);
-    
-    // 返回错误码
-    if(error != nil)
-        *error = ret;
-    
-    
-    return retDict;
-}
-
-- (NSArray*) getAllTelList:(MMErrorType*)error {
-    // 错误码
-    MMErrorType ret = MM_DB_OK;
-    NSError* outError = nil;
-    
-    // 结果存放处
-    NSMutableSet* numberSet = [NSMutableSet set];
-    
-    PLResultSetStatus status;
-    do{
-        // 如果数据没打开
-        if(![[self db]  goodConnection]) {
-            ret = MM_DB_FAILED_OPEN;
-            break;
-        }
-        
-        // 返回结果
-        id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:@"SELECT value from data "
-                                   @" where property = 1"];
-        
-        if(SQLITE_OK != [outError code]) {
-            ret = MM_DB_FAILED_QUERY;
-            break;
-        }
-        
-        // 如果出错
-        status = [results nextAndReturnError:nil];
-        
-        // 循环返回结果
-        while(status) {
-            NSString* value = [results stringForColumn:@"value"];
-            
-            if (![numberSet containsObject:value]) {
-                [numberSet addObject:value];
-            }
-            
-            status = [results nextAndReturnError:nil];
-        }
-        [results close];
-    }
-    while(0);
-    
-    // 返回错误码
-    if(error != nil)
-        *error = ret;
-    
-    
-    return [numberSet allObjects];
-}
 
 /*
  - * 获得联系人某种类型数据, 返回DbData元素的NSArray
  - */
--(NSArray*) getDataList:(NSInteger)contactId withType:(ContactType)type withError:(MMErrorType*)error {
+-(NSArray*) getDataList:(int64_t)contactId withType:(ContactType)type withError:(MMErrorType*)error {
     NSArray *dataList = [self getDataList:contactId withError:error];
     NSMutableArray *array = [NSMutableArray array];
     for (DbData *data in dataList) {
@@ -385,7 +226,7 @@
     return array;
 }
 
-- (NSArray*) getDataList:(NSInteger)contactId withError:(MMErrorType*)error{
+- (NSArray*) getDataList:(int64_t)contactId withError:(MMErrorType*)error{
     // 错误码
     MMErrorType ret = MM_DB_OK;
     NSError* outError = nil;
@@ -405,7 +246,7 @@
         id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:@"SELECT row_id, contact_id, property, label, value "
                                    @" from data "
                                    @" where contact_id = ? "
-                                   , [NSNumber numberWithInt:contactId]];
+                                   , [NSNumber numberWithLongLong:contactId]];
         
         if(SQLITE_OK != [outError code]) {
             ret = MM_DB_FAILED_QUERY;
@@ -442,17 +283,7 @@
 
 
 
-- (DbContact*) getContact:(NSInteger)contactId withError:(MMErrorType*)error {
-    if ([NSThread isMainThread]) {
-        for (DbContactSimple* contactInfo in contactArray_) {
-            if (contactInfo.contactId == contactId) {
-                if ([contactInfo isKindOfClass:[DbContact class]]) {
-                    return (DbContact*)contactInfo;
-                }
-                break;
-            }
-        }
-    }
+- (DbContact*) getContact:(int64_t)contactId withError:(MMErrorType*)error {
     
     // 错误码
     MMErrorType ret = MM_DB_OK;
@@ -472,7 +303,7 @@
         id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:@"select * "
                                    @" from contact "
                                    @" where contact_id = ?"
-                                   , [NSNumber numberWithInt:contactId]];
+                                   , [NSNumber numberWithLongLong:contactId]];
 		
 		if(SQLITE_OK != [outError code]) {
             ret = MM_DB_FAILED_QUERY;
@@ -502,18 +333,6 @@
     return contact;
 }
 
-- (DbContactSimple*)getContactSimple:(NSInteger)contactId {
-    DbContactSimple* retContact = nil;
-    for (DbContactSimple *contact in contactArray_) {
-        if ([contact contactId] == contactId) {
-            retContact = contact;
-            break;
-        }
-    }
-    
-    return retContact;
-}
-
 - (MMErrorType) insertContact:(DbContact*)contact returnContactId:(NSInteger*)contactId{
 	
 	return [self _insertContact:contact returnContactId:contactId];
@@ -540,10 +359,7 @@
 		NSString *stringBirthdayValue = nil;
 		
 		NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-		[parameters setObject:[NSNumber numberWithInt:contact.contactId]		forKey:@"contact_id"];
-   		//phoneCid被删除
-		[parameters setObject:[NSNumber numberWithInt:contact.contactId]		forKey:@"phoneCid"];
-        
+		[parameters setObject:[NSNumber numberWithLongLong:contact.contactId]		forKey:@"contact_id"];
 		[parameters setObject:contact.avatarUrl									forKey:@"avatar_url"];
         [parameters setObject:PARSE_NULL_STR(contact.firstName)					forKey:@"first_name"];
         [parameters setObject:PARSE_NULL_STR(contact.middleName)				forKey:@"middle_name"];
@@ -622,17 +438,11 @@
         if(ret != MM_DB_OK) {
             return ret;
         }
-        
-        if (kMoTel == data.property && data.value.length > 0) {
-            [contact.cellPhoneNums addObject:data.value];
-        }
     }
     NSString* name_phonetic = [MMPhoneticAbbr getPinyin:contact.fullName];
     contact.namePhonetic = name_phonetic;
     
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[[self mutableArrayValueForKeyPath:@"contactArray"] addObject:(DbContactSimple *)contact];
-	});
+
 	
     return ret;
 }
@@ -681,7 +491,7 @@
 		NSString* stringBirthdayValue = nil;
         
 		NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:[NSNumber numberWithInt:contact.contactId]                forKey:@"contact_id"];        
+        [parameters setObject:[NSNumber numberWithLongLong:contact.contactId]                forKey:@"contact_id"];
 		[parameters setObject:contact.avatarUrl                                         forKey:@"avatar_url"];
         [parameters setObject:PARSE_NULL_STR(contact.firstName)                         forKey:@"first_name"];
         [parameters setObject:PARSE_NULL_STR(contact.middleName)                        forKey:@"middle_name"];
@@ -736,7 +546,7 @@
     return ret;
 }
 
-- (MMErrorType) deleteContact:(NSInteger)contactId {
+- (MMErrorType) deleteContact:(int64_t)contactId {
 	
 	MMErrorType error = MM_DB_OK;
 	
@@ -746,29 +556,11 @@
 		return error;
 	} 
     
-	dispatch_async(dispatch_get_main_queue(), ^{
-		NSInteger index = [contactArray_ indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
-			DbContactSimple *rcd = (DbContactSimple *)obj;
-			if (contactId == rcd.contactId) {
-				return YES;
-			}
-			return NO;
-		}];
-		
-		if (NSNotFound == index) {
-			DLOG(@"deleteContact error");
-			return ;
-		}
-		
-		DbContactSimple *contact = [contactArray_ objectAtIndex:index];	
-		[[self mutableArrayValueForKeyPath:@"contactArray"] removeObject:contact];
-		
-	});
 	
 	return MM_DB_OK;
 }
 
-- (MMErrorType) _deleteContact:(NSInteger)contactId{
+- (MMErrorType) _deleteContact:(int64_t)contactId{
     MMErrorType ret = MM_DB_OK;
     
     do{
@@ -779,7 +571,7 @@
         }
         
         // 如果执行失败
-        if(![[self db]  executeUpdate:@"DELETE FROM contact where contact_id = ? ", [NSNumber numberWithInt:contactId]]) {
+        if(![[self db]  executeUpdate:@"DELETE FROM contact where contact_id = ? ", [NSNumber numberWithLongLong:contactId]]) {
             ret = MM_DB_FAILED_INVALID_STATEMENT;
             break;
         }
@@ -806,32 +598,6 @@
 		return error;
 	} 
     
-	dispatch_async(dispatch_get_main_queue(), ^{
-		NSInteger index = [contactArray_ indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop) {
-			DbContactSimple *rcd = (DbContactSimple *)obj;
-			if (contact.contactId == rcd.contactId) {
-				return YES;
-			}
-			return NO;
-		}];
-        
-		if (NSNotFound == index) {
-			NSLog(@"updateContact error");
-			return ;
-		}
-        
-        //读取手机号
-        for (DbData *data in listData) {
-            if (kMoTel == data.property && data.value.length > 0 ) {
-                [contact.cellPhoneNums addObject:data.value];
-            }
-        }
-        
-		NSString* name_phonetic = [MMPhoneticAbbr getPinyin:contact.fullName];
-		contact.namePhonetic = name_phonetic;
-		[[self mutableArrayValueForKeyPath:@"contactArray"] replaceObjectAtIndex:index withObject:contact];
-        
-	});
 	
 	return MM_DB_OK;
 }
@@ -874,7 +640,7 @@
 		
         id<PLPreparedStatement> stmt = [[self db]  prepareStatement:@"INSERT INTO data (contact_id, property, label, value) VALUES(?, ?, ?, ?)"];
         
-        [stmt bindParameters:[NSArray arrayWithObjects:[NSNumber numberWithInt:[data contactId]]
+        [stmt bindParameters:[NSArray arrayWithObjects:[NSNumber numberWithLongLong:[data contactId]]
                               , [NSNumber numberWithInt:[data property]]
                               , data.label
                               , data.value
@@ -949,7 +715,7 @@
     
 }
 
-- (MMErrorType) _deleteAllData:(NSInteger)contactId{
+- (MMErrorType) _deleteAllData:(int64_t)contactId{
     MMErrorType ret = MM_DB_OK;
     
     do{
@@ -961,7 +727,7 @@
         
         // 如果执行失败
 		
-        if(![[self db]  executeUpdate:@"delete from data where contact_id = ?", [NSNumber numberWithInt:contactId]]) {
+        if(![[self db]  executeUpdate:@"delete from data where contact_id = ?", [NSNumber numberWithLongLong:contactId]]) {
 			
             ret = MM_DB_FAILED_INVALID_STATEMENT;
             break;
@@ -1209,8 +975,6 @@
         
 	}
     while(0);
-    
-	[[self mutableArrayValueForKeyPath:@"contactArray"] removeAllObjects];
 	
     return ret;
 }
@@ -1226,18 +990,6 @@
         NSLog(@"delete contact fail");            
     }
     [[self db] commitTransaction];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *array = [NSMutableArray array];
-        for (DbContactSimple *contact in contactArray_) {
-            if (contact.contactId > 0) {
-                [array addObject:contact];
-            }
-        }
-        for (DbContactSimple *contact in array) {
-            [[self mutableArrayValueForKeyPath:@"contactArray"] removeObject:contact];
-        }
-        
-    });
     return MM_DB_OK;
 }
 
@@ -1253,200 +1005,24 @@
         NSLog(@"delete contact fail");            
     }
     [[self db] commitTransaction];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *array = [NSMutableArray array];
-        for (DbContactSimple *contact in contactArray_) {
-            if (contact.contactId < 0) {
-                [array addObject:contact];
-            }
-        }
-        for (DbContactSimple *contact in array) {
-            [[self mutableArrayValueForKeyPath:@"contactArray"] removeObject:contact];
-        }
-    });
-    return MM_DB_OK;
-}
-
-- (NSArray*) getContactListByDataLabel:(NSString *)label withError:(MMErrorType*)error {
-	
-	//查询出所有带有此label的联系人
-	MMErrorType ret = MM_DB_OK;
-	NSError* outError = nil;
-	PLResultSetStatus status;
-	
-	NSMutableArray *arrayContactId = [[[NSMutableArray alloc]init] autorelease];
-	
-	do {
-		// 如果数据没打开
-        if(![[[MMContact instance] db]  goodConnection]) {
-            ret = MM_DB_FAILED_OPEN;
-            break;
-        }
-		
-		// 返回结果
-        NSString* sql = @"select distinct contact_id from data where label = ? ";
-        id<PLResultSet> results = [[self db]  
-								   executeQueryAndReturnError:&outError 
-								   statement:sql, label];
-        
-        if(SQLITE_OK != [outError code]) {
-            ret = MM_DB_FAILED_QUERY;
-            break;
-        }
-		
-        
-        status = [results nextAndReturnError:nil];
-		while(status) {
-			NSNumber *cid = [NSNumber numberWithInt:[results intForColumn:@"contact_id"]];
-			[arrayContactId addObject:cid];
-			status = [results nextAndReturnError:nil];
-		}
-		[results close];
-	} while (0);
-	
-	if (nil != error) {
-		*error = ret;
-	}
-	
-	return arrayContactId;	
-}
-
-- (MMErrorType)changeCustomLabelToDefault:(NSString*)label {
-	
-	MMErrorType ret = MM_DB_OK;
-	
-	do {
-		// 如果数据没打开
-		if(![[self db]  goodConnection]) {
-			ret = MM_DB_FAILED_OPEN;
-			break;
-		}
-		
-		NSArray *arrayProperty = [NSArray arrayWithObjects:
-								  [NSNumber numberWithInt:kMoTel], 
-								  [NSNumber numberWithInt:kMoMail], 
-								  [NSNumber numberWithInt:kMoUrl], 
-								  [NSNumber numberWithInt:kMoAdr], 
-								  [NSNumber numberWithInt:kMoBday], 
-								  [NSNumber numberWithInt:kMoPerson], 							  
-								  nil];
-		
-		NSString* sql = @"UPDATE data SET label = ? "
-        @" WHERE label = ? and property = ? ";	
-		
-		
-		for (NSNumber *property in arrayProperty) {
-            
-			
-			if(![[self db] executeUpdate:sql, 
-                 [self getDefaulMMLabelByProperty:[property intValue]], 
-                 label, property]) {
-				ret = MM_DB_FAILED_INVALID_STATEMENT;
-				break;
-			}
-		}
-		
-        
-		NSString* sqlIM = [NSString stringWithFormat: @"UPDATE data SET label = ?  "
-                           @" WHERE label = ? and property in (%d, %d, %d, %d, %d, %d, %d, %d, %d) ",
-						   kMoImAIM, kMoImJabber, kMoImMSN, kMoImYahoo, kMoImICQ, kMoIm91U,
-						   kMoImQQ, kMoImGtalk, kMoImSkype];	
-        
-		
-		if(![[self db] executeUpdate:sqlIM, 
-			 [self getDefaulMMLabelByProperty:kMoImAIM], 
-			 label]) {
-			
-			ret = MM_DB_FAILED_INVALID_STATEMENT;
-			break;
-		}	
-		
-		
-	} while (0);
-	
-	return ret;
-	
-}
-
-- (NSArray*) getAllLabelWithError:(MMErrorType*)error {
-	//查询出所有带有此label的联系人
-	MMErrorType ret = MM_DB_OK;
-	NSError* outError = nil;
-	PLResultSetStatus status;
-	
-	NSMutableArray *arrayLabel = [[[NSMutableArray alloc]init] autorelease];
-	
-	do {
-		// 如果数据没打开
-        if(![[[MMContact instance] db]  goodConnection]) {
-            ret = MM_DB_FAILED_OPEN;
-            break;
-        }
-		
-		// 返回结果
-        NSString* sql = @"select distinct label from data ";
-        id<PLResultSet> results = [[self db]  
-								   executeQueryAndReturnError:&outError 
-								   statement:sql];
-        
-        if(SQLITE_OK != [outError code]) {
-            ret = MM_DB_FAILED_QUERY;
-            break;
-        }
-		
-        
-        status = [results nextAndReturnError:nil];
-		while(status) {
-			NSString *label = [results stringForColumn:@"label"];
-			[arrayLabel addObject:label];
-			status = [results nextAndReturnError:nil];
-		}
-		[results close];
-	} while (0);
-	
-	if (nil != error) {
-		*error = ret;
-	}
-	
-	return arrayLabel;
-}
-
-- (NSArray*)getContactListNeedName:(BOOL)needName needPhone:(BOOL)needPhone {
-    NSMutableArray* array = [NSMutableArray array];
-    
-    NSArray* tmpArray = [NSArray arrayWithArray:contactArray_];
-    
-    for (DbContactSimple* contactSimple in tmpArray) {
-        if (needName && contactSimple.fullName.length == 0) {
-            continue;
-        }
-        if (needPhone && contactSimple.cellPhoneNums.count == 0) {
-            continue;
-        }
-        
-		[array addObject:contactSimple];
-    }
-    return array;
+       return MM_DB_OK;
 }
 
 
-
-- (NSArray*)searchContact:(NSString*)searchString
+- (NSArray*)searchContact:(NSArray*)contacts
+                  pattern:(NSString*)searchString
                  needName:(BOOL)needName    //是否包含没有名字联系人
-                needPhone:(BOOL)needPhone //是否包含没有手机号的联系人  
 {
     NSMutableArray* array = [NSMutableArray array];
     searchString = [searchString lowercaseString];
     
-    NSArray* tmpArray = [NSArray arrayWithArray:contactArray_];
+    NSArray* tmpArray = [NSArray arrayWithArray:contacts];
     
     for (DbContactSimple* contactSimple in tmpArray) {
         if (needName && contactSimple.fullName.length == 0) {
             continue;
         }
-        if (needPhone && contactSimple.cellPhoneNums.count == 0) {
-            continue;
-        }
+
         
         BOOL successMatch = NO;
         do {
