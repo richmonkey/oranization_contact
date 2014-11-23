@@ -11,45 +11,9 @@
 #import "MMGlobalData.h"
 #import "MMUapRequest.h"
 #import "MMPhoneticAbbr.h"
-#import "MMContact.h"
 #import "RegexKitLite.h"
 
 @implementation MMCommonAPI
-
-+ (NSString *)getClientName:(NSInteger)clientId {
-	switch (clientId) {
-		case 0:
-		//default:
-			return @"来自momo.im网站";
-		case 1:
-			return @"来自Android版";
-		case 2:
-			return @"来自iPhone版";
-		case 3:
-			return @"来自Windows Mobile版";
-		case 4:
-			return @"来自S60v3版";
-		case 5:
-			return @"来自S60v5版";
-		case 6:
-			return @"来自Java版";
-		case 7:
-			return @"来自webOS版";
-		case 8:
-			return @"来自BlackBerry版";
-		case 9:
-			return @"来自iPad版";
-		case 10:
-			return @"来自网站手机版";
-		case 11:
-			return @"来自手机触屏版";
-		case 12:
-			return @"来自手机短信";
-		default:
-			return @"来自momo.im网站";
-	}
-	
-}
 
 + (void)dial:(NSString *)numberStr {
 	NSString *number = [NSString stringWithFormat:@"tel://%@", numberStr];
@@ -95,31 +59,6 @@
 											 otherButtonTitles:nil];
 	[failView show];
 	[failView release];
-}
-
-
-
-+ (NSString *)getErrorInfoByErrorCode:(NSInteger)errorcode {
-	switch (errorcode) {
-		case MM_ERRCODE_SUCCESS: {
-			return @"成功";
-			break;
-		}
-		case MM_ERRCODE_CALLFAIL: {
-			return @"拨号失败";
-			break;
-		}	
-		case MM_ERRCODE_SYNCING: {
-			return @"正在同步，无法操作";
-			break;
-		}			
-		default: {
-			return @"未知错误";
-			break;
-		}
-			
-	}
-	
 }
 
 + (NSDate*) getDateBySting:(NSString*)stringDate {		
@@ -597,11 +536,7 @@
     
     return YES;
 }
-#ifndef MOMO_UNITTEST
-+ (void)showAlertHud:(NSString*)text detailText:(NSString*)detailText {
 
-}
-#endif
 
 + (BOOL)isJailBreakDevice {
     if (system("ls") == 0) {
@@ -635,16 +570,6 @@
 + (NSString*)avatarUrlBySmallAvatarUrl:(NSString*)smallAvatarUrl desireSize:(NSInteger)desireSize {
     NSString* desireSizeStr = [NSString stringWithFormat:@"_%d.", desireSize];
     return [smallAvatarUrl stringByReplacingOccurrencesOfString:@"_48." withString:desireSizeStr];
-}
-+ (NSString*)addHTMLLinkTag:(NSString*)srcString {
-    if (srcString.length == 0) {
-        return nil;
-    }
-    return [srcString stringByReplacingOccurrencesOfRegex:@"(http://[\\x21-\\x7e]*)" 
-                                               withString:@"<a href=\"$1\">$1</a>" 
-                                                  options:RKLCaseless 
-                                                    range:NSMakeRange(0, srcString.length) 
-                                                    error:nil];
 }
 
 + (NSString*)deviceId {
@@ -717,10 +642,6 @@
     return kCode;
 }
 
-
-+ (BOOL)isRobot:(NSInteger)uid {
-    return (uid == YOU_DAO_ID || uid == WEARTHER_91);
-}
 
 + (NSArray*)sortIntArray:(NSArray *)array {
     return  [array sortedArrayUsingComparator:^(id obj1, id obj2) {

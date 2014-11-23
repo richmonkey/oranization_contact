@@ -11,32 +11,17 @@
 #import "ErrorType.h"
 #import "Reachability.h"
 
-
-typedef enum {
-	MM_ERRCODE_SUCCESS = 0,
-	
-	MM_ERRCODE_CALLFAIL = 0xEF000001,
-	
-	MM_ERRCODE_SYNCING = 0XFF000001,
-	
-	MM_ERRCODE_COMMON_FAIL = 0XFFFFFFFF
-	
-} MMErrorCode;
-
 @class MMWebViewController;
 @interface MMCommonAPI : NSObject {
 
 }
 
-+ (NSString *)getClientName:(NSInteger)clientId;
 + (void)dial:(NSString *)numberStr;
 
 + (void)sendMessage:(NSString *)numberStr;
 + (void)sendEmail:(NSString *)numberStr;
 
 + (void)showFailAlertViewTitle:(NSString*) title andMessage:(NSString*)message;
-
-+ (NSString *)getErrorInfoByErrorCode:(NSInteger)errorcode;
 
 + (NSDate*) getDateBySting:(NSString*)stringDate;
 + (NSString*) getStringByDate:(NSDate*)date byFormatter:(NSString *)stringFormatter;
@@ -79,8 +64,6 @@ typedef enum {
 +(NSString *)changeToValidNumber:(NSString*)mobile;
 + (BOOL)isValidTelNumber:(NSString*)mobile;
 
-+ (void)showAlertHud:(NSString*)text detailText:(NSString*)detailText;
-
 + (BOOL)isJailBreakDevice;
 
 + (float)getAppFloatVersion;
@@ -88,14 +71,11 @@ typedef enum {
 + (void)waitHTTPThreadsQuit:(NSMutableArray*)backgroundThreads;
 
 + (NSString*)avatarUrlBySmallAvatarUrl:(NSString*)smallAvatarUrl desireSize:(NSInteger)desireSize;
-+ (NSString*)addHTMLLinkTag:(NSString*)srcString;
 
 //代替UIDevice的unique identifier
 + (NSString*)deviceId;
 
 + (NSString*)computeKCode:(double)longitude latitude:(double)latitude;
-
-+ (BOOL)isRobot:(NSInteger)uid;
 
 + (NSArray* )sortIntArray:(NSArray*)array;
 

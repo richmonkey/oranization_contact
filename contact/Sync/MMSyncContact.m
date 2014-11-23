@@ -14,8 +14,6 @@
 #import "MMContact.h"
 #import "MMLogger.h"
 #import "MMCommonAPI.h"
-#import "MMSyncThread.h"
-
 
 @implementation MMContactSync(Contact)
 

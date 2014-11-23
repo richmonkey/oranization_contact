@@ -140,10 +140,7 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
     pthread_cond_signal(&condition_);
     pthread_mutex_unlock(&mutex_);
 
-
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
- 
     
 	CFRunLoopSourceContext context = {0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	CFRunLoopSourceRef source = CFRunLoopSourceCreate(kCFAllocatorDefault, 0, &context);
