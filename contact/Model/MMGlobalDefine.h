@@ -15,7 +15,6 @@
 
 #if (SERVER == OUTER_SERVER)
 //外网
-#define ALBUM_URL @"http://api.contacts.momo.im/"
 #define API_URL @"http://api.contacts.momo.im"
 #elif (SERVER == SIMULATE_SERVER)
 //内网

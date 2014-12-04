@@ -50,17 +50,18 @@ UITableViewDataSource>
     [self createTableView];
     [self createHeaderView];
     [self initContactArray];
+    [[MMSyncThread shareInstance] start];
     [[MMSyncThread shareInstance] beginSync];
 }
 
 - (void)createTableView {
-    _contactTable = [[[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.width, self.view.height) style:UITableViewStylePlain] autorelease];
+    _contactTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.width, self.view.height) style:UITableViewStylePlain] ;
     _contactTable.delegate = self;
     _contactTable.dataSource = self;
     _contactTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _contactTable.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _contactTable.backgroundColor = [UIColor clearColor];
-    _contactTable.tableFooterView = [[[UIView alloc] init] autorelease];
+    _contactTable.tableFooterView = [[UIView alloc] init];
     _contactTable.canCancelContentTouches = NO;
     [self.view addSubview:_contactTable];
 }
@@ -267,7 +268,6 @@ UITableViewDataSource>
             NSMutableArray *tempArray = [[NSMutableArray alloc]init];
             [tempArray addObject:record];
             [_contactsDictionary setObject:tempArray forKey:firstLetter];
-            [tempArray release];
         }
     }
 
@@ -295,7 +295,6 @@ UITableViewDataSource>
             NSMutableArray *tempArray = [[NSMutableArray alloc]init];
             [tempArray addObject:record];
             [_filterContactsDictionary setObject:tempArray forKey:firstLetter];
-            [tempArray release];
         }
     }
 
@@ -331,7 +330,6 @@ UITableViewDataSource>
         }
 
         [imageView addSubview:letter];
-        [letter release];
 
         return imageView;
     }
@@ -346,7 +344,7 @@ UITableViewDataSource>
 #pragma mark UISearchDisplayDelegate
 
 - (void)filterContentForSearchText:(NSString *)searchString {
-    self.searchArray = [[MMContactManager instance] searchContact:searchString needName:NO needPhone:NO];
+//    self.searchArray = [[MMContactManager instance] searchContact:searchString needName:NO needPhone:NO];
     [self sortByIndexForFilter:self.searchArray];
 }
 

@@ -13,6 +13,10 @@
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
+        //保证多线程模式
+        NSObject* tmpObject = [[NSObject alloc] init];
+        [tmpObject performSelectorInBackground:@selector(release) withObject:nil];
+        
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

@@ -27,7 +27,7 @@
 		1D9DC12C1A2ABB4500D2E5B5 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC1231A2ABB4500D2E5B5 /* Default~iphone.png */; };
 		1D9DC12D1A2ABB4500D2E5B5 /* nav_back_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC1241A2ABB4500D2E5B5 /* nav_back_press@2x.png */; };
 		1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1321A2ABD9600D2E5B5 /* NGAddition.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */; };
+		1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC13B1A2AFA8000D2E5B5 /* CardListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1391A2AFA8000D2E5B5 /* CardListCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC13C1A2AFA8000D2E5B5 /* CardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* CardListCell.xib */; };
 		1D9DC13E1A2B057400D2E5B5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */; };
