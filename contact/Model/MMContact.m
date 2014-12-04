@@ -93,7 +93,7 @@
     static id _instance = nil;
     @synchronized(self) {
         if(_instance == nil) 
-			_instance = [[[MMContactManager alloc] init] autorelease];
+			_instance = [[MMContactManager alloc] init];
     }
     return _instance;
 }
@@ -370,42 +370,48 @@
         [parameters setObject:PARSE_NULL_STR(contact.organization)              forKey:@"organization"];
         [parameters setObject:PARSE_NULL_STR(contact.department)                forKey:@"department"];
         [parameters setObject:PARSE_NULL_STR(contact.note)                      forKey:@"note"];
-		NSNumber *modifyDate = [NSNumber numberWithLongLong:contact.modifyDate];
-		[parameters setObject:modifyDate										forKey:@"modify_date"];
+	
         
         int64_t birthdayInterval = 0;
         if(contact.birthday) {
 			birthdayInterval = [contact.birthday timeIntervalSince1970];
 			[parameters setObject:[NSNumber numberWithLongLong:birthdayInterval] forKey:@"birthday"];
 			stringBirthdayValue = [NSMutableString stringWithFormat:@":birthday"];
-		} else {					
+		} else {
 			stringBirthdayValue = [NSMutableString stringWithFormat:@"null"];
-		}		
+		}
+        
+
         
         [parameters setObject:PARSE_NULL_STR(contact.jobTitle)                         forKey:@"job_title"];
         [parameters setObject:PARSE_NULL_STR(contact.nickName)                         forKey:@"nick_name"];
         [parameters setObject:name_phonetic_key                                 forKey:@"name_phonetic_key"];
         [parameters setObject:name_abbr_key                                     forKey:@"name_abbr_key"];
         
-        
-		NSString *sql = [NSString stringWithFormat:@"INSERT INTO contact (contact_id, phone_cid, avatar_url, first_name, middle_name, last_name"
-						 @", first_name_phonetic, last_name_phonetic, name_phonetic, name_abbr, organization, department"
-						 @", note, birthday, job_title, nick_name, name_phonetic_key, name_abbr_key, modify_date)"
-						 @" VALUES(:contact_id, :phoneCid,  :avatar_url, :first_name, :middle_name, :last_name,"
-						 @" :first_name_phonetic, :last_name_phonetic, :name_phonetic, :name_abbr, :organization, :department,"
-						 @" :note, %@, :job_title, :nick_name, :name_phonetic_key,"
-						 @" :name_abbr_key, :modify_date)", stringBirthdayValue];
-        
-        
+        NSNumber *modifyDate = [NSNumber numberWithLongLong:contact.modifyDate];
+		[parameters setObject:modifyDate										forKey:@"modify_date"];
+
 		
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO contact (contact_id, avatar_url, first_name, middle_name, last_name"
+                         @", first_name_phonetic, last_name_phonetic, name_phonetic, name_abbr, organization, department"
+      					 @", note, birthday, job_title, nick_name, name_phonetic_key, name_abbr_key, modify_date)"
+                         @" VALUES(:contact_id,  :avatar_url, :first_name, :middle_name, :last_name,"
+                         @" :first_name_phonetic, :last_name_phonetic, :name_phonetic, :name_abbr, :organization, :department,"
+       					 @" :note, %@,  :job_title, :nick_name, :name_phonetic_key,"
+      					 @" :name_abbr_key, :modify_date)", stringBirthdayValue];
+
+        
 		
 		id<PLPreparedStatement> stmt = [[self db]  prepareStatement:sql];        
-        
+      
         // 绑定参数
         [stmt bindParameterDictionary:parameters];
+      
         
+        NSError *err = nil;
         // 如果执行失败
-        if(![stmt executeUpdate]) {
+        if(![stmt executeUpdateAndReturnError:&err]) {
+            NSLog(@"sql execute err:%@", err);
 			
             ret = MM_DB_FAILED_INVALID_STATEMENT;
             break;

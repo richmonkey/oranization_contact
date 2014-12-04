@@ -50,8 +50,12 @@ UITableViewDataSource>
     [self createTableView];
     [self createHeaderView];
     [self initContactArray];
+
     [[MMSyncThread shareInstance] start];
-    [[MMSyncThread shareInstance] beginSync];
+    //wait sync thread started
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[MMSyncThread shareInstance] beginSync];
+    });
 }
 
 - (void)createTableView {

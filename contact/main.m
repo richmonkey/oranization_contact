@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <sqlite3.h>
 #import "AppDelegate.h"
+#import "MMSyncThread.h"
+#import "MMGlobalData.h"
 
 int main(int argc, char * argv[])
 {
@@ -16,6 +18,14 @@ int main(int argc, char * argv[])
         //保证多线程模式
         NSObject* tmpObject = [[NSObject alloc] init];
         [tmpObject performSelectorInBackground:@selector(release) withObject:nil];
+        
+        if (sqlite3_config(SQLITE_CONFIG_MULTITHREAD) != SQLITE_OK) {
+            NSLog(@"sqlite3_config failed");
+        }
+        
+        
+        [MMSyncThread shareInstance];
+        [MMUapRequest shareInstance];
         
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }

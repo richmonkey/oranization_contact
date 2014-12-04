@@ -394,7 +394,7 @@
 
 + (id)requestWithPath:(NSString *)path usingSSL:(BOOL)usingSSL {
     NSString* fullUrl = nil;
-    fullUrl = [API_URL stringByAppendingFormat:@"%@/",path];
+    fullUrl = [API_URL stringByAppendingFormat:@"/%@",path];
     NSURL*url = [NSURL URLWithString:fullUrl];
 
     ASIHTTPRequest* request = [self requestWithURL:url];
@@ -414,7 +414,7 @@
 
 + (id)requestWithPath:(NSString*)path withObject:(NSObject*)object usingSSL:(BOOL)usingSSL {
     NSString* fullUrl = nil;
-    fullUrl = [API_URL stringByAppendingFormat:@"%@",path];
+    fullUrl = [API_URL stringByAppendingFormat:@"/%@",path];
     NSURL* url = [NSURL URLWithString:fullUrl];
 
     ASIHTTPRequest* request = [self requestWithURL:url];
