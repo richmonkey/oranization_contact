@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB771A2FF1A2000C55AF /* APIRequest.m */; };
-		1D6CBB7B1A2FF1E9000C55AF /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */; };
-		1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7D1A2FF612000C55AF /* Token.m */; };
+		1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB771A2FF1A2000C55AF /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1D6CBB7B1A2FF1E9000C55AF /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7D1A2FF612000C55AF /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1041A2AB61700D2E5B5 /* UIButton+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };

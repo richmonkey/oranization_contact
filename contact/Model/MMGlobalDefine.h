@@ -19,7 +19,7 @@
 #define API_URL @"http://api.contacts.momo.im"
 #elif (SERVER == SIMULATE_SERVER)
 //内网
-#define API_URL @"106.185.43.85:8080"
+#define API_URL @"http://106.185.43.85:8080"
 #endif
 
 #define SCRIPT_HIDE_TOOLBAR @"document.getElementsByClassName(\"toolbar\")[0].style.display='none';"

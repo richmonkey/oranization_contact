@@ -3,6 +3,9 @@
 #pragma mark -
 #pragma mark TAHttpOperation Http动作类
 
+#if ! __has_feature(objc_arc)
+#error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
+#endif
 
 @interface TAHttpOperation()
 - (void)setFinished:(BOOL)isFinished;
@@ -51,8 +54,6 @@
 	self.targetURL = nil;
 	self.method = nil;
 	self.postBody = nil;
-
-    [super dealloc];
 }
 
 -(void)reset {
