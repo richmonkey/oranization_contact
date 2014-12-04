@@ -15,7 +15,6 @@
 @implementation NSString (NSStringCompare)
 
 - (NSComparisonResult)compareWithOther:(NSString *)other {
-    
     assert([other length] > 0);
     
     if ([self isEqualToString:@"#"]) {

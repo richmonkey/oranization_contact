@@ -111,12 +111,12 @@
 -(id) init{
     self = [super init];
     if (self) {
-		organization = @"";
-		department = @"";
-		note = @"";
-		jobTitle = @"";
-		nickName = @"";
-		birthday = nil;
+		organization = @""; //公司
+		department = @""; //部门
+		note = @"";  //备注
+		jobTitle = @""; //职称
+		nickName = @""; //昵称
+		birthday = nil; //生日
 	}
     return self;
 }

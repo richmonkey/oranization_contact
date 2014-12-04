@@ -65,6 +65,7 @@
 	NSString	*nickName;//昵称
     
 }
+@property (nonatomic) int32_t	phoneCid;
 @property (nonatomic, copy) NSString *organization;
 @property (nonatomic, copy) NSString *department;
 @property (nonatomic, copy) NSString *note;
