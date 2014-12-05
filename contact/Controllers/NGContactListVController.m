@@ -10,18 +10,19 @@
 #import "UIView+NGAdditions.h"
 #import "DbStruct.h"
 #import "MMCommonAPI.h"
-#import "CardListCell.h"
+#import "ContactListCell.h"
 #import "MMContact.h"
 #import <AddressBook/AddressBook.h>
 #import "MMAddressBook.h"
 #import "MMSyncThread.h"
+#import "NGContactDetailVController.h"
 
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic, strong) UITableView *contactTable;
 @property (strong, nonatomic) UISearchDisplayController* searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) NSMutableArray *contactArray;
+@property (nonatomic, strong) NSArray *contactArray;
 @property (nonatomic, strong) NSMutableArray *searchArray;
 @property (nonatomic, strong) NSMutableDictionary *contactsDictionary;
 @property (nonatomic, strong) NSMutableArray *contactNameIndexArray;
@@ -40,7 +41,7 @@ UITableViewDataSource>
 
     self.navigationItem.title = @"联系人";
     self.leftButton.hidden = YES;
-    self.contactArray = [NSMutableArray array];
+    self.contactArray = [NSArray array];
     self.searchArray = [NSMutableArray array];
     self.contactsDictionary = [NSMutableDictionary dictionary];
     self.contactNameIndexArray = [NSMutableArray array];
@@ -87,7 +88,6 @@ UITableViewDataSource>
 }
 
 - (void)initContactArray {
-    [self.contactArray removeAllObjects];
 
 // 本地系统通讯录数据
 //    CFErrorRef *error = nil;
@@ -126,7 +126,8 @@ UITableViewDataSource>
 //
 //    }
 
-    [self sortByIndex:[[MMContactManager instance] getSimpleContactList:nil]];
+    self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
+    [self sortByIndex:self.contactArray];
     [self.contactTable reloadData];
 }
 
@@ -193,11 +194,13 @@ UITableViewDataSource>
 
     DbContact *contact = [array objectAtIndex:indexPath.row];
 
-    CardListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    ContactListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
-        cell = [CardListCell cell];
+        cell = [ContactListCell cell];
     }
-    cell.brandName.text = contact.fullName;
+    cell.nameLabel.text = contact.fullName;
+    cell.jobLabel.hidden = YES;
+//    cell.jobLabel.text = [NSString stringWithFormat:@"岗位: %@", contact.jobTitle];
 
     return cell;
 }
@@ -313,19 +316,20 @@ UITableViewDataSource>
     return 20;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return [ContactListCell heigh];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (tableView == _contactTable) {
-        UIView *imageView = nil;
+        UIView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 20)];
         imageView.backgroundColor = [UIColor clearColor];
 
         UILabel *letter = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 200, 20)];
         letter.backgroundColor = [UIColor clearColor];
         letter.font = [UIFont fontWithName:@"Helvetica" size:16];
-        letter.textColor = [UIColor redColor];
+        letter.textColor = [UIColor colorWithRed:0.502f green:0.502f blue:0.502f alpha:1.00f];
 
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             letter.text = [_filterContactNameIndexArray objectAtIndex:section];
@@ -342,13 +346,22 @@ UITableViewDataSource>
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *strkey = [_contactNameIndexArray objectAtIndex:indexPath.section];;
+    NSArray *array = [_contactsDictionary objectForKey:strkey];;
+    DbContactSimple *contact = [array objectAtIndex:indexPath.row];
+    DbContact *fullContact = [[MMContactManager instance] getContact:contact.contactId withError:nil];
+
+    NGContactDetailVController *viewController = [NGContactDetailVController new];
+    viewController.fullContact = fullContact;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
 #pragma mark UISearchDisplayDelegate
 
 - (void)filterContentForSearchText:(NSString *)searchString {
-//    self.searchArray = [[MMContactManager instance] searchContact:searchString needName:NO needPhone:NO];
+    NSArray *resultArray = [[MMContactManager instance] searchContact:self.contactArray pattern:searchString needName:NO];
+    self.searchArray = [NSMutableArray arrayWithArray:resultArray];
     [self sortByIndexForFilter:self.searchArray];
 }
 

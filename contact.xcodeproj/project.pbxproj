@@ -10,6 +10,10 @@
 		1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB771A2FF1A2000C55AF /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D6CBB7B1A2FF1E9000C55AF /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7D1A2FF612000C55AF /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1D8FBE101A314DC9007A20D9 /* user_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */; };
+		1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */; };
+		1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */; };
+		1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */; };
 		1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1041A2AB61700D2E5B5 /* UIButton+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -28,8 +32,8 @@
 		1D9DC12D1A2ABB4500D2E5B5 /* nav_back_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC1241A2ABB4500D2E5B5 /* nav_back_press@2x.png */; };
 		1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1321A2ABD9600D2E5B5 /* NGAddition.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D9DC13B1A2AFA8000D2E5B5 /* CardListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1391A2AFA8000D2E5B5 /* CardListCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D9DC13C1A2AFA8000D2E5B5 /* CardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* CardListCell.xib */; };
+		1D9DC13B1A2AFA8000D2E5B5 /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */; };
 		1D9DC13E1A2B057400D2E5B5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */; };
 		1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */; };
 		6D16D5F11A08A36A001D0939 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F01A08A36A001D0939 /* Foundation.framework */; };
@@ -104,6 +108,12 @@
 		1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAHttpOperation.m; sourceTree = "<group>"; };
 		1D6CBB7C1A2FF612000C55AF /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
 		1D6CBB7D1A2FF612000C55AF /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_avatar@2x.png"; sourceTree = "<group>"; };
+		1D8FBE121A315D4B007A20D9 /* ContactDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailCell.h; sourceTree = "<group>"; };
+		1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailCell.m; sourceTree = "<group>"; };
+		1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailCell.xib; sourceTree = "<group>"; };
+		1D8FBE171A317E4B007A20D9 /* NGContactDetailVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGContactDetailVController.h; sourceTree = "<group>"; };
+		1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGContactDetailVController.m; sourceTree = "<group>"; };
 		1D9DC0F71A2AB4C900D2E5B5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1D9DC0FB1A2AB4C900D2E5B5 /* NGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGViewController.h; sourceTree = "<group>"; };
@@ -131,9 +141,9 @@
 		1D9DC1321A2ABD9600D2E5B5 /* NGAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGAddition.m; sourceTree = "<group>"; };
 		1D9DC1341A2AC21300D2E5B5 /* NGContactListVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGContactListVController.h; sourceTree = "<group>"; };
 		1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGContactListVController.m; sourceTree = "<group>"; };
-		1D9DC1381A2AFA8000D2E5B5 /* CardListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListCell.h; sourceTree = "<group>"; };
-		1D9DC1391A2AFA8000D2E5B5 /* CardListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListCell.m; sourceTree = "<group>"; };
-		1D9DC13A1A2AFA8000D2E5B5 /* CardListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardListCell.xib; sourceTree = "<group>"; };
+		1D9DC1381A2AFA8000D2E5B5 /* ContactListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListCell.h; sourceTree = "<group>"; };
+		1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListCell.m; sourceTree = "<group>"; };
+		1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListCell.xib; sourceTree = "<group>"; };
 		1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1D9DC13F1A2B08E400D2E5B5 /* MMAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddressBook.h; sourceTree = "<group>"; };
 		1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAddressBook.m; sourceTree = "<group>"; };
@@ -306,6 +316,8 @@
 				1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */,
 				1D9DC1341A2AC21300D2E5B5 /* NGContactListVController.h */,
 				1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */,
+				1D8FBE171A317E4B007A20D9 /* NGContactDetailVController.h */,
+				1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -347,6 +359,7 @@
 		1D9DC11B1A2ABB4500D2E5B5 /* NGImage */ = {
 			isa = PBXGroup;
 			children = (
+				1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */,
 				1D9DC11C1A2ABB4500D2E5B5 /* btn_disable@2x.png */,
 				1D9DC11D1A2ABB4500D2E5B5 /* btn_green@2x.png */,
 				1D9DC11E1A2ABB4500D2E5B5 /* btn_green_press@2x.png */,
@@ -363,9 +376,12 @@
 		1D9DC1371A2AFA8000D2E5B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1D9DC1381A2AFA8000D2E5B5 /* CardListCell.h */,
-				1D9DC1391A2AFA8000D2E5B5 /* CardListCell.m */,
-				1D9DC13A1A2AFA8000D2E5B5 /* CardListCell.xib */,
+				1D8FBE121A315D4B007A20D9 /* ContactDetailCell.h */,
+				1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */,
+				1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */,
+				1D9DC1381A2AFA8000D2E5B5 /* ContactListCell.h */,
+				1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */,
+				1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -714,15 +730,17 @@
 				1D9DC1281A2ABB4500D2E5B5 /* btn_grey@2x.png in Resources */,
 				1D9DC1251A2ABB4500D2E5B5 /* btn_disable@2x.png in Resources */,
 				1D9DC1181A2AB6A200D2E5B5 /* SVProgressHUD.bundle in Resources */,
-				1D9DC13C1A2AFA8000D2E5B5 /* CardListCell.xib in Resources */,
+				1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */,
 				1D9DC12D1A2ABB4500D2E5B5 /* nav_back_press@2x.png in Resources */,
 				1D9DC12A1A2ABB4500D2E5B5 /* Default-568h@2x~iphone.png in Resources */,
 				1D9DC12C1A2ABB4500D2E5B5 /* Default~iphone.png in Resources */,
+				1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */,
 				1D9DC1291A2ABB4500D2E5B5 /* Default-568h@2x.png in Resources */,
 				6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */,
 				1D9DC1271A2ABB4500D2E5B5 /* btn_green_press@2x.png in Resources */,
 				1D9DC12B1A2ABB4500D2E5B5 /* Default.png in Resources */,
 				1D9DC1261A2ABB4500D2E5B5 /* btn_green@2x.png in Resources */,
+				1D8FBE101A314DC9007A20D9 /* user_avatar@2x.png in Resources */,
 				6D16D5FB1A08A36A001D0939 /* InfoPlist.strings in Resources */,
 				6D16D6041A08A36A001D0939 /* Main.storyboard in Resources */,
 				6D16D7B71A08C3FF001D0939 /* momo.db in Resources */,
@@ -747,7 +765,7 @@
 				6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */,
 				1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */,
 				6D16D6BF1A08A921001D0939 /* SBJsonStreamParserState.m in Sources */,
-				1D9DC13B1A2AFA8000D2E5B5 /* CardListCell.m in Sources */,
+				1D9DC13B1A2AFA8000D2E5B5 /* ContactListCell.m in Sources */,
 				6D16D6E71A08AB03001D0939 /* contact_match.cc in Sources */,
 				1D9DC10B1A2AB61700D2E5B5 /* UIView+NGAdditions.m in Sources */,
 				6D16D6C61A08A921001D0939 /* PlausibleDatabase.m in Sources */,
@@ -769,6 +787,7 @@
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6D16D6BB1A08A921001D0939 /* SBJsonParser.m in Sources */,
 				6D16D6C91A08A921001D0939 /* PLSqliteDatabase.m in Sources */,
+				1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */,
 				6D16D71E1A08AC01001D0939 /* ASIAuthenticationDialog.m in Sources */,
 				6D16D7081A08ABD4001D0939 /* sha.c in Sources */,
 				6D16D6E41A08AADC001D0939 /* Reachability.m in Sources */,
@@ -777,6 +796,7 @@
 				6D16D6C31A08A921001D0939 /* SBJsonTokeniser.m in Sources */,
 				6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */,
 				6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */,
+				1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */,
 				6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */,
 				6D16D7201A08AC01001D0939 /* ASIDataDecompressor.m in Sources */,
 				6D16D6C81A08A921001D0939 /* PLSqliteConnectionProvider.m in Sources */,
