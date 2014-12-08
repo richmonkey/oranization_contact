@@ -9,6 +9,9 @@
 #import "NGContactDetailVController.h"
 #import "UIView+NGAdditions.h"
 #import "ContactDetailCell.h"
+#import <AddressBook/AddressBook.h>
+#import "JSON.h"
+#import "MMAddressBook.h"
 
 @interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *infoTableView;
@@ -46,35 +49,66 @@
         cell = [ContactDetailCell cell];
     }
 
-    switch (indexPath.row) {
-        case 0:
-            cell.tipLabel.text = @"姓名";
-            cell.contentLabel.text = self.fullContact.fullName;
-            break;
-        case 1:
-            cell.tipLabel.text = @"职位";
+    if (indexPath.row == 0) {
+        cell.tipLabel.text = @"姓名";
+        cell.contentLabel.text = self.fullContact.fullName;
+    }else if (indexPath.row == 1) {
+        cell.tipLabel.text = @"职位";
+        cell.contentLabel.text = self.fullContact.jobTitle;
+    }else {
+        DbData *contactData = self.fullContact.properties[indexPath.row-2];
+        switch(contactData.property){
+            case kMoTel: {
+                cell.tipLabel.text = @"电话";
+                cell.contentLabel.text = contactData.value;
+            }
+                break;
+            case kMoMail: {
+                cell.tipLabel.text = @"邮箱";
+                cell.contentLabel.text = contactData.value;
+            }
+                break;
+            case kMoAdr: {
+                cell.tipLabel.text = @"地址";
+                SBJSON* sbjson = [SBJSON new];
+                NSMutableArray *listItems = [sbjson objectWithString:contactData.value];
+                [sbjson release];
 
-            cell.contentLabel.text = self.fullContact.jobTitle;
-            break;
-        case 2:
-            cell.tipLabel.text = @"电话";
-            DbData *date = 
-            cell.contentLabel.text = self.fullContact.mainTelephone;
-            break;
-        case 3:
-            cell.tipLabel.text = @"邮箱";
-            cell.contentLabel.text = self.fullContact.fullName;
-            break;
-        case 4:
-            cell.tipLabel.text = @"地址";
-            cell.contentLabel.text = self.fullContact.fullName;
-            break;
-        case 5:
-            cell.tipLabel.text = @"微信";
-            cell.contentLabel.text = self.fullContact.fullName;
-            break;
-        default:
-            break;
+                NSMutableDictionary* dictKey = [NSMutableDictionary dictionary];
+                [dictKey setObject:(NSString*)kABPersonAddressStreetKey forKey:[NSString stringWithFormat:@"%d", 2]];
+                [dictKey setObject:(NSString*)kABPersonAddressCityKey forKey:[NSString stringWithFormat:@"%d", 3]];
+                [dictKey setObject:(NSString*)kABPersonAddressStateKey forKey:[NSString stringWithFormat:@"%d", 4]];
+                [dictKey setObject:(NSString*)kABPersonAddressZIPKey forKey:[NSString stringWithFormat:@"%d", 5]];
+                [dictKey setObject:(NSString*)kABPersonAddressCountryKey forKey:[NSString stringWithFormat:@"%d", 6]];
+
+                NSMutableDictionary* addressDict = [NSMutableDictionary dictionary];
+                for(int i = 2; i < 7; i++) {
+                    NSString* str = [listItems objectAtIndex:i];
+                    if(str && ![str isEqualToString:@""])
+                        [addressDict setObject:str forKey:(NSString*)[dictKey valueForKey:[NSString stringWithFormat:@"%d", i]]];
+                }
+
+                cell.contentLabel.text = contactData.value;
+            }
+                break;
+            case kMoBday: {
+                if(contactData.value && ![contactData.value isEqualToString:@""]) {
+                    NSDateFormatter* formater = [NSDateFormatter new];
+                    [formater setDateFormat:@"YYYY-MM-dd"];
+                    NSDate* date = [formater dateFromString:contactData.value];
+                    [formater release];
+                    if (date)
+                        cell.tipLabel.text = @"邮箱";
+                       cell.contentLabel.text = contactData.value;
+                    }
+                }
+                break;
+            case kMoImQQ:{
+                cell.tipLabel.text = @"QQ";
+                cell.contentLabel.text = contactData.value;
+                break;
+            }
+        }
     }
 
     return cell;
@@ -85,7 +119,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 2 + [self.fullContact.properties count];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
