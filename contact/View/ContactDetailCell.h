@@ -12,7 +12,8 @@
 
 @property (retain, nonatomic) IBOutlet UILabel *tipLabel;
 @property (retain, nonatomic) IBOutlet UILabel *contentLabel;
-@property (retain, nonatomic) IBOutlet UIButton *actionBtn;
+@property (retain, nonatomic) IBOutlet UIButton *actionLfetBtn;
+@property (retain, nonatomic) IBOutlet UIButton *actionRightBtn;
 
 + (CGFloat)heigh;
 

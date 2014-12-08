@@ -15,6 +15,7 @@
 
 @interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *infoTableView;
+@property(nonatomic, strong) NSString *curPhone;
 
 @end
 
@@ -49,6 +50,9 @@
         cell = [ContactDetailCell cell];
     }
 
+    cell.actionLfetBtn.hidden = YES;
+    cell.actionRightBtn.hidden = YES;
+
     if (indexPath.row == 0) {
         cell.tipLabel.text = @"姓名";
         cell.contentLabel.text = self.fullContact.fullName;
@@ -61,15 +65,21 @@
             case kMoTel: {
                 cell.tipLabel.text = @"电话";
                 cell.contentLabel.text = contactData.value;
+                self.curPhone = contactData.value;
+                cell.actionLfetBtn.hidden = YES;
+                cell.actionRightBtn.hidden = NO;
+                [cell.actionRightBtn addTarget:self action:@selector(actionSMS) forControlEvents:UIControlEventTouchUpInside];
+                cell.actionLfetBtn.hidden = NO;
+                [cell.actionLfetBtn addTarget:self action:@selector(actionPhone) forControlEvents:UIControlEventTouchUpInside];
             }
                 break;
             case kMoMail: {
                 cell.tipLabel.text = @"邮箱";
                 cell.contentLabel.text = contactData.value;
+                cell.actionLfetBtn.hidden = YES;
             }
                 break;
             case kMoAdr: {
-                cell.tipLabel.text = @"地址";
                 SBJSON* sbjson = [SBJSON new];
                 NSMutableArray *listItems = [sbjson objectWithString:contactData.value];
                 [sbjson release];
@@ -88,7 +98,10 @@
                         [addressDict setObject:str forKey:(NSString*)[dictKey valueForKey:[NSString stringWithFormat:@"%d", i]]];
                 }
 
+
+                cell.tipLabel.text = @"地址";
                 cell.contentLabel.text = contactData.value;
+                cell.actionLfetBtn.hidden = YES;
             }
                 break;
             case kMoBday: {
@@ -98,7 +111,7 @@
                     NSDate* date = [formater dateFromString:contactData.value];
                     [formater release];
                     if (date)
-                        cell.tipLabel.text = @"邮箱";
+                        cell.tipLabel.text = @"生日";
                        cell.contentLabel.text = contactData.value;
                     }
                 }
@@ -106,6 +119,7 @@
             case kMoImQQ:{
                 cell.tipLabel.text = @"QQ";
                 cell.contentLabel.text = contactData.value;
+                cell.actionLfetBtn.hidden = YES;
                 break;
             }
         }
@@ -140,6 +154,18 @@
             break;
         default:
             break;
+    }
+}
+
+- (void)actionSMS {
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"sms://%@", self.curPhone]];
+    [[UIApplication sharedApplication] openURL:phoneUrl];
+}
+
+- (void)actionPhone {
+    NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"tel://%@", self.curPhone]];
+    if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+        [[UIApplication sharedApplication] openURL:phoneUrl];
     }
 }
 

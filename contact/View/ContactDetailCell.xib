@@ -26,16 +26,26 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ZX-3K-xvP">
-                        <rect key="frame" x="270" y="19" width="30" height="30"/>
-                        <state key="normal" image="open_mail.png">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnV-6G-qeD">
+                        <rect key="frame" x="273" y="14" width="40" height="40"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="23424424" image="personcard_sms.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="highlighted" image="personcard_sms_h.png"/>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZe-iB-32S">
+                        <rect key="frame" x="235" y="14" width="40" height="40"/>
+                        <state key="normal" image="personcard_dial.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="personcard_dial_h.png"/>
                     </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="actionBtn" destination="8ZX-3K-xvP" id="EJv-AU-Ic2"/>
+                <outlet property="actionLfetBtn" destination="zZe-iB-32S" id="9uZ-fN-0td"/>
+                <outlet property="actionRightBtn" destination="bnV-6G-qeD" id="au4-ZO-66l"/>
                 <outlet property="contentLabel" destination="Bin-5r-nig" id="II9-xo-25i"/>
                 <outlet property="tipLabel" destination="lUP-w2-lkc" id="aGC-MV-51U"/>
             </connections>
@@ -43,7 +53,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="open_mail.png" width="86" height="81"/>
+        <image name="personcard_dial.png" width="44" height="44"/>
+        <image name="personcard_dial_h.png" width="44" height="44"/>
+        <image name="personcard_sms.png" width="44" height="44"/>
+        <image name="personcard_sms_h.png" width="44" height="44"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

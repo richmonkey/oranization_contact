@@ -40,4 +40,8 @@
 //    [self setNeedsLayout];
 //}
 
+- (void)dealloc {
+    [_actionRightBtn release];
+    [super dealloc];
+}
 @end
