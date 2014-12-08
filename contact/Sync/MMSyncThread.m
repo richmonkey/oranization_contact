@@ -15,6 +15,9 @@
 #import "MMLogger.h"
 
 @interface MMSyncThread()
+
+@property(nonatomic, assign)BOOL isChanged;
+
 -(BOOL)sync;
 -(void)wakeUpRunLoop:(CFRunLoopRef)runLoop;
 
@@ -22,6 +25,7 @@
 
 @implementation MMSyncThread
 @synthesize isSyncing = isSyncing_;
+@synthesize isChanged;
 
 -(BOOL)beginSync {
     if (isSyncing_) {
@@ -46,7 +50,9 @@
         
         self.isSyncing = NO;
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary* userInfo = [NSDictionary dictionaryWithObject:BOOL_NUMBER(lastSyncResult_) forKey:@"result"];
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:BOOL_NUMBER(lastSyncResult_) forKey:@"result"];
+            [userInfo setObject:BOOL_NUMBER(self.isChanged) forKey:@"changed"];
             [[NSNotificationCenter defaultCenter] postNotificationName:kMMEndSync object:userInfo];
         });
     } );
@@ -126,6 +132,13 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
 	}
     [pool release];
     END_TICKET(downcontacttomomo);
+    
+    if (syncer.addedCount > 0 || syncer.updatedCount > 0 || syncer.deletedCout > 0) {
+        self.isChanged = YES;
+    } else {
+        self.isChanged = NO;
+    }
+    
 	return YES;
 }
 

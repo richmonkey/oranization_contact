@@ -76,7 +76,6 @@ UITableViewDataSource>
     //搜索区域
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     _searchBar.backgroundColor=[UIColor clearColor];
-//    searchBar.backgroundImage = [UIImage imageWithColor:NAVIGATION_BAR_COLOR];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索联系人";
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
@@ -88,60 +87,25 @@ UITableViewDataSource>
 }
 
 - (void)initContactArray {
-
-// 本地系统通讯录数据
-//    CFErrorRef *error = nil;
-//    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
-//
-//    __block BOOL accessGranted = NO;
-//    if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
-//        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-//            accessGranted = granted;
-//            dispatch_semaphore_signal(sema);
-//        });
-//        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-//
-//    }
-//
-//    if (accessGranted) {
-//        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
-//        ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
-//        CFArrayRef peoples = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
-//        CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-//
-//        for (int i = 0; i < nPeople; i++)
-//        {
-//            ABRecordRef person = CFArrayGetValueAtIndex(peoples, i);
-//
-//            DbContact* dbContact = [[[DbContact alloc] init] autorelease];
-//            NSMutableArray* dbDataList = [[NSMutableArray alloc] init];
-//            [MMAddressBook ABRecord2DbStruct:dbContact withDataList:dbDataList withPerson:person];
-//
-//            [self.contactArray addObject:dbContact];
-//        }
-//
-//        [self sortByIndex:self.contactArray];
-//        [self.contactTable reloadData];
-//
-//    }
-
     self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
     [self sortByIndex:self.contactArray];
     [self.contactTable reloadData];
 }
 
 - (void)onEndSync:(NSNotification*)notification {
+    NSLog(@"onEndSync");
     BOOL r = [[notification.object objectForKey:@"result"] boolValue];
     if (!r) {
         [MMCommonAPI alert:@"同步失败"];
         return;
     }
-
-    NSLog(@"onEndSync");
-    int count = [MMAddressBook getContactCount];
-    NSLog(@"contact count:%zd", count);
-    [self sortByIndex:[[MMContactManager instance] getSimpleContactList:nil]];
+    BOOL changed = [[notification.object objectForKey:@"changed"] boolValue];
+    if (!changed) {
+        NSLog(@"unchanged");
+        return;
+    }
+    self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
+    [self sortByIndex:self.contactArray];
     [self.contactTable reloadData];
 }
 
@@ -170,16 +134,6 @@ UITableViewDataSource>
 #pragma mark -
 #pragma mark UITableViewDataSource Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 联系人界面上的联系人列表
-    //    CardListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    //    if (!cell) {
-    //        cell = [CardListCell cell];
-    //    }
-    //
-    //    cell.index = indexPath.row;
-    //    cell.cardDic = self.cardBrandArray[indexPath.row];
-
-
     NSString *strkey = nil;
     NSArray *array = nil;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -200,7 +154,6 @@ UITableViewDataSource>
     }
     cell.nameLabel.text = contact.fullName;
     cell.jobLabel.hidden = YES;
-//    cell.jobLabel.text = [NSString stringWithFormat:@"岗位: %@", contact.jobTitle];
 
     return cell;
 }

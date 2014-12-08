@@ -16,11 +16,11 @@
 
 }
 
+@property(nonatomic, assign)int addedCount;
+@property(nonatomic, assign)int deletedCout;
+@property(nonatomic, assign)int updatedCount;
+
 -(BOOL) isCancelled;
 
-@end
-
-
-@interface MMContactSync(Contact)
 -(BOOL) downloadContactToMomo;
 @end
