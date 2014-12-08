@@ -21,6 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.navigationItem.title = @"详细信息";
+    self.leftButton.hidden = NO;
     [self createTableView];
 }
 
@@ -51,11 +53,13 @@
             break;
         case 1:
             cell.tipLabel.text = @"职位";
+
             cell.contentLabel.text = self.fullContact.jobTitle;
             break;
         case 2:
             cell.tipLabel.text = @"电话";
-            cell.contentLabel.text = self.fullContact.fullName;
+            DbData *date = 
+            cell.contentLabel.text = self.fullContact.mainTelephone;
             break;
         case 3:
             cell.tipLabel.text = @"邮箱";
@@ -83,4 +87,26 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 6;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0: {
+
+        }
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        default:
+            break;
+    }
+}
+
 @end

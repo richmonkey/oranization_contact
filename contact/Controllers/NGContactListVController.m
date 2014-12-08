@@ -349,7 +349,7 @@ UITableViewDataSource>
     NSString *strkey = [_contactNameIndexArray objectAtIndex:indexPath.section];;
     NSArray *array = [_contactsDictionary objectForKey:strkey];;
     DbContactSimple *contact = [array objectAtIndex:indexPath.row];
-    DbContact *fullContact = [[MMContactManager instance] getContact:contact.contactId withError:nil];
+    MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
 
     NGContactDetailVController *viewController = [NGContactDetailVController new];
     viewController.fullContact = fullContact;

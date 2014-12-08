@@ -37,6 +37,11 @@
 - (DbContact*) getContact:(int64_t)contactId withError:(MMErrorType*)error;
 
 /*
+* 获得详细联系人信息
+*/
+- (MMFullContact*) getFullContact:(int64_t)contactId withError:(MMErrorType*)error;
+
+/*
  * 插入联系人, 使用DbContact和DdData List, 已设置contactId
  */
 - (MMErrorType)insertContact:(DbContact *)contact withDataList:(NSArray*)listData;

@@ -280,7 +280,16 @@
     return array;
 }
 
+/*
+ * 获得详细联系人信息
+ */
+- (MMFullContact*) getFullContact:(int64_t)contactId withError:(MMErrorType*)error {
+    MMFullContact *fullContact = nil;
+    fullContact = (MMFullContact *)[self getContact:contactId withError:error];
+    fullContact.properties = [self getDataList:contactId withError: error];
 
+    return fullContact;
+}
 
 - (DbContact*) getContact:(int64_t)contactId withError:(MMErrorType*)error {
     
@@ -318,7 +327,7 @@
         
         // 返回结果
         if(status) {
-            contact = [[[DbContact alloc] initWithResultSet:results] autorelease];
+            contact = [[[MMFullContact alloc] initWithResultSet:results] autorelease];
         }
         [results close];
     }

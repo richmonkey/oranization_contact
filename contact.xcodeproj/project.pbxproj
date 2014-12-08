@@ -36,6 +36,9 @@
 		1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */; };
 		1D9DC13E1A2B057400D2E5B5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */; };
 		1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */; };
+		1DBAB48D1A353D8100695B30 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB48C1A353D8100695B30 /* nav_back@2x.png */; };
+		1DBAB4901A353E6F00695B30 /* open_mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB48E1A353E6F00695B30 /* open_mail@2x.png */; };
+		1DBAB4911A353E6F00695B30 /* open_tel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB48F1A353E6F00695B30 /* open_tel@2x.png */; };
 		6D16D5F11A08A36A001D0939 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F01A08A36A001D0939 /* Foundation.framework */; };
 		6D16D5F31A08A36A001D0939 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */; };
 		6D16D5F51A08A36A001D0939 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F41A08A36A001D0939 /* UIKit.framework */; };
@@ -147,6 +150,9 @@
 		1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1D9DC13F1A2B08E400D2E5B5 /* MMAddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddressBook.h; sourceTree = "<group>"; };
 		1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAddressBook.m; sourceTree = "<group>"; };
+		1DBAB48C1A353D8100695B30 /* nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@2x.png"; sourceTree = "<group>"; };
+		1DBAB48E1A353E6F00695B30 /* open_mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "open_mail@2x.png"; sourceTree = "<group>"; };
+		1DBAB48F1A353E6F00695B30 /* open_tel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "open_tel@2x.png"; sourceTree = "<group>"; };
 		6D16D5ED1A08A36A001D0939 /* contact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = contact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D16D5F01A08A36A001D0939 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -359,6 +365,9 @@
 		1D9DC11B1A2ABB4500D2E5B5 /* NGImage */ = {
 			isa = PBXGroup;
 			children = (
+				1DBAB48E1A353E6F00695B30 /* open_mail@2x.png */,
+				1DBAB48F1A353E6F00695B30 /* open_tel@2x.png */,
+				1DBAB48C1A353D8100695B30 /* nav_back@2x.png */,
 				1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */,
 				1D9DC11C1A2ABB4500D2E5B5 /* btn_disable@2x.png */,
 				1D9DC11D1A2ABB4500D2E5B5 /* btn_green@2x.png */,
@@ -731,9 +740,12 @@
 				1D9DC1251A2ABB4500D2E5B5 /* btn_disable@2x.png in Resources */,
 				1D9DC1181A2AB6A200D2E5B5 /* SVProgressHUD.bundle in Resources */,
 				1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */,
+				1DBAB4901A353E6F00695B30 /* open_mail@2x.png in Resources */,
 				1D9DC12D1A2ABB4500D2E5B5 /* nav_back_press@2x.png in Resources */,
+				1DBAB4911A353E6F00695B30 /* open_tel@2x.png in Resources */,
 				1D9DC12A1A2ABB4500D2E5B5 /* Default-568h@2x~iphone.png in Resources */,
 				1D9DC12C1A2ABB4500D2E5B5 /* Default~iphone.png in Resources */,
+				1DBAB48D1A353D8100695B30 /* nav_back@2x.png in Resources */,
 				1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */,
 				1D9DC1291A2ABB4500D2E5B5 /* Default-568h@2x.png in Resources */,
 				6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */,
