@@ -48,15 +48,21 @@ UITableViewDataSource>
     self.filterContactsDictionary = [NSMutableDictionary dictionary];
     self.filterContactNameIndexArray = [NSMutableArray array];
 
-    [self createTableView];
-    [self createHeaderView];
+    [self createCustomView];
     [self initContactArray];
 
-    [[MMSyncThread shareInstance] start];
-    //wait sync thread started
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[MMSyncThread shareInstance] beginSync];
-    });
+
+}
+
+- (void)createCustomView {
+    [self createRefreshView];
+    [self createTableView];
+    [self createHeaderView];
+}
+
+- (void)createRefreshView {
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(actionRefresh)];
+    self.navigationItem.rightBarButtonItem = refreshItem;
 }
 
 - (void)createTableView {
@@ -88,17 +94,32 @@ UITableViewDataSource>
 
 - (void)initContactArray {
     self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
-    [self sortByIndex:self.contactArray];
-    [self.contactTable reloadData];
+    if (self.contactArray.count) {
+        [self sortByIndex:self.contactArray];
+        [self.contactTable reloadData];
+    }else {
+        [self synContanct];
+    }
+}
+
+- (void)synContanct {
+    [[MMSyncThread shareInstance] start];
+    //wait sync thread started
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[MMSyncThread shareInstance] beginSync];
+    });
 }
 
 - (void)onEndSync:(NSNotification*)notification {
     NSLog(@"onEndSync");
     BOOL r = [[notification.object objectForKey:@"result"] boolValue];
     if (!r) {
-        [MMCommonAPI alert:@"同步失败"];
+        [MMCommonAPI alert:@"更新失败"];
         return;
+    }else {
+        [MMCommonAPI alert:@"已经是最新"];
     }
+
     BOOL changed = [[notification.object objectForKey:@"changed"] boolValue];
     if (!changed) {
         NSLog(@"unchanged");
@@ -152,6 +173,7 @@ UITableViewDataSource>
     if (!cell) {
         cell = [ContactListCell cell];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.nameLabel.text = contact.fullName;
     cell.jobLabel.hidden = YES;
 
@@ -299,14 +321,25 @@ UITableViewDataSource>
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *strkey = [_contactNameIndexArray objectAtIndex:indexPath.section];;
-    NSArray *array = [_contactsDictionary objectForKey:strkey];;
-    DbContactSimple *contact = [array objectAtIndex:indexPath.row];
-    MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
+    if (tableView == _contactTable) {
+        NSString *strkey = [_contactNameIndexArray objectAtIndex:indexPath.section];;
+        NSArray *array = [_contactsDictionary objectForKey:strkey];;
+        DbContactSimple *contact = [array objectAtIndex:indexPath.row];
+        MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
+        
+        NGContactDetailVController *viewController = [NGContactDetailVController new];
+        viewController.fullContact = fullContact;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }else {
+        NSString *strkey = [_filterContactNameIndexArray objectAtIndex:indexPath.section];;
+        NSArray *array = [_filterContactsDictionary objectForKey:strkey];;
+        DbContactSimple *contact = [array objectAtIndex:indexPath.row];
+        MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
 
-    NGContactDetailVController *viewController = [NGContactDetailVController new];
-    viewController.fullContact = fullContact;
-    [self.navigationController pushViewController:viewController animated:YES];
+        NGContactDetailVController *viewController = [NGContactDetailVController new];
+        viewController.fullContact = fullContact;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark -
@@ -330,6 +363,10 @@ UITableViewDataSource>
     [self filterContentForSearchText:searchText];
     // Return YES to cause the search result table view to be reloaded.
     return YES;
+}
+
+- (void)actionRefresh {
+    [self synContanct];
 }
 
 @end

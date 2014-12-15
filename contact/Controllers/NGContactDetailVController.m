@@ -50,6 +50,7 @@
         cell = [ContactDetailCell cell];
     }
 
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.actionLfetBtn.hidden = YES;
     cell.actionRightBtn.hidden = YES;
 

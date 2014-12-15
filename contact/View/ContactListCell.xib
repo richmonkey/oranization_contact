@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user_avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xwc-5Y-CKP">
-                        <rect key="frame" x="15" y="4" width="60" height="60"/>
+                        <rect key="frame" x="19" y="14" width="40" height="40"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="姓名" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="210" translatesAutoresizingMaskIntoConstraints="NO" id="lUP-w2-lkc">
                         <rect key="frame" x="90" y="24" width="210" height="20"/>

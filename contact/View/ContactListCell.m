@@ -12,15 +12,8 @@
 }
 
 - (void)awakeFromNib {
-    _logoImage.layer.cornerRadius = 30;
+    _logoImage.layer.cornerRadius = 20;
     _logoImage.layer.masksToBounds = YES;
-    
-    UIView* selectBgView = [[UIView alloc] init];
-    selectBgView.backgroundColor = [UIColor colorWithRed:0.949f green:0.953f blue:0.961f alpha:1.00f];
-    self.selectedBackgroundView = selectBgView;
-    
-    UIView* bgView = [[UIView alloc] init];
-    self.backgroundView = bgView;
 }
 
 //-(void)setCardDic:(NSDictionary *)cardDic {
