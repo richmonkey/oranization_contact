@@ -49,6 +49,8 @@ UITableViewDataSource>
     self.filterContactNameIndexArray = [NSMutableArray array];
 
     [self createCustomView];
+
+    [[MMSyncThread shareInstance] start];
     [self initContactArray];
 
 
@@ -103,7 +105,6 @@ UITableViewDataSource>
 }
 
 - (void)synContanct {
-    [[MMSyncThread shareInstance] start];
     //wait sync thread started
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[MMSyncThread shareInstance] beginSync];
@@ -366,7 +367,7 @@ UITableViewDataSource>
 }
 
 - (void)actionRefresh {
-    [self synContanct];
+    [[MMSyncThread shareInstance] beginSync];
 }
 
 @end
