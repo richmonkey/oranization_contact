@@ -52,7 +52,7 @@
 	
     //需要下载的联系人列表
 	for (MMMomoContactSimple *c in simpleList) {
-		int index = [contacts indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+		NSInteger index = [contacts indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
 			DbContactSyncInfo *info = (DbContactSyncInfo*)obj;
 			if(info.contactId == c.contactId)
 				return YES;
@@ -84,7 +84,7 @@
     
     NSMutableArray* downloadedContacts = [NSMutableArray array];
     for (unsigned int i = 0; i < [idsToDown count]; i+= 50) {
-		int len = MIN(50, [idsToDown count] - i);
+		NSInteger len = MIN(50, [idsToDown count] - i);
 		NSArray *array = [MMServerContactManager getContactList:[idsToDown subarrayWithRange:NSMakeRange(i, len)]];
         if (nil == array) {
             break;
@@ -93,7 +93,7 @@
         
         [[self db] beginTransaction];
         for (MMMomoContact *contact in array ){
-            int index = [contactsToUpdate indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+            NSInteger index = [contactsToUpdate indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
                 DbContactSimple *info = (DbContactSimple*)obj;
                 if(info.contactId == contact.contactId)
                     return YES;
