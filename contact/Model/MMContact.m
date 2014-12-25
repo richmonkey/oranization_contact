@@ -1098,6 +1098,7 @@
 		case kMoImICQ:
 		case kMoIm91U:
 		case kMoImQQ:
+        case kMoImWeChat:
 		case kMoImGtalk:
 		case kMoImSkype:{
 			return @"home";

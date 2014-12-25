@@ -83,6 +83,7 @@
 		case kMoImSkype:return @"skype";
 		case kMoImAIM:return @"aim";
 		case kMoImJabber:return @"jabber";
+        case kMoImWeChat:return @"wechat";
 		default:
 			assert(0);
 			break;
@@ -108,6 +109,8 @@
 		return kMoImAIM;
 	} else if ([protocol isEqualToString:@"jabber"]) {
 		return kMoImJabber;
+    } else if ([protocol isEqualToString:@"wechat"]) {
+        return kMoImWeChat;
 	} else {
 		assert(0);
 	}
@@ -202,6 +205,7 @@
 			case kMoImSkype:
 			case kMoImAIM:
 			case kMoImJabber:
+            case kMoImWeChat:
 			{
             NSMutableDictionary *propertyDic = [NSMutableDictionary dictionary];
             [propertyDic setObject:[self getImProtocol:property.property] forKey:@"protocol"];

@@ -38,7 +38,8 @@ typedef enum{
 	kMoImYahoo,				//yahoo
 	kMoImSkype,				//skype
 	kMoImAIM,				//aim
-	kMoImJabber,			//jabber	
+	kMoImJabber,			//jabber
+    kMoImWeChat,            //微信
     
 	//联系人分组
 	kMoCategory = 0x20,			//联系人分组

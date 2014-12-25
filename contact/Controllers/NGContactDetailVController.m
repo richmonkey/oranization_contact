@@ -122,7 +122,13 @@
                 cell.contentLabel.text = contactData.value;
                 cell.actionLfetBtn.hidden = YES;
                 break;
+      
             }
+            case kMoImWeChat:
+                cell.tipLabel.text = @"微信";
+                cell.contentLabel.text = contactData.value;
+                cell.actionLfetBtn.hidden = YES;
+                break;
         }
     }
 
