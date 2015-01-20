@@ -107,6 +107,7 @@
 @implementation DbContact
 @synthesize organization,department;
 @synthesize  note,birthday,modifyDate,jobTitle,nickName;
+@synthesize companyName;
 
 -(id) init{
     self = [super init];
@@ -117,6 +118,7 @@
 		jobTitle = @""; //职称
 		nickName = @""; //昵称
 		birthday = nil; //生日
+        companyName = @"";
 	}
     return self;
 }
@@ -138,6 +140,7 @@
         self.nickName = dbcontact.nickName;
         self.birthday = dbcontact.birthday;
         self.modifyDate = dbcontact.modifyDate;
+        self.companyName = dbcontact.companyName;
         
     }
     return self;
@@ -150,6 +153,7 @@
 	self.jobTitle = nil;
 	self.nickName = nil;
 	self.birthday = nil;
+    self.companyName = nil;
     
 	[super dealloc];
 }

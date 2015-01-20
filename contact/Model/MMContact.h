@@ -16,6 +16,10 @@
 
 -(NSArray*) getContactSyncInfoList:(MMErrorType*)error;
 
+-(NSArray*) getCompanyList:(MMErrorType*)error;
+
+-(NSArray*) getSimpleContactListWithCompanyName:(NSString*)companyName error:(MMErrorType*)error;
+
 /*
  * 获取联系人简单信息列表 返回DbContact元素的NSArray
  */

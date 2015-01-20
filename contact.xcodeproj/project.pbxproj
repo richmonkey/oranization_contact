@@ -44,6 +44,8 @@
 		1DBAB4A11A3573F900695B30 /* personcard_sms_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */; };
 		1DBAB4A21A3573F900695B30 /* personcard_sms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */; };
 		1DBAB4A31A3573F900695B30 /* sns_icon_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */; };
+		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; };
+		6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464631A6D63F50046FF32 /* MBProgressHUD.m */; };
 		6D16D5F11A08A36A001D0939 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F01A08A36A001D0939 /* Foundation.framework */; };
 		6D16D5F31A08A36A001D0939 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */; };
 		6D16D5F51A08A36A001D0939 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F41A08A36A001D0939 /* UIKit.framework */; };
@@ -162,6 +164,10 @@
 		1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms_h@2x.png"; sourceTree = "<group>"; };
 		1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms@2x.png"; sourceTree = "<group>"; };
 		1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sns_icon_wechat@2x.png"; sourceTree = "<group>"; };
+		6D14645F1A6D63420046FF32 /* LoginCheckVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCheckVController.h; sourceTree = "<group>"; };
+		6D1464601A6D63420046FF32 /* LoginCheckVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCheckVController.m; sourceTree = "<group>"; };
+		6D1464621A6D63F50046FF32 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		6D1464631A6D63F50046FF32 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		6D16D5ED1A08A36A001D0939 /* contact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = contact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D16D5F01A08A36A001D0939 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -324,6 +330,8 @@
 		1D9DC0F21A2AB4C900D2E5B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6D14645F1A6D63420046FF32 /* LoginCheckVController.h */,
+				6D1464601A6D63420046FF32 /* LoginCheckVController.m */,
 				1D9DC0F71A2AB4C900D2E5B5 /* LoginViewController.h */,
 				1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */,
 				1D9DC0FB1A2AB4C900D2E5B5 /* NGViewController.h */,
@@ -542,6 +550,8 @@
 		6D16D6861A08A921001D0939 /* third-party */ = {
 			isa = PBXGroup;
 			children = (
+				6D1464621A6D63F50046FF32 /* MBProgressHUD.h */,
+				6D1464631A6D63F50046FF32 /* MBProgressHUD.m */,
 				1D9DC1131A2AB6A200D2E5B5 /* SVProgressHUD */,
 				6D16D7B81A08EFA0001D0939 /* base64 */,
 				6D16D7091A08AC01001D0939 /* ASIHTTPRequest */,
@@ -785,6 +795,7 @@
 			files = (
 				6D16D7041A08AB67001D0939 /* md5.c in Sources */,
 				6D16D6071A08A36A001D0939 /* ViewController.m in Sources */,
+				6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */,
 				6D16D7241A08AC01001D0939 /* ASIInputStream.m in Sources */,
 				1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */,
 				6D16D6C11A08A921001D0939 /* SBJsonStreamWriterAccumulator.m in Sources */,
@@ -809,6 +820,7 @@
 				1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */,
 				6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */,
 				6D16D6C01A08A921001D0939 /* SBJsonStreamWriter.m in Sources */,
+				6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */,
 				6D16D6C21A08A921001D0939 /* SBJsonStreamWriterState.m in Sources */,
 				6D16D6FC1A08AB31001D0939 /* MMUapRequest.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
@@ -972,7 +984,7 @@
 				INFOPLIST_FILE = "contact/contact-Info.plist";
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "99137e09-5fce-41b7-9a43-caf110e71fe2";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -983,7 +995,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Fuzhou Yewen Advertising Co., Ltd.";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "contact/contact-Prefix.pch";
@@ -991,7 +1003,7 @@
 				INFOPLIST_FILE = "contact/contact-Info.plist";
 				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "faba0db5-a9b2-4313-b34e-b5fa5c384d15";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

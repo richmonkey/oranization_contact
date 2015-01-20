@@ -7,24 +7,22 @@
 //
 
 #import "LoginViewController.h"
+#import "APIRequest.h"
+#import "MBProgressHUD.h"
+#import "TAHttpOperation.h"
 #import "AppDelegate.h"
+#import "Token.h"
 #import "MMCommonAPI.h"
 #import "SVProgressHUD.h"
 #import "UIImage+NGAdditions.h"
-#import "UIButton+NGAdditions.h"
-#import "SVProgressHUD.h"
-#import "NGAddition.h"
-#import "NGContactListVController.h"
-#import "APIRequest.h"
-#import "Token.h"
+#import "LoginCheckVController.h"
 
 #if ! __has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
 @interface LoginViewController () <UITextFieldDelegate>
-@property (strong, nonatomic) UITextField *accountField;
-@property (strong, nonatomic) UITextField *secretField;
+@property (strong, nonatomic) UITextField *phoneField;
 @property (strong, nonatomic) UIButton *nextBtn;
 @end
 
@@ -33,50 +31,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"登录";
+    self.navigationItem.title = @"获取验证码";
     self.leftButton.hidden = YES;
 
     //手机号码
 	UIImageView* backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 50)] ;
 	backImage.userInteractionEnabled = YES;
     backImage.backgroundColor = [UIColor whiteColor];
-	_accountField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, 280, 30)] ;
-	_accountField.borderStyle = UITextBorderStyleNone;
-	_accountField.textAlignment = NSTextAlignmentLeft;
-    _accountField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入公司账号" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.702f green:0.702f blue:0.702f alpha:1.00f], NSFontAttributeName: [UIFont systemFontOfSize:17]}];
-    _accountField.font = [UIFont systemFontOfSize:17];
-    _accountField.keyboardType = UIKeyboardTypeASCIICapable;
-    _accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _accountField.textColor = [UIColor blackColor];
-    _accountField.returnKeyType = UIReturnKeyDone;
-    [_accountField becomeFirstResponder];
-    _accountField.delegate = self;
-	[backImage addSubview:_accountField];
+	_phoneField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, 280, 30)] ;
+	_phoneField.borderStyle = UITextBorderStyleNone;
+	_phoneField.textAlignment = NSTextAlignmentLeft;
+    _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入手机号码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.702f green:0.702f blue:0.702f alpha:1.00f], NSFontAttributeName: [UIFont systemFontOfSize:17]}];
+    _phoneField.font = [UIFont systemFontOfSize:17];
+    _phoneField.keyboardType = UIKeyboardTypePhonePad;
+    _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _phoneField.textColor = [UIColor blackColor];
+    _phoneField.returnKeyType = UIReturnKeyDone;
+    [_phoneField becomeFirstResponder];
+    _phoneField.delegate = self;
+	[backImage addSubview:_phoneField];
     [self.view addSubview:backImage];
-    [_accountField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-
-    //手机号码
-    backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 320, 50)] ;
-    backImage.userInteractionEnabled = YES;
-    backImage.backgroundColor = [UIColor whiteColor];
-    _secretField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, 280, 30)] ;
-    _secretField.borderStyle = UITextBorderStyleNone;
-    _secretField.textAlignment = NSTextAlignmentLeft;
-    _secretField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入授权码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.702f green:0.702f blue:0.702f alpha:1.00f], NSFontAttributeName: [UIFont systemFontOfSize:17]}];
-    _secretField.font = [UIFont systemFontOfSize:17];
-    _secretField.keyboardType = UIKeyboardTypePhonePad;
-    _secretField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _secretField.textColor = [UIColor blackColor];
-    _secretField.returnKeyType = UIReturnKeyDone;
-    [_secretField becomeFirstResponder];
-    _secretField.delegate = self;
-    [backImage addSubview:_secretField];
-    [self.view addSubview:backImage];
-    [_secretField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-
+    [_phoneField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
 	self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.nextBtn.frame = CGRectMake(15, 160, 290, 48);
+    self.nextBtn.frame = CGRectMake(15, 138, 290, 48);
 	[self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green" top:20 left:5] forState:UIControlStateNormal];
     [self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_grey@" top:20 left:5] forState:UIControlStateDisabled];
     [self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green_press" top:20 left:5] forState:UIControlStateHighlighted];
@@ -88,13 +66,36 @@
 
 
 - (void) textFieldDidChange:(id) sender {
-    if (![_accountField.text isEmpty] && ![_secretField.text isEmpty] ) {
-        self.nextBtn.enabled = YES;
+    if ([_phoneField text].length == 11) {
+        [self.nextBtn setEnabled:YES];
     }else {
-        self.nextBtn.enabled = NO;
+        [self.nextBtn setEnabled:NO];
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    if ([textField isEqual:_phoneField] && range.length == 1 && string.length == 0) {
+//        //将号码的分割成 3 4 4的带空格间隔格式 当删除到空格的时候 不出发字符变化通知
+//        if (textField.text.length == 4) {
+//            textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length - 1)];
+//
+//            return NO;
+//        }
+//        if (textField.text.length == 9) {
+//            textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length - 1)];
+//            return NO;
+//        }
+//    }
+
+    //增加char
+    if ([textField isEqual:_phoneField] && range.length == 0 && string.length == 1) {
+        if (textField.text.length >= 11) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     return YES;
@@ -106,31 +107,40 @@
 }
 
 - (void)actionLogin {
-    NSString* account = _accountField.text;
-    account = [account stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString* phone = _phoneField.text;
+    phone = [phone stringByReplacingOccurrencesOfString:@" " withString:@""];
+	if ((phone.length != 11) || (![self checkTel:phone])) {
+		[MMCommonAPI alert:@"号码格式错误"];
+		return;
+	}
 
-    NSString* secret = _secretField.text;
-    secret = [secret stringByReplacingOccurrencesOfString:@" " withString:@""];
-
-    [SVProgressHUD showWithStatus:@"请求中" maskType:SVProgressHUDMaskTypeBlack];
-
-    [APIRequest signInByEmail:account password:secret success:^(int64_t uid, NSString *accessToken, NSString *refreshToken, int expireTimestamp, NSString *state) {
-        NSLog(@"auth token success");
-        Token *token = [Token instance];
-        token.accessToken = accessToken;
-        token.refreshToken = refreshToken;
-        token.expireTimestamp = expireTimestamp;
-        token.uid = uid;
-        [token save];
+    __weak typeof(self) weakSelf = self;
+    [SVProgressHUD showWithStatus:@"获取中" maskType:SVProgressHUDMaskTypeBlack];
+    [APIRequest requestVerifyCode:@"86" number:phone success:^(NSString *code){
+        NSLog(@"code:%@", code);
         [SVProgressHUD dismiss];
-
-        NGContactListVController *viewController = [NGContactListVController new];
-        [self.navigationController pushViewController:viewController animated:YES];
+        LoginCheckVController * ctrl = [[LoginCheckVController alloc] init];
+        ctrl.phoneNumberStr = phone;
+        [weakSelf.navigationController pushViewController:ctrl animated: YES];
     } fail:^{
-        NSLog(@"sign in error");
-
+        NSLog(@"获取验证码失败");
         [SVProgressHUD dismiss];
     }];
+
+}
+
+- (BOOL)checkTel:(NSString *)str
+{
+    //1[0-9]{10}
+    //^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$
+    //    NSString *regex = @"[0-9]{11}";
+    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    BOOL isMatch = [pred evaluateWithObject:str];
+    if (!isMatch) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

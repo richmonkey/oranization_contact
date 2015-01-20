@@ -63,6 +63,7 @@
 	int64_t     modifyDate;
 	NSString	*jobTitle;//职称
 	NSString	*nickName;//昵称
+    NSString    *companyName;
     
 }
 @property (nonatomic) int32_t	phoneCid;
@@ -73,6 +74,7 @@
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSDate *birthday;
 @property(nonatomic)int64_t modifyDate;
+@property(nonatomic, copy) NSString *companyName;
 
 
 -(id)initWithContact:(DbContact*)dbcontact;

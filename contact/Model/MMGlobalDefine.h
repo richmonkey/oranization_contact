@@ -9,17 +9,8 @@
 //#import <Foundation/Foundation.h>
 
 //----------------------------------内外网设置--------------------------------------
-#define SIMULATE_SERVER 1
-#define OUTER_SERVER 2
-#define SERVER SIMULATE_SERVER
-
-#if (SERVER == OUTER_SERVER)
-//外网
-#define API_URL @"http://api.contacts.momo.im"
-#elif (SERVER == SIMULATE_SERVER)
-//内网
 #define API_URL @"http://106.185.43.85:8080"
-#endif
+
 
 #define SCRIPT_HIDE_TOOLBAR @"document.getElementsByClassName(\"toolbar\")[0].style.display='none';"
 

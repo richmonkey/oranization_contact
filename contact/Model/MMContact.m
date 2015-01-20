@@ -78,6 +78,7 @@
         
         
         contact.modifyDate = [results bigIntForColumn:@"modify_date"];
+        contact.companyName = [results stringForColumn:@"company_name"];
     }
     return self;
 }
@@ -155,6 +156,98 @@
     return array;
 	
 }
+
+-(NSArray*) getCompanyList:(MMErrorType*)error {
+    // 错误码
+    MMErrorType ret = MM_DB_OK;
+    // 结果存放处
+    NSMutableArray* array = [NSMutableArray array];
+    NSError* outError = nil;
+
+    PLResultSetStatus status;
+    do{
+        // 如果数据没打开
+        if(![[self db]  goodConnection]) {
+            ret = MM_DB_FAILED_OPEN;
+            break;
+        }
+        
+        // 返回结果
+        id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError
+                                                               statement:@"SELECT company_name from contact group by company_name"];
+        if([outError code] != SQLITE_OK) {
+            ret = MM_DB_FAILED_QUERY;
+            break;
+        }
+        
+        // 如果出错
+        status = [results nextAndReturnError:&outError];
+        
+        // 循环返回结果
+        while(status) {
+            
+            NSString *company_name = [results stringForColumn:@"company_name"];
+            [array addObject:company_name];
+             status = [results nextAndReturnError:nil];
+        }
+        [results close];
+    }
+    while(0);
+    
+    // 返回错误码
+    if(error != nil)
+        *error = ret;
+    
+    
+    return array;
+
+}
+
+-(NSArray*) getSimpleContactListWithCompanyName:(NSString*)companyName error:(MMErrorType*)error {
+    // 错误码
+    MMErrorType ret = MM_DB_OK;
+    // 结果存放处
+    NSMutableArray* array = [NSMutableArray array];
+    NSError* outError = nil;
+    
+    PLResultSetStatus status;
+    do{
+        // 如果数据没打开
+        if(![[self db]  goodConnection]) {
+            ret = MM_DB_FAILED_OPEN;
+            break;
+        }
+        
+        // 返回结果
+        id<PLResultSet> results = [[self db]  executeQueryAndReturnError:&outError statement:@"SELECT contact_id, first_name, middle_name, last_name, avatar_url, name_phonetic,  phone_cid "
+                                   @" from contact "
+                                   @" where company_name = ? order by name_phonetic ", companyName];
+        if([outError code] != SQLITE_OK) {
+            ret = MM_DB_FAILED_QUERY;
+            break;
+        }
+        
+        // 如果出错
+        status = [results nextAndReturnError:&outError];
+        
+        // 循环返回结果
+        while(status) {
+            
+            DbContactSimple* contactSimple = [self dbContactSimpleFromPLResultSet:results];
+            [array addObject:contactSimple];
+            status = [results nextAndReturnError:nil];
+        }
+        [results close];
+    }
+    while(0);
+    
+    // 返回错误码
+    if(error != nil)
+        *error = ret;
+    
+    return array;
+}
+
 
 - (DbContactSimple *)dbContactSimpleFromPLResultSet:(id)object {
 	id<PLResultSet> results = object;
@@ -379,6 +472,7 @@
         [parameters setObject:PARSE_NULL_STR(contact.organization)              forKey:@"organization"];
         [parameters setObject:PARSE_NULL_STR(contact.department)                forKey:@"department"];
         [parameters setObject:PARSE_NULL_STR(contact.note)                      forKey:@"note"];
+        [parameters setObject:PARSE_NULL_STR(contact.companyName)               forKey:@"company_name"];
 	
         
         int64_t birthdayInterval = 0;
@@ -403,11 +497,11 @@
 		
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO contact (contact_id, avatar_url, first_name, middle_name, last_name"
                          @", first_name_phonetic, last_name_phonetic, name_phonetic, name_abbr, organization, department"
-      					 @", note, birthday, job_title, nick_name, name_phonetic_key, name_abbr_key, modify_date)"
+      					 @", note, birthday, job_title, nick_name, name_phonetic_key, name_abbr_key, modify_date, company_name)"
                          @" VALUES(:contact_id,  :avatar_url, :first_name, :middle_name, :last_name,"
                          @" :first_name_phonetic, :last_name_phonetic, :name_phonetic, :name_abbr, :organization, :department,"
        					 @" :note, %@,  :job_title, :nick_name, :name_phonetic_key,"
-      					 @" :name_abbr_key, :modify_date)", stringBirthdayValue];
+      					 @" :name_abbr_key, :modify_date, :company_name)", stringBirthdayValue];
 
         
 		
@@ -518,6 +612,7 @@
         [parameters setObject:PARSE_NULL_STR(contact.department)                        forKey:@"department"];
         [parameters setObject:PARSE_NULL_STR(contact.note)                              forKey:@"note"];
 		[parameters setObject:[NSNumber numberWithLongLong:contact.modifyDate]          forKey:@"modify_date"];
+        [parameters setObject:PARSE_NULL_STR(contact.companyName)                       forKey:@"company_name"];
         
         int64_t birthdayInterval = 0;
         if(nil != contact.birthday) {
@@ -538,7 +633,7 @@
 						 @" last_name_phonetic = :last_name_phonetic, name_phonetic = :name_phonetic, name_abbr = :name_abbr, "
 						 @" organization = :organization, department = :department, note = :note, "
                          @" birthday = %@, job_title = :job_title, nick_name = :nick_name, name_phonetic_key = :name_phonetic_key, "
-						 @" name_abbr_key = :name_abbr_key, modify_date = :modify_date "
+						 @" name_abbr_key = :name_abbr_key, modify_date = :modify_date, company_name = :company_name "
                          @" where contact_id = :contact_id", stringBirthdayValue];
 		
         

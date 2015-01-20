@@ -95,7 +95,12 @@ UITableViewDataSource>
 }
 
 - (void)initContactArray {
-    self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
+    NSArray *companyNames = [[MMContactManager instance]  getCompanyList:nil];
+    if (companyNames.count) {
+        NSString *firstCompany = [companyNames objectAtIndex:0];
+        self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:firstCompany error:nil];
+    }
+
     if (self.contactArray.count) {
         [self sortByIndex:self.contactArray];
         [self.contactTable reloadData];

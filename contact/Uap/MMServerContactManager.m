@@ -280,7 +280,7 @@
 
 	contact.birthday = [MMCommonAPI getDateBySting:[dic objectForKey:@"birthday"]];
 	contact.organization = [dic objectForKey:@"organization"];
-	
+    contact.companyName = [dic objectForKey:@"group_name"];
 	
 	contact.note = [dic objectForKey:@"note"];
 
