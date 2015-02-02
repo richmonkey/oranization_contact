@@ -16,9 +16,14 @@
 #import "MMAddressBook.h"
 #import "MMSyncThread.h"
 #import "NGContactDetailVController.h"
+#import "APIRequest.h"
+#import "Token.h"
 
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
+@property(nonatomic)dispatch_source_t refreshTimer;
+@property(nonatomic)int refreshFailCount;
+
 @property(nonatomic, strong) UITableView *contactTable;
 @property (strong, nonatomic) UISearchDisplayController* searchController;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -52,9 +57,60 @@ UITableViewDataSource>
 
     [[MMSyncThread shareInstance] start];
     [self initContactArray];
-
-
+    
+    dispatch_queue_t queue = dispatch_get_main_queue();
+    self.refreshTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_event_handler(self.refreshTimer, ^{
+        [self refreshAccessToken];
+    });
+    [self startRefreshTimer];
 }
+
+-(void)prepareTimer {
+    Token *token = [Token instance];
+    int now = (int)time(NULL);
+    if (now >= token.expireTimestamp - 1) {
+        dispatch_time_t w = dispatch_walltime(NULL, 0);
+        dispatch_source_set_timer(self.refreshTimer, w, DISPATCH_TIME_FOREVER, 0);
+    } else {
+        dispatch_time_t w = dispatch_walltime(NULL, (token.expireTimestamp - now - 1)*NSEC_PER_SEC);
+        dispatch_source_set_timer(self.refreshTimer, w, DISPATCH_TIME_FOREVER, 0);
+    }
+}
+
+-(void)startRefreshTimer {
+    [self prepareTimer];
+    dispatch_resume(self.refreshTimer);
+}
+
+-(void)refreshAccessToken {
+    Token *token = [Token instance];
+    [APIRequest refreshAccessToken:token.refreshToken
+                           success:^(NSString *accessToken, NSString *refreshToken, int expireTimestamp) {
+                               token.accessToken = accessToken;
+                               token.refreshToken = refreshToken;
+                               token.expireTimestamp = expireTimestamp;
+                               [token save];
+                               [self prepareTimer];
+                               
+                           }
+                              fail:^{
+                                  self.refreshFailCount = self.refreshFailCount + 1;
+                                  int64_t timeout;
+                                  if (self.refreshFailCount > 60) {
+                                      timeout = 60*NSEC_PER_SEC;
+                                  } else {
+                                      timeout = (int64_t)self.refreshFailCount*NSEC_PER_SEC;
+                                  }
+                                  
+                                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timeout), dispatch_get_main_queue(), ^{
+                                      [self prepareTimer];
+                                  });
+                                  
+                              }];
+}
+
+
 
 - (void)createCustomView {
     [self createRefreshView];
