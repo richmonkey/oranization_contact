@@ -37,9 +37,54 @@
     self.infoTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.infoTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.infoTableView.backgroundColor = [UIColor clearColor];
-    self.infoTableView.tableFooterView = [[UIView alloc] init];
+
+    CGRect frame = CGRectMake(0, 0, self.view.width, 40);
+    UIButton *button = [[UIButton alloc] initWithFrame:frame];
+    [button setTitle:@"保存到本地" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(add) forControlEvents:UIControlEventTouchUpInside];
+    self.infoTableView.tableFooterView = button;
     self.infoTableView.canCancelContentTouches = NO;
     [self.view addSubview:self.infoTableView];
+}
+
+-(void)add {
+    CFErrorRef err = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &err);
+    if (err) {
+        NSString *s = (__bridge NSString*)CFErrorCopyDescription(err);
+        NSLog(@"address book error:%@", s);
+        return;
+    }
+    
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    if (status == kABAuthorizationStatusNotDetermined) {
+        NSLog(@"not determined");
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            NSLog(@"grant:%d", granted);
+            if (granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    int32_t phoneID = 0;
+                    MMABErrorType err = [MMAddressBook insertContact:self.fullContact withDataList:self.fullContact.properties returnCellId:&phoneID];
+                    if (err != MM_AB_OK) {
+                        NSLog(@"save error");
+                    } else {
+                        NSLog(@"save ok");
+                    }
+                });
+            }
+        });
+    } else if (status == kABAuthorizationStatusAuthorized){
+        int32_t phoneID = 0;
+        MMABErrorType err = [MMAddressBook insertContact:self.fullContact withDataList:self.fullContact.properties returnCellId:&phoneID];
+        if (err != MM_AB_OK) {
+            NSLog(@"save error");
+        } else {
+            NSLog(@"save ok:%d", phoneID);
+        }
+    } else {
+        NSLog(@"no addressbook authorization");
+    }
+    CFRelease(addressBook);
 }
 
 #pragma mark -
