@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "NGContactListVController.h"
 #import "Token.h"
+#import "LeftMenuViewController.h"
 
 #if ! __has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
@@ -30,17 +31,28 @@
 //    self.window.rootViewController = navCtr;
 
 
+    NGContactListVController *contactVController = [[NGContactListVController alloc] init];
+    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: contactVController];
+    LeftMenuViewController *leftVController = [[LeftMenuViewController alloc] init];
+
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navCtr
+                                                                    leftMenuViewController:leftVController
+                                                                   rightMenuViewController:nil];
+    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
+    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
+    sideMenuViewController.delegate = self;
+    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity = 0.6;
+    sideMenuViewController.contentViewShadowRadius = 12;
+    sideMenuViewController.contentViewShadowEnabled = YES;
+    self.window.rootViewController = sideMenuViewController;
+
     Token *token = [Token instance];
-    if (token.accessToken) {
-        NGContactListVController *ctl = [[NGContactListVController alloc] init];
-        UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: ctl];
-        self.window.rootViewController = navCtr;
-    }else{
-        // Override point for customization after application launch.
-        LoginViewController *ctl = [[LoginViewController alloc] init];
-        UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: ctl];
-        self.window.rootViewController = navCtr;
-    }
+//    if (!token.accessToken) {
+//        LoginViewController *login = [[LoginViewController alloc] init];
+//        [navCtr pushViewController:login animated:NO];
+//    }
 
     [self initAppAppearance];
 

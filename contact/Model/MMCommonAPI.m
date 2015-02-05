@@ -655,4 +655,34 @@
     }];
 }
 
+//linsz
++ (NSArray *)myComponyArray {
+    NSMutableArray *saveArray = [NSMutableArray array];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"myComponyArray"]) {
+        saveArray =  [NSMutableArray array];
+        return saveArray;
+    }
+
+    saveArray = [defaults objectForKey:@"myComponyArray"];
+    return saveArray;
+}
+
++ (void)setMyComponyArray:(NSArray *)myComponyArray {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:myComponyArray forKey:@"myComponyArray"];
+}
+
+//当前公司名
++ (NSString *)curComponyName {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:@"curComponyName"];
+}
+
++ (void)setCurComponyName:(NSString *)curComponyName {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:curComponyName forKey:@"curComponyName"];
+    [defaults synchronize];
+}
+
 @end

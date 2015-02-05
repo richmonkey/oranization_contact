@@ -12,6 +12,7 @@
 
 #define kMMBeginSync @"BeginSync"
 #define kMMEndSync   @"EndSync"
+#define KMMComponyChange @"ComponyChange"
 
 @interface MMSyncThread : MMHttpRequestThread {
     BOOL lastSyncResult_;

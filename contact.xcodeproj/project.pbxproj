@@ -44,6 +44,11 @@
 		1DBAB4A11A3573F900695B30 /* personcard_sms_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */; };
 		1DBAB4A21A3573F900695B30 /* personcard_sms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */; };
 		1DBAB4A31A3573F900695B30 /* sns_icon_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */; };
+		1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD071A82FCAC001728D9 /* RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1DC6CD0F1A82FDDF001728D9 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD0E1A82FDDF001728D9 /* LeftMenuViewController.m */; };
+		1DC6CD121A830D4F001728D9 /* MyCompanyVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD111A830D4F001728D9 /* MyCompanyVController.m */; };
 		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; };
 		6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464631A6D63F50046FF32 /* MBProgressHUD.m */; };
 		6D16D5F11A08A36A001D0939 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F01A08A36A001D0939 /* Foundation.framework */; };
@@ -164,6 +169,16 @@
 		1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms_h@2x.png"; sourceTree = "<group>"; };
 		1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms@2x.png"; sourceTree = "<group>"; };
 		1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sns_icon_wechat@2x.png"; sourceTree = "<group>"; };
+		1DC6CD041A82FCAC001728D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		1DC6CD061A82FCAC001728D9 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		1DC6CD071A82FCAC001728D9 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		1DC6CD081A82FCAC001728D9 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		1DC6CD0D1A82FDDF001728D9 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewController.h; sourceTree = "<group>"; };
+		1DC6CD0E1A82FDDF001728D9 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
+		1DC6CD101A830D4F001728D9 /* MyCompanyVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCompanyVController.h; sourceTree = "<group>"; };
+		1DC6CD111A830D4F001728D9 /* MyCompanyVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCompanyVController.m; sourceTree = "<group>"; };
 		6D14645F1A6D63420046FF32 /* LoginCheckVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCheckVController.h; sourceTree = "<group>"; };
 		6D1464601A6D63420046FF32 /* LoginCheckVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCheckVController.m; sourceTree = "<group>"; };
 		6D1464621A6D63F50046FF32 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -330,6 +345,10 @@
 		1D9DC0F21A2AB4C900D2E5B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DC6CD0D1A82FDDF001728D9 /* LeftMenuViewController.h */,
+				1DC6CD0E1A82FDDF001728D9 /* LeftMenuViewController.m */,
+				1DC6CD101A830D4F001728D9 /* MyCompanyVController.h */,
+				1DC6CD111A830D4F001728D9 /* MyCompanyVController.m */,
 				6D14645F1A6D63420046FF32 /* LoginCheckVController.h */,
 				6D1464601A6D63420046FF32 /* LoginCheckVController.m */,
 				1D9DC0F71A2AB4C900D2E5B5 /* LoginViewController.h */,
@@ -414,6 +433,19 @@
 				1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1DC6CD031A82FCAC001728D9 /* RESideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				1DC6CD041A82FCAC001728D9 /* RECommonFunctions.h */,
+				1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */,
+				1DC6CD061A82FCAC001728D9 /* RESideMenu.h */,
+				1DC6CD071A82FCAC001728D9 /* RESideMenu.m */,
+				1DC6CD081A82FCAC001728D9 /* UIViewController+RESideMenu.h */,
+				1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */,
+			);
+			path = RESideMenu;
 			sourceTree = "<group>";
 		};
 		6D16D5E41A08A36A001D0939 = {
@@ -550,6 +582,7 @@
 		6D16D6861A08A921001D0939 /* third-party */ = {
 			isa = PBXGroup;
 			children = (
+				1DC6CD031A82FCAC001728D9 /* RESideMenu */,
 				6D1464621A6D63F50046FF32 /* MBProgressHUD.h */,
 				6D1464631A6D63F50046FF32 /* MBProgressHUD.m */,
 				1D9DC1131A2AB6A200D2E5B5 /* SVProgressHUD */,
@@ -797,6 +830,7 @@
 				6D16D6071A08A36A001D0939 /* ViewController.m in Sources */,
 				6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */,
 				6D16D7241A08AC01001D0939 /* ASIInputStream.m in Sources */,
+				1DC6CD0F1A82FDDF001728D9 /* LeftMenuViewController.m in Sources */,
 				1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */,
 				6D16D6C11A08A921001D0939 /* SBJsonStreamWriterAccumulator.m in Sources */,
 				6D16D6BE1A08A921001D0939 /* SBJsonStreamParserAdapter.m in Sources */,
@@ -809,6 +843,7 @@
 				6D16D6E71A08AB03001D0939 /* contact_match.cc in Sources */,
 				1D9DC10B1A2AB61700D2E5B5 /* UIView+NGAdditions.m in Sources */,
 				6D16D6C61A08A921001D0939 /* PlausibleDatabase.m in Sources */,
+				1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */,
 				6D16D6BA1A08A921001D0939 /* SBJson.m in Sources */,
 				6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */,
 				6D16D6C51A08A921001D0939 /* SBJsonWriter.m in Sources */,
@@ -823,6 +858,7 @@
 				6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */,
 				6D16D6C21A08A921001D0939 /* SBJsonStreamWriterState.m in Sources */,
 				6D16D6FC1A08AB31001D0939 /* MMUapRequest.m in Sources */,
+				1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6D16D6BB1A08A921001D0939 /* SBJsonParser.m in Sources */,
@@ -839,6 +875,7 @@
 				1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */,
 				6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */,
 				6D16D7201A08AC01001D0939 /* ASIDataDecompressor.m in Sources */,
+				1DC6CD121A830D4F001728D9 /* MyCompanyVController.m in Sources */,
 				6D16D6C81A08A921001D0939 /* PLSqliteConnectionProvider.m in Sources */,
 				6D16D7031A08AB67001D0939 /* hmac.c in Sources */,
 				6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */,
@@ -849,6 +886,7 @@
 				6D16D6CB1A08A921001D0939 /* PLSqlitePreparedStatement.m in Sources */,
 				6D16D7211A08AC01001D0939 /* ASIDownloadCache.m in Sources */,
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
+				1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */,
 				6D16D6CA1A08A921001D0939 /* PLSqliteMigrationVersionManager.m in Sources */,
 				6D16D6DD1A08AA5B001D0939 /* RegexKitLite.m in Sources */,
 				6D16D7221A08AC01001D0939 /* ASIFormDataRequest.m in Sources */,

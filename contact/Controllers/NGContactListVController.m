@@ -18,7 +18,8 @@
 #import "NGContactDetailVController.h"
 #import "APIRequest.h"
 #import "Token.h"
-
+#import "RESideMenu.h"
+#import "LoginViewController.h"
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic)dispatch_source_t refreshTimer;
@@ -43,9 +44,12 @@ UITableViewDataSource>
 
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onComponyChange:) name:KMMComponyChange object:nil];
+
 
     self.navigationItem.title = @"新游互联";
-    self.leftButton.hidden = YES;
+//    self.leftButton.hidden = YES;
+
     self.contactArray = [NSArray array];
     self.searchArray = [NSMutableArray array];
     self.contactsDictionary = [NSMutableDictionary dictionary];
@@ -85,6 +89,9 @@ UITableViewDataSource>
 
 -(void)refreshAccessToken {
     Token *token = [Token instance];
+    if (!token.accessToken) {
+        return;
+    }
     [APIRequest refreshAccessToken:token.refreshToken
                            success:^(NSString *accessToken, NSString *refreshToken, int expireTimestamp) {
                                token.accessToken = accessToken;
@@ -121,6 +128,9 @@ UITableViewDataSource>
 - (void)createRefreshView {
     UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(actionRefresh)];
     self.navigationItem.rightBarButtonItem = refreshItem;
+
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(actionLeft)];
+    self.navigationItem.leftBarButtonItem = moreItem;
 }
 
 - (void)createTableView {
@@ -151,18 +161,45 @@ UITableViewDataSource>
 }
 
 - (void)initContactArray {
-    NSArray *companyNames = [[MMContactManager instance]  getCompanyList:nil];
-    if (companyNames.count) {
-        NSString *firstCompany = [companyNames objectAtIndex:0];
-        self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:firstCompany error:nil];
-    }
-
-    if (self.contactArray.count) {
-        [self sortByIndex:self.contactArray];
-        [self.contactTable reloadData];
-    }else {
+    [self updateContactArray];
+    if (!self.contactArray.count) {
         [self synContanct];
     }
+}
+
+//用于切换公司,同步完成时候刷新数据
+- (void)updateContactArray {
+    //1保存更新后的公司名
+    NSArray *companyNames = [[MMContactManager instance] getCompanyList:nil];
+    [MMCommonAPI setMyComponyArray:companyNames];
+
+    //2获取用户配置的公司名,没选择则取第一个公司名
+    if (!companyNames.count) {
+        self.contactArray = nil;
+    }else {
+        //2获取用户配置的公司名,没选择则取第一个公司名
+        NSString *userComponyName = [MMCommonAPI curComponyName];
+        BOOL bSelComponey = NO;
+        for (NSString *name in companyNames) {
+            if ([name isEqualToString: userComponyName]) {
+                bSelComponey = YES;
+            }
+        }
+
+        //3获取用户配置的公司名下的联系人
+        if (bSelComponey) {
+            self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:userComponyName error:nil];
+        }else {
+            NSString *firstCompany = [companyNames objectAtIndex:0];
+            self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:firstCompany error:nil];
+        }
+    }
+
+
+
+    //刷新页面
+    [self sortByIndex:self.contactArray];
+    [self.contactTable reloadData];
 }
 
 - (void)synContanct {
@@ -179,17 +216,20 @@ UITableViewDataSource>
         [MMCommonAPI alert:@"更新失败"];
         return;
     }else {
-        [MMCommonAPI alert:@"已经是最新"];
+        BOOL changed = [[notification.object objectForKey:@"changed"] boolValue];
+        if (!changed) {
+            [MMCommonAPI alert:@"已经是最新"];
+            NSLog(@"unchanged");
+            return;
+        }else {
+            //不是最新则刷新界面
+            [self updateContactArray];
+        }
     }
+}
 
-    BOOL changed = [[notification.object objectForKey:@"changed"] boolValue];
-    if (!changed) {
-        NSLog(@"unchanged");
-        return;
-    }
-    self.contactArray = [[MMContactManager instance] getSimpleContactList:nil];
-    [self sortByIndex:self.contactArray];
-    [self.contactTable reloadData];
+- (void)onComponyChange:(NSNotification*)notification {
+    [self updateContactArray];
 }
 
 - (NSString*)getStringFirstLetter:(DbContactSimple *)record {
@@ -429,6 +469,10 @@ UITableViewDataSource>
 
 - (void)actionRefresh {
     [[MMSyncThread shareInstance] beginSync];
+}
+
+- (void)actionLeft {
+    [self presentLeftMenuViewController:nil];
 }
 
 @end

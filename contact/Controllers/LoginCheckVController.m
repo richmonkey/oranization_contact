@@ -115,12 +115,10 @@
 
 
 -(void) verifySuccess{
-    NGContactListVController *tabController = [[NGContactListVController alloc] init];
-    [self.navigationController pushViewController:tabController animated:YES];
-    //    UINavigationController *navCtl = [[UINavigationController alloc] initWithRootViewController:tabController];
-    //    navCtl.navigationBarHidden = YES;
-    //    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    //    delegate.window.rootViewController = navCtl;
+    [self.navigationController popToRootViewControllerAnimated:NO];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    NGContactListVController *tabController = [[NGContactListVController alloc] init];
+//    [self.navigationController pushViewController:tabController animated:YES];
 
 }
 

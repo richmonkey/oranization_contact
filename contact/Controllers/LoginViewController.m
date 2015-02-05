@@ -109,7 +109,7 @@
 - (void)actionLogin {
     NSString* phone = _phoneField.text;
     phone = [phone stringByReplacingOccurrencesOfString:@" " withString:@""];
-	if ((phone.length != 11) || (![self checkTel:phone])) {
+	if ((phone.length != 11)) {
 		[MMCommonAPI alert:@"号码格式错误"];
 		return;
 	}
@@ -129,18 +129,5 @@
 
 }
 
-- (BOOL)checkTel:(NSString *)str
-{
-    //1[0-9]{10}
-    //^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$
-    //    NSString *regex = @"[0-9]{11}";
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    BOOL isMatch = [pred evaluateWithObject:str];
-    if (!isMatch) {
-        return NO;
-    }
-    return YES;
-}
 
 @end
