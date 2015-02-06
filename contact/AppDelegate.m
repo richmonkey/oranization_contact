@@ -22,17 +22,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     application.statusBarHidden = NO;
 
-//    LoginViewController *ctl = [[LoginViewController alloc] init];
-//    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: ctl];
-//    self.window.rootViewController = navCtr;
 
-//    NGContactListVController *ctl = [[NGContactListVController alloc] init];
-//    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: ctl];
-//    self.window.rootViewController = navCtr;
-
-
-    NGContactListVController *contactVController = [[NGContactListVController alloc] init];
-    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: contactVController];
+    LoginViewController *loginVController = [[LoginViewController alloc] init];
+    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: loginVController];
     LeftMenuViewController *leftVController = [[LeftMenuViewController alloc] init];
 
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navCtr
@@ -51,8 +43,8 @@
 
     Token *token = [Token instance];
     if (!token.accessToken) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [navCtr pushViewController:login animated:NO];
+        NGContactListVController *contactVController = [[NGContactListVController alloc] init];
+        [navCtr pushViewController:contactVController animated:NO];
     }
 
     [self initAppAppearance];

@@ -47,7 +47,6 @@ UITableViewDataSource>
     [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onComponyChange:) name:KMMComponyChange object:nil];
 
-
     self.navigationItem.title = @"新游互联";
 //    self.leftButton.hidden = YES;
 
@@ -218,9 +217,7 @@ UITableViewDataSource>
     }
 }
 
-- (void)onComponyChange:(NSNotification*)notification {
-    [self updateContactArray];
-}
+
 
 - (NSString*)getStringFirstLetter:(DbContactSimple *)record {
     NSString *firstLetter = @"#";
@@ -463,6 +460,10 @@ UITableViewDataSource>
 
 - (void)actionLeft {
     [self presentLeftMenuViewController:nil];
+}
+
+- (void)onComponyChange:(NSNotification*)notification {
+    [self updateContactArray];
 }
 
 @end

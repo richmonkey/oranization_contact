@@ -9,6 +9,8 @@
 #import "LeftMenuViewController.h"
 #import "MyCompanyVController.h"
 #import "LoginViewController.h"
+#import "MMSyncThread.h"
+#import "MMCommonAPI.h"
 
 @interface LeftMenuViewController ()
 
@@ -53,10 +55,13 @@
             break;
         case 1: {
             //TODO:退出,需清空相关数据
-            LoginViewController *login = [[LoginViewController alloc] init];
+            [[MMSyncThread shareInstance] cancel];
+            [[MMSyncThread shareInstance] wait];
+            [[MMContactManager instance] clearContactDB];
+            [MMCommonAPI setCurComponyName:nil];
             [self.sideMenu hideMenuViewController];
-            [self.sideMenu.contentViewController pushViewController:login animated:NO];
-
+//            self.window.rootViewController = self.sideMenu;
+            [self.sideMenu.contentViewController popToRootViewControllerAnimated:NO];
         }
             break;
         default:

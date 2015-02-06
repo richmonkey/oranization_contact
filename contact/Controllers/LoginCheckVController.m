@@ -115,10 +115,8 @@
 
 
 -(void) verifySuccess{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    NGContactListVController *tabController = [[NGContactListVController alloc] init];
-//    [self.navigationController pushViewController:tabController animated:YES];
+    NGContactListVController *contactVController = [[NGContactListVController alloc] init];
+    [self.navigationController pushViewController:contactVController animated:NO];
 
 }
 
