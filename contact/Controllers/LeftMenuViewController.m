@@ -8,6 +8,7 @@
 
 #import "LeftMenuViewController.h"
 #import "MyCompanyVController.h"
+#import "LoginViewController.h"
 
 @interface LeftMenuViewController ()
 
@@ -44,15 +45,19 @@
     switch (indexPath.row) {
         case 0:{
             MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
+            [self.sideMenu hideMenuViewController];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
 
             }];
         }
             break;
-        case 1:
-//            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DEMOSecondViewController alloc] init]]
-//                                                         animated:YES];
-//            [self.sideMenuViewController hideMenuViewController];
+        case 1: {
+            //TODO:退出,需清空相关数据
+            LoginViewController *login = [[LoginViewController alloc] init];
+            [self.sideMenu hideMenuViewController];
+            [self.sideMenu.contentViewController pushViewController:login animated:NO];
+
+        }
             break;
         default:
             break;

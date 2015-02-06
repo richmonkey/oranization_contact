@@ -38,6 +38,7 @@
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navCtr
                                                                     leftMenuViewController:leftVController
                                                                    rightMenuViewController:nil];
+    leftVController.sideMenu = sideMenuViewController;
     sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
     sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
     sideMenuViewController.delegate = self;
@@ -49,10 +50,10 @@
     self.window.rootViewController = sideMenuViewController;
 
     Token *token = [Token instance];
-//    if (!token.accessToken) {
-//        LoginViewController *login = [[LoginViewController alloc] init];
-//        [navCtr pushViewController:login animated:NO];
-//    }
+    if (!token.accessToken) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [navCtr pushViewController:login animated:NO];
+    }
 
     [self initAppAppearance];
 

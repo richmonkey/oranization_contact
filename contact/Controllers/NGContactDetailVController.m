@@ -12,6 +12,8 @@
 #import <AddressBook/AddressBook.h>
 #import "JSON.h"
 #import "MMAddressBook.h"
+#import "UIImage+NGAdditions.h"
+#import "MMCommonAPI.h"
 
 @interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *infoTableView;
@@ -38,11 +40,19 @@
     self.infoTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.infoTableView.backgroundColor = [UIColor clearColor];
 
-    CGRect frame = CGRectMake(0, 0, self.view.width, 40);
-    UIButton *button = [[UIButton alloc] initWithFrame:frame];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(20, 0, self.view.width-40, 68)];
+    footerView.backgroundColor = [UIColor clearColor];
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 20, footerView.width, 48);
+    [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_green" top:20 left:5] forState:UIControlStateNormal];
+    [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_grey@" top:20 left:5] forState:UIControlStateDisabled];
+    [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_green_press" top:20 left:5] forState:UIControlStateHighlighted];
     [button setTitle:@"保存到本地" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(add) forControlEvents:UIControlEventTouchUpInside];
-    self.infoTableView.tableFooterView = button;
+    [footerView addSubview:button];
+
+    self.infoTableView.tableFooterView = footerView;
     self.infoTableView.canCancelContentTouches = NO;
     [self.view addSubview:self.infoTableView];
 }
@@ -67,7 +77,9 @@
                     MMABErrorType err = [MMAddressBook insertContact:self.fullContact withDataList:self.fullContact.properties returnCellId:&phoneID];
                     if (err != MM_AB_OK) {
                         NSLog(@"save error");
+                        [MMCommonAPI alert:@"保存失败"];
                     } else {
+                        [MMCommonAPI alert:@"保存成功"];
                         NSLog(@"save ok");
                     }
                 });
@@ -78,10 +90,13 @@
         MMABErrorType err = [MMAddressBook insertContact:self.fullContact withDataList:self.fullContact.properties returnCellId:&phoneID];
         if (err != MM_AB_OK) {
             NSLog(@"save error");
+            [MMCommonAPI alert:@"保存失败"];
         } else {
+            [MMCommonAPI alert:@"保存成功"];
             NSLog(@"save ok:%d", phoneID);
         }
     } else {
+        [MMCommonAPI alert:@"无通讯录访问权限"];
         NSLog(@"no addressbook authorization");
     }
     CFRelease(addressBook);

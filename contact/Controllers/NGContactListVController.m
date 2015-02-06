@@ -20,6 +20,7 @@
 #import "Token.h"
 #import "RESideMenu.h"
 #import "LoginViewController.h"
+#import "MyCompanyVController.h"
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic)dispatch_source_t refreshTimer;
@@ -161,45 +162,34 @@ UITableViewDataSource>
 }
 
 - (void)initContactArray {
+    //获取本地联系人
     [self updateContactArray];
-    if (!self.contactArray.count) {
+
+    //初次加载,本地联系人空时候进行同步
+    NSArray *companyNames = [[MMContactManager instance] getCompanyList:nil];
+    if (!companyNames.count) {
         [self synContanct];
     }
 }
 
 //用于切换公司,同步完成时候刷新数据
 - (void)updateContactArray {
-    //1保存更新后的公司名
     NSArray *companyNames = [[MMContactManager instance] getCompanyList:nil];
-    [MMCommonAPI setMyComponyArray:companyNames];
+    NSString *curComponyName = [MMCommonAPI curComponyName];
 
-    //2获取用户配置的公司名,没选择则取第一个公司名
-    if (!companyNames.count) {
-        self.contactArray = nil;
-    }else {
-        //2获取用户配置的公司名,没选择则取第一个公司名
-        NSString *userComponyName = [MMCommonAPI curComponyName];
-        BOOL bSelComponey = NO;
-        for (NSString *name in companyNames) {
-            if ([name isEqualToString: userComponyName]) {
-                bSelComponey = YES;
-            }
-        }
+    if ([companyNames containsObject:curComponyName]) {
+        //用户有选择公司,且公司存在
+        self.navigationItem.title = curComponyName;
+        self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:curComponyName error:nil];
+        [self sortByIndex:self.contactArray];
+        [self.contactTable reloadData];
+    }else if(companyNames.count){
+        //
+        MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
 
-        //3获取用户配置的公司名下的联系人
-        if (bSelComponey) {
-            self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:userComponyName error:nil];
-        }else {
-            NSString *firstCompany = [companyNames objectAtIndex:0];
-            self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:firstCompany error:nil];
-        }
+        }];
     }
-
-
-
-    //刷新页面
-    [self sortByIndex:self.contactArray];
-    [self.contactTable reloadData];
 }
 
 - (void)synContanct {

@@ -10,10 +10,11 @@
 #import "UIView+NGAdditions.h"
 #import "ContactDetailCell.h"
 #import "MMCommonAPI.h"
+#import "MMSyncThread.h"
 
 @interface MyCompanyVController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *componyTableView;
-@property(nonatomic, strong) NSArray *componyArray;
+@property(nonatomic, strong) NSMutableArray *componyArray;
 
 @end
 
@@ -22,10 +23,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.componyArray = [NSMutableArray array];
+    self.componyArray = [NSMutableArray arrayWithArray:[[MMContactManager instance] getCompanyList:nil]];
 
     self.navigationItem.title = @"切换公司";
     self.leftButton.hidden = NO;
     [self createTableView];
+
 }
 
 - (void)createTableView {
@@ -49,10 +53,14 @@
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.actionLfetBtn.hidden = YES;
-    cell.actionRightBtn.hidden = YES;
+    if ([[MMCommonAPI curComponyName] isEqualToString:self.componyArray[indexPath.row]]) {
+        cell.actionRightBtn.hidden = NO;
+        [cell.actionRightBtn setImage:[UIImage imageNamed:@"公司选中"] forState:UIControlStateNormal];
+    }else {
+        cell.actionRightBtn.hidden = YES;
+    }
 
-    NSArray *componyArray = [MMCommonAPI myComponyArray];
-    cell.tipLabel.text = componyArray[indexPath.row];
+    cell.contentLabel.text = self.componyArray[indexPath.row];
 
     return cell;
 }
@@ -62,15 +70,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *componyArray = [MMCommonAPI myComponyArray];
-    return componyArray.count;
+    return self.componyArray.count;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *componyArray = [MMCommonAPI myComponyArray];
-    NSString *curComponyName = componyArray[indexPath.row];
 
-    [MMCommonAPI setCurComponyName:curComponyName];
+    NSString *curComponyName = self.componyArray[indexPath.row];
+
+    if (![[MMCommonAPI curComponyName] isEqualToString:curComponyName]) {
+        [MMCommonAPI setCurComponyName:curComponyName];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KMMComponyChange object: nil userInfo:nil];
+    }
+
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
 }
 
 -(void)actionLeft {

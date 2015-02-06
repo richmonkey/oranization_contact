@@ -686,7 +686,6 @@
         }
 		
         
-        // TODO: delete from category and data
         ret = [self _deleteAllData:contactId];
         if(ret != MM_DB_OK)
             break;

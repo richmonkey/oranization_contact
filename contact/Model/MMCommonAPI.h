@@ -80,8 +80,6 @@
 + (NSArray* )sortIntArray:(NSArray*)array;
 
 //linsz
-+ (NSArray *)myComponyArray;
-+ (void)setMyComponyArray:(NSArray *)myComponyArray;
 //当前公司名
 + (NSString *)curComponyName;
 + (void)setCurComponyName:(NSString *)curComponyName;
