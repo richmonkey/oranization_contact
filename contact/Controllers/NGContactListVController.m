@@ -47,9 +47,6 @@ UITableViewDataSource>
     [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onComponyChange:) name:KMMComponyChange object:nil];
 
-    self.navigationItem.title = @"新游互联";
-//    self.leftButton.hidden = YES;
-
     self.contactArray = [NSArray array];
     self.searchArray = [NSMutableArray array];
     self.contactsDictionary = [NSMutableDictionary dictionary];
