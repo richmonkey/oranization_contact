@@ -25,6 +25,7 @@
 
     LoginViewController *loginVController = [[LoginViewController alloc] init];
     UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: loginVController];
+    loginVController.navCtr = navCtr;
     LeftMenuViewController *leftVController = [[LeftMenuViewController alloc] init];
 
     RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navCtr
@@ -42,7 +43,7 @@
     self.window.rootViewController = sideMenuViewController;
 
     Token *token = [Token instance];
-    if (!token.accessToken) {
+    if (token.accessToken) {
         NGContactListVController *contactVController = [[NGContactListVController alloc] init];
         [navCtr pushViewController:contactVController animated:NO];
     }

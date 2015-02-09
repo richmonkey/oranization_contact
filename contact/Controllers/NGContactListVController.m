@@ -70,6 +70,10 @@ UITableViewDataSource>
     [self startRefreshTimer];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)prepareTimer {
     Token *token = [Token instance];
     int now = (int)time(NULL);
@@ -459,7 +463,11 @@ UITableViewDataSource>
 }
 
 - (void)actionLeft {
-    [self presentLeftMenuViewController:nil];
+    MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
+    }];
+
+//    [self presentLeftMenuViewController:nil];
 }
 
 - (void)onComponyChange:(NSNotification*)notification {

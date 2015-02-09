@@ -47,9 +47,9 @@
 		1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD071A82FCAC001728D9 /* RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1DC6CD0F1A82FDDF001728D9 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD0E1A82FDDF001728D9 /* LeftMenuViewController.m */; };
+		1DC6CD0F1A82FDDF001728D9 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD0E1A82FDDF001728D9 /* LeftMenuViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1DC6CD121A830D4F001728D9 /* MyCompanyVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD111A830D4F001728D9 /* MyCompanyVController.m */; };
-		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; };
+		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464631A6D63F50046FF32 /* MBProgressHUD.m */; };
 		6D16D5F11A08A36A001D0939 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F01A08A36A001D0939 /* Foundation.framework */; };
 		6D16D5F31A08A36A001D0939 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */; };

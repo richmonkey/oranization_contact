@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "MMSyncThread.h"
 #import "MMCommonAPI.h"
+#import "NGContactListVController.h"
 
 @interface LeftMenuViewController ()
 
@@ -49,7 +50,6 @@
             MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
             [self.sideMenu hideMenuViewController];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
-
             }];
         }
             break;
@@ -60,8 +60,8 @@
             [[MMContactManager instance] clearContactDB];
             [MMCommonAPI setCurComponyName:nil];
             [self.sideMenu hideMenuViewController];
-//            self.window.rootViewController = self.sideMenu;
-            [self.sideMenu.contentViewController popToRootViewControllerAnimated:NO];
+            NGContactListVController *viewController = (NGContactListVController *)self.sideMenu.contentViewController;
+            [viewController.navigationController popToRootViewControllerAnimated:NO];
         }
             break;
         default:

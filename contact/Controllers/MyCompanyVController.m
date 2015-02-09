@@ -39,6 +39,7 @@
     self.componyTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.componyTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.componyTableView.backgroundColor = [UIColor clearColor];
+    self.componyTableView.tableFooterView = [UIView new];
 
     [self.view addSubview:self.componyTableView];
 }
