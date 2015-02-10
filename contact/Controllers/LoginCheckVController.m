@@ -28,11 +28,12 @@
 
     [self setTitle:@"输入验证码"];
 
+
     //手机号码
-	UIImageView* backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 50)] ;
+	UIImageView* backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 50)] ;
 	backImage.userInteractionEnabled = YES;
     backImage.backgroundColor = [UIColor whiteColor];
-	_codeField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, 280, 30)] ;
+	_codeField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, backImage.frame.size.width-40, 30)] ;
 	_codeField.borderStyle = UITextBorderStyleNone;
 	_codeField.textAlignment = NSTextAlignmentLeft;
     _codeField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入短信验证码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.702f green:0.702f blue:0.702f alpha:1.00f], NSFontAttributeName: [UIFont systemFontOfSize:17]}];
@@ -48,7 +49,7 @@
     [_codeField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
     self.registBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.registBtn.frame = CGRectMake(15, 138, 290, 48);
+    self.registBtn.frame = CGRectMake(15, 138, self.view.frame.size.width-30, 48);
 	[self.registBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green" top:20 left:5] forState:UIControlStateNormal];
     [self.registBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_grey@" top:20 left:5] forState:UIControlStateDisabled];
     [self.registBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green_press" top:20 left:5] forState:UIControlStateHighlighted];
