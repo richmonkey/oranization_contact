@@ -9,7 +9,7 @@
 //#import <Foundation/Foundation.h>
 
 //----------------------------------内外网设置--------------------------------------
-#define API_URL @"http://106.185.43.85:8080"
+#define API_URL @"http://goubuli.mobi"
 
 
 #define SCRIPT_HIDE_TOOLBAR @"document.getElementsByClassName(\"toolbar\")[0].style.display='none';"
