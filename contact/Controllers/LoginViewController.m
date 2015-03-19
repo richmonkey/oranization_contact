@@ -35,10 +35,10 @@
     self.leftButton.hidden = YES;
 
     //手机号码
-	UIImageView* backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 50)] ;
+	UIImageView* backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 50)] ;
 	backImage.userInteractionEnabled = YES;
     backImage.backgroundColor = [UIColor whiteColor];
-	_phoneField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, 280, 30)] ;
+	_phoneField = [[UITextField alloc] initWithFrame: CGRectMake(20, 12, backImage.frame.size.width-40, 30)] ;
 	_phoneField.borderStyle = UITextBorderStyleNone;
 	_phoneField.textAlignment = NSTextAlignmentLeft;
     _phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入手机号码" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:0.702f green:0.702f blue:0.702f alpha:1.00f], NSFontAttributeName: [UIFont systemFontOfSize:17]}];
@@ -54,7 +54,7 @@
     [_phoneField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
 	self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.nextBtn.frame = CGRectMake(15, 138, 290, 48);
+    self.nextBtn.frame = CGRectMake(15, 138, self.view.frame.size.width-30, 48);
 	[self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green" top:20 left:5] forState:UIControlStateNormal];
     [self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_grey@" top:20 left:5] forState:UIControlStateDisabled];
     [self.nextBtn setBackgroundImage: [UIImage imageWithStretchName:@"btn_green_press" top:20 left:5] forState:UIControlStateHighlighted];
