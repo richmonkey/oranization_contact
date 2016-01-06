@@ -79,8 +79,5 @@
 
 + (NSArray* )sortIntArray:(NSArray*)array;
 
-//linsz
-//当前公司名
-+ (NSString *)curComponyName;
-+ (void)setCurComponyName:(NSString *)curComponyName;
+
 @end

@@ -9,5 +9,7 @@
 #import "NGViewController.h"
 #import "MMContact.h"
 
-@interface MyCompanyVController : NGViewController
+@interface MyCompanyViewController : UIViewController
+@property(nonatomic, strong) NSArray *organizations;
+
 @end

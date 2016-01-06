@@ -44,6 +44,10 @@
     self.phoneNumber = [MMGlobalData getPreferenceforKey:@"phone_number"];
     self.expireTimestamp = [[MMGlobalData getPreferenceforKey:@"token_expire"] intValue];
     self.uid = [[MMGlobalData getPreferenceforKey:@"token_uid"] longLongValue];
+    self.gobelieveToken = [MMGlobalData getPreferenceforKey:@"gobelieve_token"];
+    self.name = [MMGlobalData getPreferenceforKey:@"name"];
+    self.organizationName = [MMGlobalData getPreferenceforKey:@"organization_name"];
+    self.organizationID = [[MMGlobalData getPreferenceforKey:@"organization_id"] longLongValue];
 }
 
 -(void)save {
@@ -52,6 +56,10 @@
     [MMGlobalData setPreference:self.phoneNumber forKey:@"phone_number"];
     [MMGlobalData setPreference:[NSNumber numberWithInt:self.expireTimestamp] forKey:@"token_expire"];
     [MMGlobalData setPreference:[NSNumber numberWithLongLong:self.uid] forKey:@"token_uid"];
+    [MMGlobalData setPreference:self.name forKey:@"name"];
+    [MMGlobalData setPreference:self.gobelieveToken forKey:@"gobelieve_token"];
+    [MMGlobalData setPreference:self.organizationName forKey:@"organization_name"];
+    [MMGlobalData setPreference:[NSNumber numberWithLongLong:self.organizationID] forKey:@"organization_id"];
     [MMGlobalData savePreference];
 }
 

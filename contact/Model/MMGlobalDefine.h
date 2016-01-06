@@ -10,7 +10,7 @@
 
 //----------------------------------内外网设置--------------------------------------
 #define API_URL @"http://goubuli.mobi"
-
+//#define API_URL @"http://192.168.99.100"
 
 #define SCRIPT_HIDE_TOOLBAR @"document.getElementsByClassName(\"toolbar\")[0].style.display='none';"
 

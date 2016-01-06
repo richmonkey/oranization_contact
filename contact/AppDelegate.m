@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "NGContactListVController.h"
 #import "Token.h"
-#import "LeftMenuViewController.h"
+#import "MainTabBarController.h"
 
 #if ! __has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
@@ -22,34 +22,17 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     application.statusBarHidden = NO;
 
-
-    LoginViewController *loginVController = [[LoginViewController alloc] init];
-    UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: loginVController];
-    loginVController.navCtr = navCtr;
-    LeftMenuViewController *leftVController = [[LeftMenuViewController alloc] init];
-
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navCtr
-                                                                    leftMenuViewController:leftVController
-                                                                   rightMenuViewController:nil];
-    leftVController.sideMenu = sideMenuViewController;
-    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"Stars"];
-    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
-    sideMenuViewController.delegate = self;
-    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
-    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
-    sideMenuViewController.contentViewShadowOpacity = 0.6;
-    sideMenuViewController.contentViewShadowRadius = 12;
-    sideMenuViewController.contentViewShadowEnabled = YES;
-    self.window.rootViewController = sideMenuViewController;
-
     Token *token = [Token instance];
-    if (token.accessToken) {
-        NGContactListVController *contactVController = [[NGContactListVController alloc] init];
-        [navCtr pushViewController:contactVController animated:NO];
+    if (token.accessToken && token.uid > 0) {
+        MainTabBarController *root = [[MainTabBarController alloc] init];
+        self.window.rootViewController = root;
+    } else {
+        LoginViewController *loginVController = [[LoginViewController alloc] init];
+        UINavigationController * navCtr = [[UINavigationController alloc] initWithRootViewController: loginVController];
+        self.window.rootViewController = navCtr;
     }
 
     [self initAppAppearance];
-
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -69,10 +52,6 @@
     //状态栏设置为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    //取出底部border
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.090f green:0.482f blue:0.702f alpha:1.00f]];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-//
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.137f green:0.773f blue:0.694f alpha:1.00f]];

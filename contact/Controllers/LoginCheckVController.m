@@ -14,6 +14,10 @@
 #import "Token.h"
 #import "UIImage+NGAdditions.h"
 #import "SVProgressHUD.h"
+#import "MyCompanyViewController.h"
+#import "MainTabBarController.h"
+#import "Organization.h"
+#import "MMCommonAPI.h"
 
 @interface LoginCheckVController () <UITextFieldDelegate>
 @property (strong, nonatomic) UITextField *codeField;
@@ -95,19 +99,26 @@
 
     [APIRequest requestAuthToken:self.codeField.text zone:@"86"
                           number:self.phoneNumberStr deviceToken:@""
-                         success:^(int64_t uid, NSString* accessToken, NSString *refreshToken, int expireTimestamp, NSString *state){
+                         success:^(NSString* accessToken, NSString *refreshToken, int expireTimestamp, NSArray *orgs) {
                              NSLog(@"auth token success");
                              Token *token = [Token instance];
                              token.accessToken = accessToken;
                              token.refreshToken = refreshToken;
                              token.expireTimestamp = expireTimestamp;
-                             token.uid = uid;
+                             token.uid = 0;
                              token.phoneNumber = self.phoneNumberStr;
                              [token save];
 
                              [SVProgressHUD dismiss];
-
-                             [weakSelf verifySuccess];
+                             
+                             NSMutableArray *array = [NSMutableArray array];
+                             for (NSDictionary *dict in orgs) {
+                                 Organization *o = [[Organization alloc] init];
+                                 o.ID = [[dict objectForKey:@"id"] longLongValue];
+                                 o.name = [dict objectForKey:@"name"];
+                                 [array addObject:o];
+                             }
+                             [weakSelf verifySuccess:array];
                          }fail:^{
                              NSLog(@"auth token fail");
                              [SVProgressHUD dismiss];
@@ -115,10 +126,15 @@
 }
 
 
--(void) verifySuccess{
-    NGContactListVController *contactVController = [[NGContactListVController alloc] init];
-    [self.navigationController pushViewController:contactVController animated:NO];
+-(void) verifySuccess:(NSArray*)orgs {
 
+    if (orgs.count == 0) {
+        [MMCommonAPI alert:@"您的号码无法登陆,请联系系统管理员"];
+    } else {
+        MyCompanyViewController *ctl = [[MyCompanyViewController alloc] init];
+        ctl.organizations = orgs;
+        [self.navigationController pushViewController:ctl animated:YES];
+    }
 }
 
 

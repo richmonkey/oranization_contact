@@ -20,7 +20,8 @@
 #import "Token.h"
 #import "RESideMenu.h"
 #import "LoginViewController.h"
-#import "MyCompanyVController.h"
+#import "MyCompanyViewController.h"
+
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic)dispatch_source_t refreshTimer;
@@ -54,8 +55,15 @@ UITableViewDataSource>
     self.filterContactsDictionary = [NSMutableDictionary dictionary];
     self.filterContactNameIndexArray = [NSMutableArray array];
 
+    
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(actionRefresh)];
+    self.navigationItem.rightBarButtonItem = refreshItem;
+    
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(actionLeft)];
+    self.navigationItem.leftBarButtonItem = moreItem;
+    
     [self createCustomView];
-
+    
     [[MMSyncThread shareInstance] start];
     [self initContactArray];
     
@@ -121,17 +129,8 @@ UITableViewDataSource>
 
 
 - (void)createCustomView {
-    [self createRefreshView];
     [self createTableView];
     [self createHeaderView];
-}
-
-- (void)createRefreshView {
-    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(actionRefresh)];
-    self.navigationItem.rightBarButtonItem = refreshItem;
-
-    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(actionLeft)];
-    self.navigationItem.leftBarButtonItem = moreItem;
 }
 
 - (void)createTableView {
@@ -174,22 +173,11 @@ UITableViewDataSource>
 
 //用于切换公司,同步完成时候刷新数据
 - (void)updateContactArray {
-    NSArray *companyNames = [[MMContactManager instance] getCompanyList:nil];
-    NSString *curComponyName = [MMCommonAPI curComponyName];
-
-    if ([companyNames containsObject:curComponyName]) {
-        //用户有选择公司,且公司存在
-        self.navigationItem.title = curComponyName;
-        self.contactArray = [[MMContactManager instance] getSimpleContactListWithCompanyName:curComponyName error:nil];
-        [self sortByIndex:self.contactArray];
-        [self.contactTable reloadData];
-    }else if(companyNames.count){
-        //
-        MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
-
-        }];
-    }
+    self.navigationItem.title = [Token instance].organizationName;
+    MMErrorType error = 0;
+    self.contactArray = [[MMContactManager instance] getSimpleContactList:&error];
+    [self sortByIndex:self.contactArray];
+    [self.contactTable reloadData];
 }
 
 - (void)synContanct {
@@ -455,17 +443,15 @@ UITableViewDataSource>
     return YES;
 }
 
+- (void)actionLeft {
+    MyCompanyViewController *viewController = [[MyCompanyViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 - (void)actionRefresh {
     [[MMSyncThread shareInstance] beginSync];
 }
 
-- (void)actionLeft {
-    MyCompanyVController *viewController = [[MyCompanyVController alloc] init];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:viewController] animated:YES completion:^{
-    }];
-
-//    [self presentLeftMenuViewController:nil];
-}
 
 - (void)onComponyChange:(NSNotification*)notification {
     [self updateContactArray];

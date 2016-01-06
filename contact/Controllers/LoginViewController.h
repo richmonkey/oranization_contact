@@ -9,5 +9,5 @@
 #import "NGViewController.h"
 
 @interface LoginViewController : NGViewController
-@property (strong, nonatomic) UINavigationController * navCtr;
+
 @end

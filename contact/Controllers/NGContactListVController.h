@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "NGViewController.h"
-@interface NGContactListVController : NGViewController
+@interface NGContactListVController : UIViewController
 
 @end
