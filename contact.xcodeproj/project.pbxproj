@@ -82,7 +82,6 @@
 		6D16D6CC1A08A921001D0939 /* PLSqliteResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6B81A08A921001D0939 /* PLSqliteResultSet.m */; };
 		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; };
 		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; };
-		6D16D6DD1A08AA5B001D0939 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DC1A08AA5B001D0939 /* RegexKitLite.m */; };
 		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; };
 		6D16D6E41A08AADC001D0939 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6E31A08AADC001D0939 /* Reachability.m */; };
 		6D16D7031A08AB67001D0939 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6FF1A08AB67001D0939 /* hmac.c */; };
@@ -104,7 +103,7 @@
 		6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7B21A08B287001D0939 /* MMSyncThread.m */; };
 		6D16D7B71A08C3FF001D0939 /* momo.db in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D7B61A08C228001D0939 /* momo.db */; };
 		6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7BA1A08EFA0001D0939 /* GTMBase64.m */; };
-		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; };
+		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; };
 		6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFC1C3D43EF007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC10001C3D43EF007D87DD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFE1C3D43EF007D87DD /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -255,8 +254,6 @@
 		6D16D6CF1A08A980001D0939 /* MMGlobalDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGlobalDefine.h; sourceTree = "<group>"; };
 		6D16D6D11A08A995001D0939 /* MMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLogger.h; sourceTree = "<group>"; };
 		6D16D6D21A08A995001D0939 /* MMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLogger.m; sourceTree = "<group>"; };
-		6D16D6DB1A08AA5B001D0939 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
-		6D16D6DC1A08AA5B001D0939 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonAPI.h; sourceTree = "<group>"; };
 		6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonAPI.m; sourceTree = "<group>"; };
 		6D16D6E21A08AADC001D0939 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -595,7 +592,6 @@
 				6D16D7011A08AB67001D0939 /* md5.c */,
 				6D16D7021A08AB67001D0939 /* md5.h */,
 				6D16D6E11A08AADC001D0939 /* Reachability */,
-				6D16D6DA1A08AA5B001D0939 /* regex */,
 				6D16D6871A08A921001D0939 /* json-framework */,
 				6D16D6A31A08A921001D0939 /* PLDatabase */,
 			);
@@ -662,15 +658,6 @@
 				6D16D6B81A08A921001D0939 /* PLSqliteResultSet.m */,
 			);
 			path = PLDatabase;
-			sourceTree = "<group>";
-		};
-		6D16D6DA1A08AA5B001D0939 /* regex */ = {
-			isa = PBXGroup;
-			children = (
-				6D16D6DB1A08AA5B001D0939 /* RegexKitLite.h */,
-				6D16D6DC1A08AA5B001D0939 /* RegexKitLite.m */,
-			);
-			path = regex;
 			sourceTree = "<group>";
 		};
 		6D16D6E11A08AADC001D0939 /* Reachability */ = {
@@ -882,7 +869,6 @@
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
 				1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */,
 				6D16D6CA1A08A921001D0939 /* PLSqliteMigrationVersionManager.m in Sources */,
-				6D16D6DD1A08AA5B001D0939 /* RegexKitLite.m in Sources */,
 				6D16D7221A08AC01001D0939 /* ASIFormDataRequest.m in Sources */,
 				1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */,
 				1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */,

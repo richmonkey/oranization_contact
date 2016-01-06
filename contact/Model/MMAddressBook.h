@@ -33,10 +33,7 @@ typedef int MMABErrorType;
 +(ABRecordRef)ABRecordFromDbStruct:(DbContact *)dbcontact withDataList:(NSArray *)listData;
 
 
-
 +(int)getContactCount;
-
-
 
 +(NSArray*)insertContacts:(NSArray*)fullContacts;
 
@@ -66,7 +63,7 @@ typedef int MMABErrorType;
 +(MMErrorType) updateContactAvatar:(NSData*)avatar byPhoneId:(int32_t)phoneContactId;
 
 +(NSData*)getAvatarData:(int32_t)phonecid;
-+(UIImage *)getAvatar:(int32_t)phonecid;
++(UIImage*)getAvatar:(int32_t)phonecid;
 
 
 @end

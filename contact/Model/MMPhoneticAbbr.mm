@@ -12,7 +12,7 @@
 #include <string>
 #import <wchar.h>
 #include <CoreFoundation/CoreFoundation.h>
-
+#import "contact_match.h"
 
 @implementation MMPhoneticAbbr
 
@@ -137,6 +137,23 @@
 	const char* p = pinyins_unicode[word - 0x4e00];
 	NSString *pinyins = [NSString stringWithUTF8String:p];
 	return [pinyins componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
+
++ (BOOL)contactMatch:(NSString*)contactName
+             pattern:(NSString*)pattern
+             isFuzzy:(BOOL)isFuzzy
+           isDigital:(BOOL)isDigital {
+#define MAX_NAME_LEN 8
+    wchar_t contact_name_wide[MAX_NAME_LEN] = {0};
+    CFIndex length = CFStringGetLength((CFStringRef)contactName);
+    CFRange rangeToProcess = CFRangeMake(0, length);
+    
+    CFStringGetBytes((CFStringRef)contactName, rangeToProcess, kCFStringEncodingUTF32, 0, FALSE, (UInt8 *)contact_name_wide, sizeof(contact_name_wide), NULL);
+    
+    const char* szPattern = [pattern UTF8String];
+    int score = contact_match(isFuzzy, contact_name_wide, szPattern, isDigital, NULL);
+    return (score > 0);
 }
 
 

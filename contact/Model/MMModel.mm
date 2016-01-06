@@ -117,9 +117,7 @@ void closeThreadDBConnenction(void* parameter) {
 			
 			sqlite3 *db = [currentThreadDB sqliteHandle];
             if (db) {
-                if (0 != sqlite3_create_function(db, "contact_match", 6, SQLITE_ANY, NULL, contact_match, NULL, NULL)) {
-                    NSLog(@"sqlite3_create_function failed");
-                }
+
             }
         }
 		

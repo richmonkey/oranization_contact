@@ -67,10 +67,11 @@ UITableViewDataSource>
     [[MMSyncThread shareInstance] start];
     [self initContactArray];
     
+    __weak NGContactListVController *wself = self;
     dispatch_queue_t queue = dispatch_get_main_queue();
     self.refreshTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_event_handler(self.refreshTimer, ^{
-        [self refreshAccessToken];
+        [wself refreshAccessToken];
     });
     [self startRefreshTimer];
 }

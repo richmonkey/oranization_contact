@@ -46,6 +46,9 @@ alpha:(a)]
     [[self tabBar] setBarTintColor:RGBACOLOR(245, 245, 246, 1)];
 }
 
+-(void)dealloc {
+    NSLog(@"main tab bar dealloc");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

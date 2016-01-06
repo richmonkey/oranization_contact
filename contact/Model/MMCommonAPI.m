@@ -8,7 +8,6 @@
 
 #import "MMCommonAPI.h"
 #import "MMPhoneticAbbr.h"
-#import "RegexKitLite.h"
 #import "MMRequest.h"
 
 @implementation MMCommonAPI

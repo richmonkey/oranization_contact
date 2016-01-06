@@ -36,6 +36,11 @@ typedef enum {
 // 获取字符对应的所有拼音
 + (NSArray *)getWordPinyin:(unichar)word;
 
++ (BOOL)contactMatch:(NSString*)contactName
+             pattern:(NSString*)pattern
+             isFuzzy:(BOOL)isFuzzy
+           isDigital:(BOOL)isDigital;
+
 
 @end
 
