@@ -7,7 +7,7 @@
 //
 
 #import "MMServerContactManager.h"
-#import "MMUapRequest.h"
+#import "MMRequest.h"
 #import "SBJSON.h"
 #import "ASIHTTPRequest.h"
 #import "MMCommonAPI.h"
@@ -17,7 +17,7 @@
 
 +(NSArray*)getSimpleContactList {
 	NSArray *response = nil;
-	NSInteger statusCode = [MMUapRequest getSync:@"contact.json?contact_group_id=all&info=0" jsonValue:&response compress:YES];
+	NSInteger statusCode = [MMRequest getSync:@"contact.json?contact_group_id=all&info=0" jsonValue:&response compress:YES];
 	if (statusCode != 200 || !response) {
 		return nil;
 	}
@@ -46,7 +46,7 @@
 	NSDictionary *dic = [NSDictionary dictionaryWithObject:str forKey:@"ids"];
 	
 	NSArray *response = nil;
-	NSInteger statusCode = [MMUapRequest postSync:@"contact/show_batch.json" withObject:dic jsonValue:&response];
+	NSInteger statusCode = [MMRequest postSync:@"contact/show_batch.json" withObject:dic jsonValue:&response];
 	if (statusCode != 200) {
 		return nil;
 	}

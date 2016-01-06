@@ -15,7 +15,7 @@
 #import "MMContact.h"
 #import "MMGlobalDefine.h"
 #import "MMCommonAPI.h"
-#import "MMUapRequest.h"
+#import "MMRequest.h"
 
 @implementation MMContactSync
 @synthesize addedCount, updatedCount, deletedCout;

@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
-#import "MMUapRequest.h"
-
+#import "MMRequest.h"
 #define kMMBeginSync @"BeginSync"
 #define kMMEndSync   @"EndSync"
 #define KMMComponyChange @"ComponyChange"

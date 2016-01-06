@@ -7,9 +7,9 @@
 //
 
 #import "MMCommonAPI.h"
-#import "MMUapRequest.h"
 #import "MMPhoneticAbbr.h"
 #import "RegexKitLite.h"
+#import "MMRequest.h"
 
 @implementation MMCommonAPI
 

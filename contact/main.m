@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
         
         
         [MMSyncThread shareInstance];
-        [MMUapRequest shareInstance];
+        [MMRequest shareInstance];
         
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
