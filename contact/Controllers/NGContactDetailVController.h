@@ -9,6 +9,6 @@
 #import "NGViewController.h"
 #import "MMContact.h"
 
-@interface NGContactDetailVController : NGViewController
+@interface NGContactDetailVController : UIViewController
 @property (strong, nonatomic) MMFullContact *fullContact;
 @end

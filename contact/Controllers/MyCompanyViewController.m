@@ -19,7 +19,7 @@
 #import "Token.h"
 #import "MMSyncThread.h"
 #import "MMContact.h"
-
+#import <imsdk/IMService.h>
 @interface MyCompanyViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *componyTableView;
 @property(nonatomic) Organization *organization;
@@ -142,6 +142,8 @@
                                   [[MMSyncThread shareInstance] wait];
                                   
                                   [[MMContactManager instance] clearContactDB];
+                                  
+                                  [[IMService instance] stop];
                               }
                               
                               MainTabBarController *main = [[MainTabBarController alloc] init];

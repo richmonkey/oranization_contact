@@ -12,6 +12,13 @@
 #import "Token.h"
 #import "MainTabBarController.h"
 
+#import <imsdk/IMService.h>
+#import <imkit/PeerMessageHandler.h>
+#import <imkit/GroupMessageHandler.h>
+#import <imkit/PeerMessageDB.h>
+#import <imkit/GroupMessageDB.h>
+#import <imkit/IMHttpAPI.H>
+
 #if ! __has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
@@ -19,6 +26,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //app可以单独部署服务器，给予第三方应用更多的灵活性
+    [IMHttpAPI instance].apiURL = @"http://api.gobelieve.io";
+    [IMService instance].host = @"imnode.gobelieve.io";
+    
+    [IMService instance].deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"device id:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+    [IMService instance].peerMessageHandler = [PeerMessageHandler instance];
+    [IMService instance].groupMessageHandler = [GroupMessageHandler instance];
+    [[IMService instance] startRechabilityNotifier];
+
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     application.statusBarHidden = NO;
 
@@ -57,5 +77,19 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.137f green:0.773f blue:0.694f alpha:1.00f]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.137f green:0.773f blue:0.694f alpha:1.00f]];
 }
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [[IMService instance] enterBackground];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    [[IMService instance] enterForeground];
+}
+
 
 @end

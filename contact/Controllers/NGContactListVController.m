@@ -45,7 +45,6 @@ UITableViewDataSource>
 
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onComponyChange:) name:KMMComponyChange object:nil];
 
     self.contactArray = [NSArray array];
     self.searchArray = [NSMutableArray array];
@@ -76,6 +75,7 @@ UITableViewDataSource>
 }
 
 - (void)dealloc {
+    NSLog(@"contact list controller dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -406,6 +406,7 @@ UITableViewDataSource>
         MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
         
         NGContactDetailVController *viewController = [NGContactDetailVController new];
+        viewController.hidesBottomBarWhenPushed = YES;
         viewController.fullContact = fullContact;
         [self.navigationController pushViewController:viewController animated:YES];
     }else {
@@ -454,8 +455,5 @@ UITableViewDataSource>
 }
 
 
-- (void)onComponyChange:(NSNotification*)notification {
-    [self updateContactArray];
-}
 
 @end

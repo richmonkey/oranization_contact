@@ -13,11 +13,22 @@
 #import "JSON.h"
 #import "MMAddressBook.h"
 #import "UIImage+NGAdditions.h"
+#import "UIButton+NGAdditions.h"
 #import "MMCommonAPI.h"
+#import "ContactCache.h"
+#import "Token.h"
+#import <imkit/PeerMessageViewController.h>
 
-@interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource>
+@interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource, MessageViewControllerUserDelegate>
 @property(nonatomic, strong) UITableView *infoTableView;
 @property(nonatomic, strong) NSString *curPhone;
+
+
+@property(nonatomic,retain)UIButton* leftButton;
+@property(nonatomic,retain)UIButton* rightButton;
+-(void)actionLeft;
+-(void)actionRight;
+
 
 @end
 
@@ -27,8 +38,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.navigationItem.title = @"详细信息";
+    
+    self.leftButton = [UIButton buttonWithImageName:@"nav_back"];
+    [self.leftButton addTarget:self action:@selector(actionLeft) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_leftButton];
+    
+    self.rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.rightButton setTitleColor:[UIColor colorWithRed:0.529f green:0.808f blue:0.749f alpha:1.00f] forState:UIControlStateDisabled];
+    [self.rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    self.rightButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    [self.rightButton setFrame:CGRectMake(0, 5, 50, 44)];
+    [self.rightButton addTarget:self action:@selector(actionRight) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightButton];
+    
     self.leftButton.hidden = NO;
+    
+    
     [self createTableView];
 }
 
@@ -51,10 +79,60 @@
     [button setTitle:@"保存到本地" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(add) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:button];
+    
+    if ([Token instance].uid != self.fullContact.contactId) {
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 78, footerView.width, 48);
+        [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_green" top:20 left:5] forState:UIControlStateNormal];
+        [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_grey@" top:20 left:5] forState:UIControlStateDisabled];
+        [button setBackgroundImage: [UIImage imageWithStretchName:@"btn_green_press" top:20 left:5] forState:UIControlStateHighlighted];
+        [button setTitle:@"发消息" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(sendMessage:) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:button];
+        
+        footerView.frame = CGRectMake(20, 0, self.view.width-40, 126);
+    }
 
     self.infoTableView.tableFooterView = footerView;
     self.infoTableView.canCancelContentTouches = NO;
     [self.view addSubview:self.infoTableView];
+}
+
+
+//从本地获取用户信息, IUser的name字段为空时，显示identifier字段
+- (IUser*)getUser:(int64_t)uid {
+    IUser *u = [[IUser alloc] init];
+    u.uid = uid;
+    u.identifier = [NSString stringWithFormat:@"%lld", uid];
+    ContactCache *cache = [ContactCache instance];
+    for (DbContactSimple *c in cache.contacts) {
+        if (c.contactId == uid) {
+            u.name = c.fullName;
+            break;
+        }
+    }
+    NSLog(@"user name:%@", u.name);
+    return u;
+}
+//从服务器获取用户信息
+- (void)asyncGetUser:(int64_t)uid cb:(void(^)(IUser*))cb {
+    NSLog(@"async get user...");
+}
+
+-(void)sendMessage:(id)sender {
+    Token *token = [Token instance];
+    PeerMessageViewController *ctrl = [[PeerMessageViewController alloc] init];
+    ctrl.hidesBottomBarWhenPushed = YES;
+    ctrl.userDelegate = self;
+    ctrl.currentUID = token.uid;
+    ctrl.peerUID = self.fullContact.contactId;
+    
+    IUser *u = [self getUser:ctrl.peerUID];
+    if (u.name.length > 0) {
+        ctrl.peerName = u.name;
+    }
+    
+    [self.navigationController pushViewController:ctrl animated:YES];
 }
 
 -(void)add {
@@ -235,5 +313,15 @@
         [[UIApplication sharedApplication] openURL:phoneUrl];
     }
 }
+
+
+-(void)actionLeft {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)actionRight {
+    
+}
+
 
 @end
