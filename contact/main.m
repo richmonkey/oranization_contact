@@ -10,7 +10,6 @@
 #import <sqlite3.h>
 #import "AppDelegate.h"
 #import "MMSyncThread.h"
-#import "MMGlobalData.h"
 
 int main(int argc, char * argv[])
 {

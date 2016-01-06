@@ -18,6 +18,7 @@
 #import "MBProgressHUD.h"
 #import "Token.h"
 #import "MMSyncThread.h"
+#import "MMContact.h"
 
 @interface MyCompanyViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *componyTableView;
@@ -68,9 +69,9 @@
     [self createTableView];
 
     self.login = ([Token instance].uid > 0);
-    
-    MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     if (self.organizations.count == 0) {
+        MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [APIRequest getOrganizations:^(NSArray *orgs) {
             [hub hide:NO];
             self.organizations = orgs;
@@ -139,6 +140,8 @@
                               if (self.isLogin) {
                                   [[MMSyncThread shareInstance] cancel];
                                   [[MMSyncThread shareInstance] wait];
+                                  
+                                  [[MMContactManager instance] clearContactDB];
                               }
                               
                               MainTabBarController *main = [[MainTabBarController alloc] init];

@@ -7,7 +7,6 @@
 //
 
 #import "MMGlobalData.h"
-#import "MMGlobalPara.h"
 #import "DbStruct.h"
 
 @interface MMGlobalData()
@@ -30,6 +29,11 @@
 	}
 	return instance;
 }
+
++ (NSString*)documentDirectory {
+    return [NSString stringWithFormat:@"%@/Documents/MomoData/", NSHomeDirectory()];
+}
+
 
 + (void)setPreference:(id)anObject forKey:(id)aKey {
     @synchronized(self) {
@@ -54,7 +58,7 @@
 + (void)savePreference {
     @synchronized(self) {
         MMGlobalData *instance = [MMGlobalData getInstance];
-        NSString *documentsDirectory = [MMGlobalPara documentDirectory];
+        NSString *documentsDirectory = [self documentDirectory];
         NSString *prefPath = [documentsDirectory stringByAppendingPathComponent:@"/momo_preference.plist"];
         [instance.preference_ writeToFile:prefPath atomically:YES];
     }
@@ -63,7 +67,7 @@
 + (void)removeAllPreference {
     @synchronized(self) {
         MMGlobalData *instance = [MMGlobalData getInstance];
-        NSString *documentsDirectory = [MMGlobalPara documentDirectory];
+        NSString *documentsDirectory = [self documentDirectory];
         NSString *prefPath = [documentsDirectory stringByAppendingPathComponent:@"/momo_preference.plist"];
         [instance.preference_ removeAllObjects];
         [instance.preference_ writeToFile:prefPath atomically:YES];
@@ -77,7 +81,7 @@
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError* error;
         
-        NSString *documentsDirectory = [MMGlobalPara documentDirectory];
+        NSString *documentsDirectory = [self documentDirectory];
         if (![fileManager fileExistsAtPath:documentsDirectory]) {
             [fileManager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         }
@@ -103,7 +107,7 @@
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSError* error;
 
-        NSString *documentsDirectory = [MMGlobalPara documentDirectory];
+        NSString *documentsDirectory = [[self class] documentDirectory];
         if (![fileManager fileExistsAtPath:documentsDirectory]) {
             [fileManager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         }

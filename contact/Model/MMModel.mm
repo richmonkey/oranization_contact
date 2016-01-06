@@ -8,11 +8,6 @@
 
 #import "MMModel.h"
 #import "contact_match.h"
-#import "MMGlobalPara.h"
-//#import <Single
-//#import <PlausibleDatabase/PlausibleDatabase.h>
-//#import <PlausibleDatabase/PLSqliteDatabase.h>
-
 
 #define DB_FILENAME @"momo.db"
 static pthread_key_t threadDBKey = NULL;
@@ -37,12 +32,16 @@ void closeThreadDBConnenction(void* parameter) {
 	return threadDBKey;
 }
 
++ (NSString*)documentDirectory {
+    return [NSString stringWithFormat:@"%@/Documents/MomoData/", NSHomeDirectory()];
+}
+
 +(NSString*)getDbPath{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError* error;
     
     // 如果文件已经存在, 则返回路径
-    NSString *documentsDirectory = [MMGlobalPara documentDirectory];
+    NSString *documentsDirectory = [self documentDirectory];
     NSString *dbPath = [documentsDirectory stringByAppendingPathComponent:DB_FILENAME];
     if([fileManager fileExistsAtPath:dbPath])
         return dbPath;
@@ -57,9 +56,7 @@ void closeThreadDBConnenction(void* parameter) {
 }
 
 -(id) init{
-//    database = nil;
 	if (self = [super init]) {
-		
 	}
     return self;
 }
@@ -119,11 +116,11 @@ void closeThreadDBConnenction(void* parameter) {
             [currentThreadDB open];
 			
 			sqlite3 *db = [currentThreadDB sqliteHandle];
-			if (db) {
-				if (0 != sqlite3_create_function(db, "contact_match", 6, SQLITE_ANY, NULL, contact_match, NULL, NULL)) {
-					NSLog(@"sqlite3_create_function failed");
-				}
-			}
+            if (db) {
+                if (0 != sqlite3_create_function(db, "contact_match", 6, SQLITE_ANY, NULL, contact_match, NULL, NULL)) {
+                    NSLog(@"sqlite3_create_function failed");
+                }
+            }
         }
 		
 		pthread_setspecific(threadDBKey, (void*)currentThreadDB);

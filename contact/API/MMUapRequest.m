@@ -11,11 +11,9 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "json.h"
 #import "GTMBase64.h"
-#import "MMGlobalData.h"
 #import "DbStruct.h"
 #import "MMCommonAPI.h"
 #import "ASIHTTPRequest.h"
-#import "oauth.h"
 #import "ASIFormDataRequest.h"
 #import "Token.h"
 

@@ -8,7 +8,6 @@
 
 #import "MMContact.h"
 #import "MMPhoneticAbbr.h"
-#import "MMGlobalData.h"
 #import "MMCommonAPI.h"
 #import "MMServerContactManager.h"
 
@@ -1013,39 +1012,6 @@
     return ret;	
 }
 
-- (void)killSelf {	
-	
-	do{		
-		if(![[self db]  goodConnection]) {
-            break;
-        }
-        
-        NSArray* tableArray = [NSArray arrayWithObjects:@"image", 
-                               @"contact", 
-                               @"data", 
-                               @"category", 
-                               @"category_member", 
-                               @"group_info", 
-                               @"group_image", 
-                               @"group_contact", 
-                               @"group_data", 
-                               @"call_history", 
-                               @"number_uid",
-                               nil];
-        
-        for (NSString* table in tableArray) {
-            NSString* sql = [NSString stringWithFormat:@"delete from %@", table];
-            if (![[self db] executeUpdate:sql]) {
-                NSLog(@"fail: delete from %@", table);
-            } else {
-                NSLog(@"success: delete from %@", table);
-            }
-        }
-	}
-    while(0);
-	
-}
-
 - (MMErrorType)clearContactDB {
 	
 	MMErrorType ret = MM_DB_OK;
@@ -1056,7 +1022,7 @@
             ret = MM_DB_FAILED_OPEN;
             break;
         }						 
-		[[self  db] beginTransaction];
+		[[self db] beginTransaction];
         
         NSArray* tableArray = [NSArray arrayWithObjects:@"image", 
                                @"contact", 
@@ -1065,11 +1031,6 @@
                                @"group_image", 
                                @"group_contact", 
                                @"group_data", 
-                               @"call_history", 
-                               @"sync_history",
-                               @"momo_card",
-                               @"mq_im_message",
-                               @"number_uid",
                                nil];
         
         for (NSString* table in tableArray) {
@@ -1086,36 +1047,6 @@
 	
     return ret;
 }
-- (MMErrorType)clearMomoContact {
-    [[self db] beginTransaction];
-    //删除contact
-    if (![[self db]  executeUpdate:@"delete from contact where contact_id > 0 "]) {
-        NSLog(@"delete contact fail");            
-    }
-    
-    //删除data
-    if (![[self db]  executeUpdate:@"delete from data where contact_id > 0 "]) {
-        NSLog(@"delete contact fail");            
-    }
-    [[self db] commitTransaction];
-    return MM_DB_OK;
-}
-
-- (MMErrorType)clearAddressBookContact {
-    [[self db] beginTransaction];
-    //删除contact
-    if (![[self db]  executeUpdate:@"delete from contact where contact_id < 0 "]) {
-        NSLog(@"delete contact fail");            
-    }
-    
-    //删除data
-    if (![[self db]  executeUpdate:@"delete from data where contact_id < 0 "]) {
-        NSLog(@"delete contact fail");            
-    }
-    [[self db] commitTransaction];
-       return MM_DB_OK;
-}
-
 
 - (NSArray*)searchContact:(NSArray*)contacts
                   pattern:(NSString*)searchString
@@ -1130,7 +1061,7 @@
         if (needName && contactSimple.fullName.length == 0) {
             continue;
         }
-
+        
         
         BOOL successMatch = NO;
         do {
@@ -1149,7 +1080,7 @@
             
         } while (0);
         
-        if (successMatch) {						
+        if (successMatch) {
             [array addObject:contactSimple];
         }
     }

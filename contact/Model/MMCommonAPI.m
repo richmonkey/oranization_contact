@@ -7,8 +7,6 @@
 //
 
 #import "MMCommonAPI.h"
-#import "MMGlobalPara.h"
-#import "MMGlobalData.h"
 #import "MMUapRequest.h"
 #import "MMPhoneticAbbr.h"
 #import "RegexKitLite.h"
@@ -311,28 +309,6 @@
 	}
 	
 	return firstLetter;
-}
-
-+ (void)checkDirectoryExist {
-	NSString *documentsDirectory = [MMGlobalPara documentDirectory];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-	}
-	
-	NSString* attachImageDir = [documentsDirectory stringByAppendingString:@"crash"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:attachImageDir]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:attachImageDir withIntermediateDirectories:YES attributes:nil error:nil];
-	}
-	
-	NSString* draftImageDir = [documentsDirectory stringByAppendingString:@"draft_images"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:draftImageDir]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:draftImageDir withIntermediateDirectories:YES attributes:nil error:nil];
-	}
-    
-    NSString* tmpDownloadFilePath = [NSHomeDirectory() stringByAppendingString:@"/tmp/tmp_download"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:tmpDownloadFilePath]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:tmpDownloadFilePath withIntermediateDirectories:YES attributes:nil error:nil];
-	}
 }
 
 + (CGRect)properRectForButton:(UIButton*)button maxSize:(CGSize)maxSize {

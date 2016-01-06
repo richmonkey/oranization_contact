@@ -7,7 +7,6 @@
 //
 
 #import "MMContactSync.h"
-#import "MMUapRequest.h"
 #import "DbStruct.h"
 #import <AddressBook/AddressBook.h>
 #import "SBJSON.h"
@@ -15,9 +14,8 @@
 #import "MMLogger.h"
 #import "MMContact.h"
 #import "MMGlobalDefine.h"
-#import "MMUapRequest.h"
 #import "MMCommonAPI.h"
-
+#import "MMUapRequest.h"
 
 @implementation MMContactSync
 @synthesize addedCount, updatedCount, deletedCout;

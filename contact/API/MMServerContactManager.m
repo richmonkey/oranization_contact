@@ -11,10 +11,6 @@
 #import "SBJSON.h"
 #import "ASIHTTPRequest.h"
 #import "MMCommonAPI.h"
-#import "oauth.h"
-#import "MMGlobalData.h"
-
-
 
 @implementation MMServerContactManager
 

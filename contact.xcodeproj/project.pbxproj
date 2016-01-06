@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB771A2FF1A2000C55AF /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D6CBB7B1A2FF1E9000C55AF /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CBB7D1A2FF612000C55AF /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D8FBE101A314DC9007A20D9 /* user_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */; };
 		1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */; };
 		1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */; };
@@ -85,14 +82,9 @@
 		6D16D6CC1A08A921001D0939 /* PLSqliteResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6B81A08A921001D0939 /* PLSqliteResultSet.m */; };
 		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; };
 		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; };
-		6D16D6D61A08A9AE001D0939 /* MMGlobalPara.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D51A08A9AE001D0939 /* MMGlobalPara.m */; };
 		6D16D6DD1A08AA5B001D0939 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DC1A08AA5B001D0939 /* RegexKitLite.m */; };
 		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; };
 		6D16D6E41A08AADC001D0939 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6E31A08AADC001D0939 /* Reachability.m */; };
-		6D16D6E71A08AB03001D0939 /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6E51A08AB03001D0939 /* contact_match.cc */; };
-		6D16D6FB1A08AB31001D0939 /* MMServerContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6F21A08AB31001D0939 /* MMServerContactManager.m */; };
-		6D16D6FC1A08AB31001D0939 /* MMUapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6F41A08AB31001D0939 /* MMUapRequest.m */; };
-		6D16D6FE1A08AB31001D0939 /* oauth.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6F61A08AB31001D0939 /* oauth.c */; };
 		6D16D7031A08AB67001D0939 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6FF1A08AB67001D0939 /* hmac.c */; };
 		6D16D7041A08AB67001D0939 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7011A08AB67001D0939 /* md5.c */; };
 		6D16D7081A08ABD4001D0939 /* sha.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7061A08ABD4001D0939 /* sha.c */; };
@@ -113,16 +105,16 @@
 		6D16D7B71A08C3FF001D0939 /* momo.db in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D7B61A08C228001D0939 /* momo.db */; };
 		6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7BA1A08EFA0001D0939 /* GTMBase64.m */; };
 		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; };
-		6DAC0FF41C3C3FFB007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF31C3C3FFB007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; };
+		6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFC1C3D43EF007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DAC10001C3D43EF007D87DD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFE1C3D43EF007D87DD /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10031C3D447E007D87DD /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10051C3D447E007D87DD /* MMServerContactManager.m */; };
+		6DAC100C1C3D447E007D87DD /* MMUapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10071C3D447E007D87DD /* MMUapRequest.m */; };
+		6DAC100D1C3D447E007D87DD /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10091C3D447E007D87DD /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D6CBB761A2FF1A2000C55AF /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
-		1D6CBB771A2FF1A2000C55AF /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
-		1D6CBB791A2FF1E9000C55AF /* TAHttpOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAHttpOperation.h; sourceTree = "<group>"; };
-		1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAHttpOperation.m; sourceTree = "<group>"; };
-		1D6CBB7C1A2FF612000C55AF /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
-		1D6CBB7D1A2FF612000C55AF /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
 		1D8FBE0F1A314DC9007A20D9 /* user_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_avatar@2x.png"; sourceTree = "<group>"; };
 		1D8FBE121A315D4B007A20D9 /* ContactDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailCell.h; sourceTree = "<group>"; };
 		1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailCell.m; sourceTree = "<group>"; };
@@ -263,22 +255,12 @@
 		6D16D6CF1A08A980001D0939 /* MMGlobalDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGlobalDefine.h; sourceTree = "<group>"; };
 		6D16D6D11A08A995001D0939 /* MMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLogger.h; sourceTree = "<group>"; };
 		6D16D6D21A08A995001D0939 /* MMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLogger.m; sourceTree = "<group>"; };
-		6D16D6D41A08A9AE001D0939 /* MMGlobalPara.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGlobalPara.h; sourceTree = "<group>"; };
-		6D16D6D51A08A9AE001D0939 /* MMGlobalPara.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGlobalPara.m; sourceTree = "<group>"; };
 		6D16D6DB1A08AA5B001D0939 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		6D16D6DC1A08AA5B001D0939 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonAPI.h; sourceTree = "<group>"; };
 		6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonAPI.m; sourceTree = "<group>"; };
 		6D16D6E21A08AADC001D0939 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6D16D6E31A08AADC001D0939 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		6D16D6E51A08AB03001D0939 /* contact_match.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contact_match.cc; sourceTree = "<group>"; };
-		6D16D6E61A08AB03001D0939 /* contact_match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contact_match.h; sourceTree = "<group>"; };
-		6D16D6F11A08AB31001D0939 /* MMServerContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMServerContactManager.h; sourceTree = "<group>"; };
-		6D16D6F21A08AB31001D0939 /* MMServerContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMServerContactManager.m; sourceTree = "<group>"; };
-		6D16D6F31A08AB31001D0939 /* MMUapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUapRequest.h; sourceTree = "<group>"; };
-		6D16D6F41A08AB31001D0939 /* MMUapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUapRequest.m; sourceTree = "<group>"; };
-		6D16D6F61A08AB31001D0939 /* oauth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oauth.c; sourceTree = "<group>"; };
-		6D16D6F71A08AB31001D0939 /* oauth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oauth.h; sourceTree = "<group>"; };
 		6D16D6FF1A08AB67001D0939 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
 		6D16D7001A08AB67001D0939 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
 		6D16D7011A08AB67001D0939 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
@@ -324,8 +306,20 @@
 		6D16D7BB1A08EFA0001D0939 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		6D9BC1081C3283EE00F0A2AE /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
-		6DAC0FF21C3C3FFB007D87DD /* Organization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Organization.h; sourceTree = "<group>"; };
-		6DAC0FF31C3C3FFB007D87DD /* Organization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Organization.m; sourceTree = "<group>"; };
+		6DAC0FF81C3D436B007D87DD /* contact_match.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contact_match.cc; sourceTree = "<group>"; };
+		6DAC0FF91C3D436B007D87DD /* contact_match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = contact_match.h; sourceTree = "<group>"; };
+		6DAC0FFB1C3D43EF007D87DD /* Organization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Organization.h; sourceTree = "<group>"; };
+		6DAC0FFC1C3D43EF007D87DD /* Organization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Organization.m; sourceTree = "<group>"; };
+		6DAC0FFD1C3D43EF007D87DD /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		6DAC0FFE1C3D43EF007D87DD /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		6DAC10021C3D447E007D87DD /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
+		6DAC10031C3D447E007D87DD /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
+		6DAC10041C3D447E007D87DD /* MMServerContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMServerContactManager.h; sourceTree = "<group>"; };
+		6DAC10051C3D447E007D87DD /* MMServerContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMServerContactManager.m; sourceTree = "<group>"; };
+		6DAC10061C3D447E007D87DD /* MMUapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMUapRequest.h; sourceTree = "<group>"; };
+		6DAC10071C3D447E007D87DD /* MMUapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMUapRequest.m; sourceTree = "<group>"; };
+		6DAC10081C3D447E007D87DD /* TAHttpOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAHttpOperation.h; sourceTree = "<group>"; };
+		6DAC10091C3D447E007D87DD /* TAHttpOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAHttpOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,11 +481,11 @@
 		6D16D5F61A08A36A001D0939 /* contact */ = {
 			isa = PBXGroup;
 			children = (
+				6DAC10011C3D447E007D87DD /* API */,
 				1D9DC1371A2AFA8000D2E5B5 /* View */,
 				1D9DC11A1A2ABB4500D2E5B5 /* Resource */,
 				1D9DC1021A2AB61700D2E5B5 /* Categories */,
 				1D9DC0F21A2AB4C900D2E5B5 /* Controllers */,
-				6D16D6E81A08AB31001D0939 /* Uap */,
 				6D16D6251A08A57B001D0939 /* Sync */,
 				6D16D6861A08A921001D0939 /* third-party */,
 				6D16D62E1A08A6BB001D0939 /* Model */,
@@ -550,6 +544,12 @@
 		6D16D62E1A08A6BB001D0939 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6DAC0FFB1C3D43EF007D87DD /* Organization.h */,
+				6DAC0FFC1C3D43EF007D87DD /* Organization.m */,
+				6DAC0FFD1C3D43EF007D87DD /* Token.h */,
+				6DAC0FFE1C3D43EF007D87DD /* Token.m */,
+				6DAC0FF81C3D436B007D87DD /* contact_match.cc */,
+				6DAC0FF91C3D436B007D87DD /* contact_match.h */,
 				1D9DC13F1A2B08E400D2E5B5 /* MMAddressBook.h */,
 				1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */,
 				6D16D7A41A08AEB9001D0939 /* pinyin.cc */,
@@ -557,12 +557,8 @@
 				6D16D7A31A08AEA6001D0939 /* DefineDictionary.h */,
 				6D16D7261A08AC1B001D0939 /* MMThread.h */,
 				6D16D7271A08AC1B001D0939 /* MMThread.m */,
-				6D16D6E51A08AB03001D0939 /* contact_match.cc */,
-				6D16D6E61A08AB03001D0939 /* contact_match.h */,
 				6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */,
 				6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */,
-				6D16D6D41A08A9AE001D0939 /* MMGlobalPara.h */,
-				6D16D6D51A08A9AE001D0939 /* MMGlobalPara.m */,
 				6D16D6CD1A08A980001D0939 /* MMGlobalData.h */,
 				6D16D6CE1A08A980001D0939 /* MMGlobalData.m */,
 				6D16D6D11A08A995001D0939 /* MMLogger.h */,
@@ -686,27 +682,6 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
-		6D16D6E81A08AB31001D0939 /* Uap */ = {
-			isa = PBXGroup;
-			children = (
-				1D6CBB7C1A2FF612000C55AF /* Token.h */,
-				1D6CBB7D1A2FF612000C55AF /* Token.m */,
-				1D6CBB761A2FF1A2000C55AF /* APIRequest.h */,
-				1D6CBB771A2FF1A2000C55AF /* APIRequest.m */,
-				1D6CBB791A2FF1E9000C55AF /* TAHttpOperation.h */,
-				1D6CBB7A1A2FF1E9000C55AF /* TAHttpOperation.m */,
-				6D16D6F11A08AB31001D0939 /* MMServerContactManager.h */,
-				6D16D6F21A08AB31001D0939 /* MMServerContactManager.m */,
-				6D16D6F31A08AB31001D0939 /* MMUapRequest.h */,
-				6D16D6F41A08AB31001D0939 /* MMUapRequest.m */,
-				6D16D6F61A08AB31001D0939 /* oauth.c */,
-				6D16D6F71A08AB31001D0939 /* oauth.h */,
-				6DAC0FF21C3C3FFB007D87DD /* Organization.h */,
-				6DAC0FF31C3C3FFB007D87DD /* Organization.m */,
-			);
-			path = Uap;
-			sourceTree = "<group>";
-		};
 		6D16D7091A08AC01001D0939 /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,6 +717,21 @@
 				6D16D7BB1A08EFA0001D0939 /* GTMDefines.h */,
 			);
 			path = base64;
+			sourceTree = "<group>";
+		};
+		6DAC10011C3D447E007D87DD /* API */ = {
+			isa = PBXGroup;
+			children = (
+				6DAC10021C3D447E007D87DD /* APIRequest.h */,
+				6DAC10031C3D447E007D87DD /* APIRequest.m */,
+				6DAC10041C3D447E007D87DD /* MMServerContactManager.h */,
+				6DAC10051C3D447E007D87DD /* MMServerContactManager.m */,
+				6DAC10061C3D447E007D87DD /* MMUapRequest.h */,
+				6DAC10071C3D447E007D87DD /* MMUapRequest.m */,
+				6DAC10081C3D447E007D87DD /* TAHttpOperation.h */,
+				6DAC10091C3D447E007D87DD /* TAHttpOperation.m */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -833,39 +823,37 @@
 			files = (
 				6D16D7041A08AB67001D0939 /* md5.c in Sources */,
 				6D16D6071A08A36A001D0939 /* ViewController.m in Sources */,
-				6DAC0FF41C3C3FFB007D87DD /* Organization.m in Sources */,
 				6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */,
 				6D16D7241A08AC01001D0939 /* ASIInputStream.m in Sources */,
-				1D6CBB7E1A2FF612000C55AF /* Token.m in Sources */,
+				6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */,
 				6D16D6C11A08A921001D0939 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */,
 				6D16D6BE1A08A921001D0939 /* SBJsonStreamParserAdapter.m in Sources */,
 				6D16D6C41A08A921001D0939 /* SBJsonUTF8Stream.m in Sources */,
 				1D9DC10A1A2AB61700D2E5B5 /* UIImage+NGAdditions.m in Sources */,
 				6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */,
-				1D6CBB781A2FF1A2000C55AF /* APIRequest.m in Sources */,
 				6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */,
 				6D16D6BF1A08A921001D0939 /* SBJsonStreamParserState.m in Sources */,
 				1D9DC13B1A2AFA8000D2E5B5 /* ContactListCell.m in Sources */,
-				6D16D6E71A08AB03001D0939 /* contact_match.cc in Sources */,
 				1D9DC10B1A2AB61700D2E5B5 /* UIView+NGAdditions.m in Sources */,
 				6D16D6C61A08A921001D0939 /* PlausibleDatabase.m in Sources */,
+				6DAC100D1C3D447E007D87DD /* TAHttpOperation.m in Sources */,
 				1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */,
 				6D16D6BA1A08A921001D0939 /* SBJson.m in Sources */,
 				6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */,
 				6D16D6C51A08A921001D0939 /* SBJsonWriter.m in Sources */,
-				6D16D6FB1A08AB31001D0939 /* MMServerContactManager.m in Sources */,
 				6D16D6BC1A08A921001D0939 /* SBJsonStreamParser.m in Sources */,
-				6D16D6FE1A08AB31001D0939 /* oauth.c in Sources */,
 				6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */,
 				6D16D7231A08AC01001D0939 /* ASIHTTPRequest.m in Sources */,
 				1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */,
 				6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */,
 				6D16D6C01A08A921001D0939 /* SBJsonStreamWriter.m in Sources */,
+				6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */,
 				6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */,
 				6D16D6C21A08A921001D0939 /* SBJsonStreamWriterState.m in Sources */,
-				6D16D6FC1A08AB31001D0939 /* MMUapRequest.m in Sources */,
 				1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
+				6DAC100C1C3D447E007D87DD /* MMUapRequest.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6D16D6BB1A08A921001D0939 /* SBJsonParser.m in Sources */,
 				6D16D6C91A08A921001D0939 /* PLSqliteDatabase.m in Sources */,
@@ -878,15 +866,15 @@
 				6D16D6C31A08A921001D0939 /* SBJsonTokeniser.m in Sources */,
 				6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */,
 				6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */,
+				6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */,
 				1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */,
 				6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */,
 				6D16D7201A08AC01001D0939 /* ASIDataDecompressor.m in Sources */,
 				1DC6CD121A830D4F001728D9 /* MyCompanyViewController.m in Sources */,
 				6D16D6C81A08A921001D0939 /* PLSqliteConnectionProvider.m in Sources */,
+				6DAC10001C3D43EF007D87DD /* Token.m in Sources */,
 				6D16D7031A08AB67001D0939 /* hmac.c in Sources */,
 				6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */,
-				6D16D6D61A08A9AE001D0939 /* MMGlobalPara.m in Sources */,
-				1D6CBB7B1A2FF1E9000C55AF /* TAHttpOperation.m in Sources */,
 				6D16D7251A08AC01001D0939 /* ASINetworkQueue.m in Sources */,
 				6D16D6C71A08A921001D0939 /* PLDatabaseMigrationManager.m in Sources */,
 				6D16D6CB1A08A921001D0939 /* PLSqlitePreparedStatement.m in Sources */,

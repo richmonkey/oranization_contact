@@ -68,12 +68,7 @@
 - (MMErrorType) setModifyDate:(NSDate*)modifydate byContactId:(NSInteger)contactId;
 
 - (MMErrorType)clearContactDB;
-- (MMErrorType)clearMomoContact;
-- (MMErrorType)clearAddressBookContact;
 
-
-// 这是个自杀函数 勿用 
-- (void)killSelf;
 
 //匹配联系人
 - (NSArray*)searchContact:(NSArray*)contacts

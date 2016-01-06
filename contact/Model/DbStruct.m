@@ -9,7 +9,6 @@
 #import "DbStruct.h"
 #import "SBJSON.h"
 #import "RegexKitLite.h"
-#import "MMGlobalData.h"
 #import "MMPhoneticAbbr.h"
 
 @implementation DbContactId 

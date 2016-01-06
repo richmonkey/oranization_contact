@@ -445,6 +445,7 @@ UITableViewDataSource>
 
 - (void)actionLeft {
     MyCompanyViewController *viewController = [[MyCompanyViewController alloc] init];
+    viewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

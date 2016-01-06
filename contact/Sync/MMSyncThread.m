@@ -8,7 +8,6 @@
 
 #import "MMSyncThread.h"
 #import "MMContactSync.h"
-#import "MMGlobalData.h"
 #import "MMServerContactManager.h"
 #import "DbStruct.h"
 #import "MMContact.h"
