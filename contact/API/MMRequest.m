@@ -10,7 +10,6 @@
 #import "MMRequest.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "json.h"
-#import "GTMBase64.h"
 #import "DbStruct.h"
 #import "MMCommonAPI.h"
 #import "ASIHTTPRequest.h"

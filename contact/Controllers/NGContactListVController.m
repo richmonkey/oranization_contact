@@ -18,7 +18,6 @@
 #import "NGContactDetailVController.h"
 #import "APIRequest.h"
 #import "Token.h"
-#import "RESideMenu.h"
 #import "LoginViewController.h"
 #import "MyCompanyViewController.h"
 

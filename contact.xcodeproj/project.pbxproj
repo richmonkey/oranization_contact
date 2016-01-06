@@ -41,9 +41,6 @@
 		1DBAB4A11A3573F900695B30 /* personcard_sms_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */; };
 		1DBAB4A21A3573F900695B30 /* personcard_sms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */; };
 		1DBAB4A31A3573F900695B30 /* sns_icon_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */; };
-		1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD071A82FCAC001728D9 /* RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1DC6CD121A830D4F001728D9 /* MyCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD111A830D4F001728D9 /* MyCompanyViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464631A6D63F50046FF32 /* MBProgressHUD.m */; };
@@ -53,8 +50,6 @@
 		6D16D5FB1A08A36A001D0939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D5F91A08A36A001D0939 /* InfoPlist.strings */; };
 		6D16D5FD1A08A36A001D0939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D5FC1A08A36A001D0939 /* main.m */; };
 		6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6001A08A36A001D0939 /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		6D16D6041A08A36A001D0939 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D6021A08A36A001D0939 /* Main.storyboard */; };
-		6D16D6071A08A36A001D0939 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6061A08A36A001D0939 /* ViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D6081A08A36A001D0939 /* Images.xcassets */; };
 		6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6301A08A6BB001D0939 /* DbStruct.m */; };
 		6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6341A08A6BB001D0939 /* MMContact.m */; };
@@ -84,9 +79,6 @@
 		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; };
 		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; };
 		6D16D6E41A08AADC001D0939 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6E31A08AADC001D0939 /* Reachability.m */; };
-		6D16D7031A08AB67001D0939 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6FF1A08AB67001D0939 /* hmac.c */; };
-		6D16D7041A08AB67001D0939 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7011A08AB67001D0939 /* md5.c */; };
-		6D16D7081A08ABD4001D0939 /* sha.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7061A08ABD4001D0939 /* sha.c */; };
 		6D16D71E1A08AC01001D0939 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D70B1A08AC01001D0939 /* ASIAuthenticationDialog.m */; };
 		6D16D71F1A08AC01001D0939 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D70E1A08AC01001D0939 /* ASIDataCompressor.m */; };
 		6D16D7201A08AC01001D0939 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7101A08AC01001D0939 /* ASIDataDecompressor.m */; };
@@ -102,7 +94,6 @@
 		6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7AF1A08B287001D0939 /* MMContactSync.m */; };
 		6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7B21A08B287001D0939 /* MMSyncThread.m */; };
 		6D16D7B71A08C3FF001D0939 /* momo.db in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D7B61A08C228001D0939 /* momo.db */; };
-		6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7BA1A08EFA0001D0939 /* GTMBase64.m */; };
 		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; };
 		6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFC1C3D43EF007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -161,12 +152,6 @@
 		1DBAB49C1A3573F900695B30 /* personcard_sms_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms_h@2x.png"; sourceTree = "<group>"; };
 		1DBAB49D1A3573F900695B30 /* personcard_sms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personcard_sms@2x.png"; sourceTree = "<group>"; };
 		1DBAB49E1A3573F900695B30 /* sns_icon_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sns_icon_wechat@2x.png"; sourceTree = "<group>"; };
-		1DC6CD041A82FCAC001728D9 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
-		1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
-		1DC6CD061A82FCAC001728D9 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
-		1DC6CD071A82FCAC001728D9 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
-		1DC6CD081A82FCAC001728D9 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
-		1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		1DC6CD101A830D4F001728D9 /* MyCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCompanyViewController.h; sourceTree = "<group>"; };
 		1DC6CD111A830D4F001728D9 /* MyCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCompanyViewController.m; sourceTree = "<group>"; };
 		6D14645F1A6D63420046FF32 /* LoginCheckVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCheckVController.h; sourceTree = "<group>"; };
@@ -183,9 +168,6 @@
 		6D16D5FE1A08A36A001D0939 /* contact-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "contact-Prefix.pch"; sourceTree = "<group>"; };
 		6D16D5FF1A08A36A001D0939 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D16D6001A08A36A001D0939 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6D16D6031A08A36A001D0939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6D16D6051A08A36A001D0939 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6D16D6061A08A36A001D0939 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6D16D6081A08A36A001D0939 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6D16D60F1A08A36A001D0939 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6D16D6171A08A36A001D0939 /* contactTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "contactTests-Info.plist"; sourceTree = "<group>"; };
@@ -258,13 +240,6 @@
 		6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonAPI.m; sourceTree = "<group>"; };
 		6D16D6E21A08AADC001D0939 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6D16D6E31A08AADC001D0939 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		6D16D6FF1A08AB67001D0939 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
-		6D16D7001A08AB67001D0939 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
-		6D16D7011A08AB67001D0939 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
-		6D16D7021A08AB67001D0939 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		6D16D7051A08AB7B001D0939 /* hashinternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hashinternal.h; sourceTree = "<group>"; };
-		6D16D7061A08ABD4001D0939 /* sha.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha.c; sourceTree = "<group>"; };
-		6D16D7071A08ABD4001D0939 /* sha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha.h; sourceTree = "<group>"; };
 		6D16D70A1A08AC01001D0939 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		6D16D70B1A08AC01001D0939 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		6D16D70C1A08AC01001D0939 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -298,9 +273,6 @@
 		6D16D7B11A08B287001D0939 /* MMSyncThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSyncThread.h; sourceTree = "<group>"; };
 		6D16D7B21A08B287001D0939 /* MMSyncThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSyncThread.m; sourceTree = "<group>"; };
 		6D16D7B61A08C228001D0939 /* momo.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = momo.db; sourceTree = "<group>"; };
-		6D16D7B91A08EFA0001D0939 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
-		6D16D7BA1A08EFA0001D0939 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
-		6D16D7BB1A08EFA0001D0939 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		6D9BC1081C3283EE00F0A2AE /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		6DAC0FF81C3D436B007D87DD /* contact_match.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = contact_match.cc; sourceTree = "<group>"; };
@@ -429,19 +401,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1DC6CD031A82FCAC001728D9 /* RESideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				1DC6CD041A82FCAC001728D9 /* RECommonFunctions.h */,
-				1DC6CD051A82FCAC001728D9 /* RECommonFunctions.m */,
-				1DC6CD061A82FCAC001728D9 /* RESideMenu.h */,
-				1DC6CD071A82FCAC001728D9 /* RESideMenu.m */,
-				1DC6CD081A82FCAC001728D9 /* UIViewController+RESideMenu.h */,
-				1DC6CD091A82FCAC001728D9 /* UIViewController+RESideMenu.m */,
-			);
-			path = RESideMenu;
-			sourceTree = "<group>";
-		};
 		6D16D5E41A08A36A001D0939 = {
 			isa = PBXGroup;
 			children = (
@@ -488,9 +447,6 @@
 				6D16D62E1A08A6BB001D0939 /* Model */,
 				6D16D5FF1A08A36A001D0939 /* AppDelegate.h */,
 				6D16D6001A08A36A001D0939 /* AppDelegate.m */,
-				6D16D6021A08A36A001D0939 /* Main.storyboard */,
-				6D16D6051A08A36A001D0939 /* ViewController.h */,
-				6D16D6061A08A36A001D0939 /* ViewController.m */,
 				6D16D6081A08A36A001D0939 /* Images.xcassets */,
 				6D16D5F71A08A36A001D0939 /* Supporting Files */,
 			);
@@ -578,19 +534,10 @@
 		6D16D6861A08A921001D0939 /* third-party */ = {
 			isa = PBXGroup;
 			children = (
-				1DC6CD031A82FCAC001728D9 /* RESideMenu */,
 				6D1464621A6D63F50046FF32 /* MBProgressHUD.h */,
 				6D1464631A6D63F50046FF32 /* MBProgressHUD.m */,
 				1D9DC1131A2AB6A200D2E5B5 /* SVProgressHUD */,
-				6D16D7B81A08EFA0001D0939 /* base64 */,
 				6D16D7091A08AC01001D0939 /* ASIHTTPRequest */,
-				6D16D7061A08ABD4001D0939 /* sha.c */,
-				6D16D7071A08ABD4001D0939 /* sha.h */,
-				6D16D7051A08AB7B001D0939 /* hashinternal.h */,
-				6D16D6FF1A08AB67001D0939 /* hmac.c */,
-				6D16D7001A08AB67001D0939 /* hmac.h */,
-				6D16D7011A08AB67001D0939 /* md5.c */,
-				6D16D7021A08AB67001D0939 /* md5.h */,
 				6D16D6E11A08AADC001D0939 /* Reachability */,
 				6D16D6871A08A921001D0939 /* json-framework */,
 				6D16D6A31A08A921001D0939 /* PLDatabase */,
@@ -696,16 +643,6 @@
 			path = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
-		6D16D7B81A08EFA0001D0939 /* base64 */ = {
-			isa = PBXGroup;
-			children = (
-				6D16D7B91A08EFA0001D0939 /* GTMBase64.h */,
-				6D16D7BA1A08EFA0001D0939 /* GTMBase64.m */,
-				6D16D7BB1A08EFA0001D0939 /* GTMDefines.h */,
-			);
-			path = base64;
-			sourceTree = "<group>";
-		};
 		6DAC10011C3D447E007D87DD /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,7 +733,6 @@
 				1DBAB4A31A3573F900695B30 /* sns_icon_wechat@2x.png in Resources */,
 				1D8FBE101A314DC9007A20D9 /* user_avatar@2x.png in Resources */,
 				6D16D5FB1A08A36A001D0939 /* InfoPlist.strings in Resources */,
-				6D16D6041A08A36A001D0939 /* Main.storyboard in Resources */,
 				6D16D7B71A08C3FF001D0939 /* momo.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,8 +744,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D16D7041A08AB67001D0939 /* md5.c in Sources */,
-				6D16D6071A08A36A001D0939 /* ViewController.m in Sources */,
 				6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */,
 				6D16D7241A08AC01001D0939 /* ASIInputStream.m in Sources */,
 				6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */,
@@ -825,7 +759,6 @@
 				1D9DC10B1A2AB61700D2E5B5 /* UIView+NGAdditions.m in Sources */,
 				6D16D6C61A08A921001D0939 /* PlausibleDatabase.m in Sources */,
 				6DAC100D1C3D447E007D87DD /* TAHttpOperation.m in Sources */,
-				1DC6CD0B1A82FCAC001728D9 /* RESideMenu.m in Sources */,
 				6D16D6BA1A08A921001D0939 /* SBJson.m in Sources */,
 				6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */,
 				6D16D6C51A08A921001D0939 /* SBJsonWriter.m in Sources */,
@@ -838,7 +771,6 @@
 				6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */,
 				6D1464641A6D63F50046FF32 /* MBProgressHUD.m in Sources */,
 				6D16D6C21A08A921001D0939 /* SBJsonStreamWriterState.m in Sources */,
-				1DC6CD0C1A82FCAC001728D9 /* UIViewController+RESideMenu.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
 				6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
@@ -846,13 +778,11 @@
 				6D16D6C91A08A921001D0939 /* PLSqliteDatabase.m in Sources */,
 				1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */,
 				6D16D71E1A08AC01001D0939 /* ASIAuthenticationDialog.m in Sources */,
-				6D16D7081A08ABD4001D0939 /* sha.c in Sources */,
 				6D16D6E41A08AADC001D0939 /* Reachability.m in Sources */,
 				6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */,
 				6D16D7A71A08AEB9001D0939 /* pinyin.cc in Sources */,
 				6D16D6C31A08A921001D0939 /* SBJsonTokeniser.m in Sources */,
 				6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */,
-				6D16D7BC1A08EFA0001D0939 /* GTMBase64.m in Sources */,
 				6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */,
 				1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */,
 				6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */,
@@ -860,14 +790,12 @@
 				1DC6CD121A830D4F001728D9 /* MyCompanyViewController.m in Sources */,
 				6D16D6C81A08A921001D0939 /* PLSqliteConnectionProvider.m in Sources */,
 				6DAC10001C3D43EF007D87DD /* Token.m in Sources */,
-				6D16D7031A08AB67001D0939 /* hmac.c in Sources */,
 				6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */,
 				6D16D7251A08AC01001D0939 /* ASINetworkQueue.m in Sources */,
 				6D16D6C71A08A921001D0939 /* PLDatabaseMigrationManager.m in Sources */,
 				6D16D6CB1A08A921001D0939 /* PLSqlitePreparedStatement.m in Sources */,
 				6D16D7211A08AC01001D0939 /* ASIDownloadCache.m in Sources */,
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
-				1DC6CD0A1A82FCAC001728D9 /* RECommonFunctions.m in Sources */,
 				6D16D6CA1A08A921001D0939 /* PLSqliteMigrationVersionManager.m in Sources */,
 				6D16D7221A08AC01001D0939 /* ASIFormDataRequest.m in Sources */,
 				1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */,
@@ -893,14 +821,6 @@
 				6D16D5FA1A08A36A001D0939 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6D16D6021A08A36A001D0939 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6D16D6031A08A36A001D0939 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6D16D6181A08A36A001D0939 /* InfoPlist.strings */ = {
