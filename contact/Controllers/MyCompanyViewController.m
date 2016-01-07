@@ -20,6 +20,8 @@
 #import "MMSyncThread.h"
 #import "MMContact.h"
 #import <imsdk/IMService.h>
+#import <imkit/IMHttpAPI.h>
+
 @interface MyCompanyViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *componyTableView;
 @property(nonatomic) Organization *organization;
@@ -126,6 +128,8 @@
     }
     
     MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+
     [APIRequest loginOrganization:org.ID
                           success:^(int64_t uid, NSString *name, NSString *gobelieveToken) {
                               [hub hide:NO];
@@ -144,6 +148,21 @@
                                   [[MMContactManager instance] clearContactDB];
                                   
                                   [[IMService instance] stop];
+                                  
+                                  NSString *deviceToken = [Token instance].deviceToken;
+                                  if (deviceToken.length > 0) {
+                                      //解除上一个用户和devicetoken的绑定关系，以免接收到上一个用户的离线推送消息
+                                      //不处理unbind失败的情况
+                                      [Token instance].deviceToken = @"";
+                                      [[Token instance] save];
+                                      [IMHttpAPI unbindDeviceToken:deviceToken
+                                                           success:^{
+                                                               NSLog(@"unbind device token success");
+                                                           }
+                                                              fail:^{
+                                                                  NSLog(@"bind device token fail");
+                                                              }];
+                                  }
                               }
                               
                               MainTabBarController *main = [[MainTabBarController alloc] init];

@@ -86,6 +86,19 @@ alpha:(a)]
     
     [[self tabBar] setTintColor:RGBACOLOR(48,176,87, 1)];
     [[self tabBar] setBarTintColor:RGBACOLOR(245, 245, 246, 1)];
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
+                                                                                             | UIUserNotificationTypeBadge
+                                                                                             | UIUserNotificationTypeSound) categories:nil];
+        [application registerUserNotificationSettings:settings];
+        
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRegisterForRemoteNotificationsWithDeviceToken:) name:@"didRegisterForRemoteNotificationsWithDeviceToken" object:nil];
 }
 
 -(void)dealloc {
@@ -96,6 +109,27 @@ alpha:(a)]
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)didRegisterForRemoteNotificationsWithDeviceToken:(NSNotification*)notification {
+    NSData *deviceToken = (NSData*)notification.object;
+    
+    NSString* newToken = [deviceToken description];
+    newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    [IMHttpAPI bindDeviceToken:newToken
+                       success:^{
+                           NSLog(@"bind device token success");
+                           [Token instance].deviceToken = newToken;
+                           [[Token instance] save];
+                       }
+                          fail:^{
+                              NSLog(@"bind device token fail");
+                          }];
+    NSLog(@"device token is: %@:%@", deviceToken, newToken);
+    
+}
+
 
 - (void)onEndSync:(NSNotification*)notification {
     NSLog(@"onEndSync");

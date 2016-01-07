@@ -17,6 +17,7 @@
 @property(assign) int expireTimestamp;
 @property(assign) int64_t uid;
 @property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *deviceToken;
 @property(nonatomic, copy) NSString *gobelieveToken;
 
 @property(nonatomic, copy) NSString *organizationName;

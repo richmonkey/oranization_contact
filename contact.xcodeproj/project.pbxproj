@@ -1196,6 +1196,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "contact/contact-Prefix.pch";
@@ -1222,7 +1223,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: shengzhi lin (4RKG6KHW6X)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Fuzhou Paramecium Information Technology Co., Ltd.";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "contact/contact-Prefix.pch";
@@ -1234,7 +1236,7 @@
 					"-licucore",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f764f905-9812-4ec7-ac30-00e5314d3243";
+				PROVISIONING_PROFILE = "6cba0628-b67f-4adc-89ca-de0f9ebd64e9";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
