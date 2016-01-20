@@ -9,7 +9,6 @@
 #import "MMContactSync.h"
 #import "DbStruct.h"
 #import <AddressBook/AddressBook.h>
-#import "SBJSON.h"
 #import "MMServerContactManager.h"
 #import "MMLogger.h"
 #import "MMContact.h"
@@ -28,7 +27,7 @@
 	return self;
 }
 -(void)dealloc {
-	[super dealloc];
+
 }
 
 -(BOOL) isCancelled {

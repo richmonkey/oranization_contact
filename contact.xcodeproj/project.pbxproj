@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */; };
+		1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */; };
-		1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */; };
+		1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1041A2AB61700D2E5B5 /* UIButton+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -20,7 +20,7 @@
 		1D9DC13B1A2AFA8000D2E5B5 /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */; };
 		1D9DC13E1A2B057400D2E5B5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */; };
-		1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */; };
+		1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1401A2B08E400D2E5B5 /* MMAddressBook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1DC6CD121A830D4F001728D9 /* MyCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CD111A830D4F001728D9 /* MyCompanyViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5CEDD8CCA1D02FF8321DAAAD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0975565BB47B4778FE2374CC /* libPods.a */; };
 		6D1464611A6D63420046FF32 /* LoginCheckVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1464601A6D63420046FF32 /* LoginCheckVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -28,30 +28,30 @@
 		6D16D5F31A08A36A001D0939 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F21A08A36A001D0939 /* CoreGraphics.framework */; };
 		6D16D5F51A08A36A001D0939 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D5F41A08A36A001D0939 /* UIKit.framework */; };
 		6D16D5FB1A08A36A001D0939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D5F91A08A36A001D0939 /* InfoPlist.strings */; };
-		6D16D5FD1A08A36A001D0939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D5FC1A08A36A001D0939 /* main.m */; };
+		6D16D5FD1A08A36A001D0939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D5FC1A08A36A001D0939 /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6001A08A36A001D0939 /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D6081A08A36A001D0939 /* Images.xcassets */; };
-		6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6301A08A6BB001D0939 /* DbStruct.m */; };
-		6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6341A08A6BB001D0939 /* MMContact.m */; };
-		6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6361A08A6BB001D0939 /* MMModel.mm */; };
+		6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6301A08A6BB001D0939 /* DbStruct.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6341A08A6BB001D0939 /* MMContact.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6361A08A6BB001D0939 /* MMModel.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D65C1A08A89C001D0939 /* MMPhoneticAbbr.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D65B1A08A89C001D0939 /* MMPhoneticAbbr.mm */; };
-		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; };
-		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; };
-		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; };
-		6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7271A08AC1B001D0939 /* MMThread.m */; };
+		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7271A08AC1B001D0939 /* MMThread.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D7A71A08AEB9001D0939 /* pinyin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7A41A08AEB9001D0939 /* pinyin.cc */; };
 		6D16D7AB1A08AFFB001D0939 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AA1A08AFFB001D0939 /* libz.dylib */; };
 		6D16D7AD1A08B003001D0939 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AC1A08B003001D0939 /* libsqlite3.dylib */; };
-		6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7AF1A08B287001D0939 /* MMContactSync.m */; };
-		6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7B21A08B287001D0939 /* MMSyncThread.m */; };
+		6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7AF1A08B287001D0939 /* MMContactSync.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7B21A08B287001D0939 /* MMSyncThread.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D16D7B71A08C3FF001D0939 /* momo.db in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D7B61A08C228001D0939 /* momo.db */; };
 		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; };
+		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFC1C3D43EF007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC10001C3D43EF007D87DD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFE1C3D43EF007D87DD /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10031C3D447E007D87DD /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10051C3D447E007D87DD /* MMServerContactManager.m */; };
-		6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10071C3D447E007D87DD /* MMRequest.m */; };
+		6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10051C3D447E007D87DD /* MMServerContactManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10071C3D447E007D87DD /* MMRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DAC100D1C3D447E007D87DD /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10091C3D447E007D87DD /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC102B1C3D5BC1007D87DD /* libimkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC10221C3D5B9E007D87DD /* libimkit.a */; };
 		6DAC102C1C3D5BC1007D87DD /* libimsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC10161C3D5B97007D87DD /* libimsdk.a */; };
@@ -1000,7 +1000,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1026,7 +1026,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fuzhou Paramecium Information Technology Co., Ltd.";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

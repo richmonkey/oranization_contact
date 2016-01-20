@@ -95,7 +95,7 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
 	if(!instance) {
 		@synchronized(self) {
 			if(!instance) {
-				instance = [[[MMSyncThread alloc] init] autorelease];
+				instance = [[MMSyncThread alloc] init] ;
 			}
 		}
 	}
@@ -116,20 +116,18 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
 -(void)dealloc {
     pthread_mutex_destroy(&mutex_);
     pthread_cond_destroy(&condition_);
-	[super dealloc];
 }
 
 -(BOOL)remoteSync {
     
-	MMContactSync *syncer = [[[MMContactSync alloc] init] autorelease];
+    MMContactSync *syncer = [[MMContactSync alloc] init];
 
     BEGIN_TICKET(downcontacttomomo);
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
 	if (![syncer downloadContactToMomo]) {
-        [pool release];
 		return NO;
 	}
-    [pool release];
+
     END_TICKET(downcontacttomomo);
     
     if (syncer.addedCount > 0 || syncer.updatedCount > 0 || syncer.deletedCout > 0) {
@@ -152,7 +150,6 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
     pthread_cond_signal(&condition_);
     pthread_mutex_unlock(&mutex_);
 
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
 	CFRunLoopSourceContext context = {0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 	CFRunLoopSourceRef source = CFRunLoopSourceCreate(kCFAllocatorDefault, 0, &context);
@@ -164,8 +161,6 @@ void timerCallback(CFRunLoopTimerRef timer, void *info) {
 	CFRunLoopRemoveSource(CFRunLoopGetCurrent(), source, kCFRunLoopDefaultMode);
 	CFRelease(source);
 
-    
-	[pool release];
     
 	pthread_mutex_lock(&mutex_);
     runLoop_ = nil;
