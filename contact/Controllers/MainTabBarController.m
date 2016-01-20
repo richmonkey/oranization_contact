@@ -7,14 +7,17 @@
 //
 
 #import "MainTabBarController.h"
-#import "NGContactListVController.h"
+
 #import <imsdk/IMService.h>
 #import <imkit/TextMessageViewController.h>
 #import <imkit/MessageViewController.h>
 #import <imkit/IMHttpAPI.h>
 #import <imkit/PeerMessageViewController.h>
-#import <imkit/MessageListViewController.h>
 #import <imkit/MessageDB.h>
+#import <imkit/PeerMessageDB.h>
+#import <imkit/GroupMessageDB.h>
+#import "MessageListViewController.h"
+#import "NGContactListVController.h"
 #import "MMContact.h"
 #import "MMSyncThread.h"
 #import "Token.h"
@@ -45,7 +48,9 @@ alpha:(a)]
     Token *token = [Token instance];
     NSString *path = [self getDocumentPath];
     NSString *dbPath = [NSString stringWithFormat:@"%@/%lld", path, token.uid];
-    [MessageDB setDBPath:dbPath];
+    
+    [PeerMessageDB instance].dbPath = [NSString stringWithFormat:@"%@/peer", dbPath];
+    [GroupMessageDB instance].dbPath = [NSString stringWithFormat:@"%@/group", dbPath];
     
     [IMHttpAPI instance].accessToken = token.gobelieveToken;
     [IMService instance].token = token.gobelieveToken;

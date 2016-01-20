@@ -8,16 +8,23 @@
  */
 
 #import "MessageListViewController.h"
-#import "MessageViewController.h"
-#import "PeerMessageDB.h"
-#import "GroupMessageDB.h"
-#import "IMessage.h"
-#import "PeerMessageViewController.h"
-#import "GroupMessageViewController.h"
-#import "Constants.h"
+#import <imkit/IMessage.h>
+#import <imsdk/IMService.h>
+#import <imkit/PeerMessageDB.h>
+#import <imkit/GroupMessageDB.h>
+#import <imkit/CustomerMessageDB.h>
+#import <imkit/PeerMessageViewController.h>
+#import <imkit/GroupMessageViewController.h>
+#import <imkit/CustomerMessageViewController.h>
 
 #import "MessageConversationCell.h"
-#import <imsdk/IMService.h>
+
+//RGB颜色
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
+//RGB颜色和不透明度
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f \
+alpha:(a)]
+
 
 
 #define kConversationCellHeight         60
@@ -45,8 +52,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(home:)];
-//    self.navigationItem.leftBarButtonItem=newBackButton;
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(home:)];
+    self.navigationItem.leftBarButtonItem=newBackButton;
     
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.tableview = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
@@ -92,9 +99,36 @@
         [self updateConversationDetail:conv];
     }
     
+    id<IMessageIterator> iter = [[CustomerMessageDB instance] newMessageIterator:0];
+    IMessage *msg = nil;
+    //返回第一条不是附件的消息
+    while (YES) {
+        msg = [iter next];
+        if (msg == nil) {
+            break;
+        }
+        if (msg.type != MESSAGE_ATTACHMENT) {
+            break;
+        }
+    }
+    if (!msg) {
+        msg = [[IMessage alloc] init];
+        msg.sender = 0;
+        msg.receiver = self.currentUID;
+        MessageTextContent *content = [[MessageTextContent alloc] initWithText:@"如果你在使用过程中有任何问题和建议，记得给我们发信反馈哦"];
+        msg.rawContent = content.raw;
+        msg.timestamp = (int)time(NULL);
+    }
+
+    Conversation *conv = [[Conversation alloc] init];
+    conv.message = msg;
+    conv.cid = 0;
+    conv.type = CONVERSATION_CUSTOMER_SERVICE;
+    conv.name = @"客服";
+    [self updateConversationDetail:conv];
+    [self.conversations addObject:conv];
+    
     //todo 从本地数据库加载最新的系统消息
-    
-    
     NSArray *sortedArray = [self.conversations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Conversation *c1 = obj1;
         Conversation *c2 = obj2;
@@ -327,7 +361,7 @@
         Conversation *con = [self.conversations objectAtIndex:indexPath.row];
         if (con.type == CONVERSATION_PEER) {
             [[PeerMessageDB instance] clearConversation:con.cid];
-        } else {
+        } else if (con.type == CONVERSATION_GROUP){
             [[GroupMessageDB instance] clearConversation:con.cid];
         }
         [self.conversations removeObject:con];
@@ -360,6 +394,14 @@
         
         msgController.groupID = con.cid;
         msgController.groupName = con.name;
+        msgController.currentUID = self.currentUID;
+        msgController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:msgController animated:YES];
+    } else if (con.type == CONVERSATION_CUSTOMER_SERVICE) {
+        CustomerMessageViewController *msgController = [[CustomerMessageViewController alloc] init];
+        msgController.userDelegate = self.userDelegate;
+        msgController.peerUID = con.cid;
+        msgController.peerName = con.name;
         msgController.currentUID = self.currentUID;
         msgController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:msgController animated:YES];

@@ -114,8 +114,10 @@
 		6DAC10A61C3D70A8007D87DD /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DAC10A01C3D70A8007D87DD /* images.xcassets */; };
 		6DAC10A71C3D70A8007D87DD /* messageReceived.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 6DAC10A21C3D70A8007D87DD /* messageReceived.aiff */; };
 		6DAC10A81C3D70A8007D87DD /* messageSent.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 6DAC10A31C3D70A8007D87DD /* messageSent.aiff */; };
-		6DAC10A91C3D70A8007D87DD /* MessageConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DAC10A51C3D70A8007D87DD /* MessageConversationCell.xib */; };
 		6DAC10AE1C3D71CB007D87DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DAC10B01C3D71CB007D87DD /* Localizable.strings */; };
+		6DB34CB91C4FDB03006D78D4 /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB34CB81C4FDB03006D78D4 /* MessageListViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DB34CC31C4FDB0F006D78D4 /* MessageConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB34CC11C4FDB0F006D78D4 /* MessageConversationCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6DB34CC41C4FDB0F006D78D4 /* MessageConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DB34CC21C4FDB0F006D78D4 /* MessageConversationCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,11 +384,15 @@
 		6DAC10A01C3D70A8007D87DD /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		6DAC10A21C3D70A8007D87DD /* messageReceived.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = messageReceived.aiff; sourceTree = "<group>"; };
 		6DAC10A31C3D70A8007D87DD /* messageSent.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = messageSent.aiff; sourceTree = "<group>"; };
-		6DAC10A51C3D70A8007D87DD /* MessageConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageConversationCell.xib; sourceTree = "<group>"; };
 		6DAC10AB1C3D717B007D87DD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6DAC10AF1C3D71CB007D87DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6DAC10B11C3D71CD007D87DD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6DAC10B21C3D7223007D87DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6DB34CB71C4FDB03006D78D4 /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
+		6DB34CB81C4FDB03006D78D4 /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
+		6DB34CC01C4FDB0F006D78D4 /* MessageConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageConversationCell.h; sourceTree = "<group>"; };
+		6DB34CC11C4FDB0F006D78D4 /* MessageConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageConversationCell.m; sourceTree = "<group>"; };
+		6DB34CC21C4FDB0F006D78D4 /* MessageConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageConversationCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +422,8 @@
 		1D9DC0F21A2AB4C900D2E5B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6DB34CB71C4FDB03006D78D4 /* MessageListViewController.h */,
+				6DB34CB81C4FDB03006D78D4 /* MessageListViewController.m */,
 				6D14645F1A6D63420046FF32 /* LoginCheckVController.h */,
 				6D1464601A6D63420046FF32 /* LoginCheckVController.m */,
 				1D9DC0F71A2AB4C900D2E5B5 /* LoginViewController.h */,
@@ -463,6 +471,9 @@
 		1D9DC1371A2AFA8000D2E5B5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6DB34CC01C4FDB0F006D78D4 /* MessageConversationCell.h */,
+				6DB34CC11C4FDB0F006D78D4 /* MessageConversationCell.m */,
+				6DB34CC21C4FDB0F006D78D4 /* MessageConversationCell.xib */,
 				1D8FBE121A315D4B007A20D9 /* ContactDetailCell.h */,
 				1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */,
 				1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */,
@@ -844,7 +855,6 @@
 			children = (
 				6DAC10A01C3D70A8007D87DD /* images.xcassets */,
 				6DAC10A11C3D70A8007D87DD /* sounds */,
-				6DAC10A41C3D70A8007D87DD /* xibs */,
 			);
 			name = imKitRes;
 			path = im/imkit/imkit/imKitRes;
@@ -857,14 +867,6 @@
 				6DAC10A31C3D70A8007D87DD /* messageSent.aiff */,
 			);
 			path = sounds;
-			sourceTree = "<group>";
-		};
-		6DAC10A41C3D70A8007D87DD /* xibs */ = {
-			isa = PBXGroup;
-			children = (
-				6DAC10A51C3D70A8007D87DD /* MessageConversationCell.xib */,
-			);
-			path = xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -976,7 +978,7 @@
 				1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */,
 				1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */,
 				6DAC10A71C3D70A8007D87DD /* messageReceived.aiff in Resources */,
-				6DAC10A91C3D70A8007D87DD /* MessageConversationCell.xib in Resources */,
+				6DB34CC41C4FDB0F006D78D4 /* MessageConversationCell.xib in Resources */,
 				6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */,
 				6D16D5FB1A08A36A001D0939 /* InfoPlist.strings in Resources */,
 				6D16D7B71A08C3FF001D0939 /* momo.db in Resources */,
@@ -1028,6 +1030,7 @@
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
 				6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
+				6DB34CB91C4FDB03006D78D4 /* MessageListViewController.m in Sources */,
 				6D16D6BB1A08A921001D0939 /* SBJsonParser.m in Sources */,
 				6D16D6C91A08A921001D0939 /* PLSqliteDatabase.m in Sources */,
 				1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */,
@@ -1057,6 +1060,7 @@
 				6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */,
 				6D16D7251A08AC01001D0939 /* ASINetworkQueue.m in Sources */,
 				6D16D6C71A08A921001D0939 /* PLDatabaseMigrationManager.m in Sources */,
+				6DB34CC31C4FDB0F006D78D4 /* MessageConversationCell.m in Sources */,
 				6D16D6CB1A08A921001D0939 /* PLSqlitePreparedStatement.m in Sources */,
 				6D16D7211A08AC01001D0939 /* ASIDownloadCache.m in Sources */,
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,

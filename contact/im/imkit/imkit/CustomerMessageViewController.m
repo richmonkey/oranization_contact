@@ -1,39 +1,41 @@
-/*                                                                            
-  Copyright (c) 2014-2015, GoBelieve     
-    All rights reserved.		    				     			
- 
-  This source code is licensed under the BSD-style license found in the
-  LICENSE file in the root directory of this source tree. An additional grant
-  of patent rights can be found in the PATENTS file in the same directory.
-*/
+//
+//  CustomerMessageViewController.m
+//  imkit
+//
+//  Created by houxh on 16/1/19.
+//  Copyright © 2016年 beetle. All rights reserved.
+//
 
-#import "PeerMessageViewController.h"
-#import "FileCache.h"
-#import "AudioDownloader.h"
-#import "DraftDB.h"
-#import "IMessage.h"
-#import "PeerMessageDB.h"
-#import "DraftDB.h"
-#import "Constants.h"
-#import "PeerOutbox.h"
+#import "CustomerMessageViewController.h"
+#import "CustomerOutbox.h"
+#import "CustomerMessageDB.h"
 
 #define PAGE_COUNT 10
 
-@interface PeerMessageViewController ()<OutboxObserver>
-
+@interface CustomerMessageViewController ()<OutboxObserver, CustomerMessageObserver>
+@property(nonatomic) BOOL isStaff;
 @end
 
-@implementation PeerMessageViewController
+@implementation CustomerMessageViewController
 
 - (void)dealloc {
-    NSLog(@"peermessageviewcontroller dealloc");
+    NSLog(@"CustomerMessageViewController dealloc");
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setNormalNavigationButtons];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
+                                                             style:UIBarButtonItemStyleDone
+                                                            target:self
+                                                            action:@selector(returnMainTableViewController)];
+    
+    self.navigationItem.leftBarButtonItem = item;
+
+    
     
     if (self.peerName.length > 0) {
         self.navigationItem.title = self.peerName;
@@ -50,34 +52,24 @@
             }];
         }
     }
-    
-    DraftDB *db = [DraftDB instance];
-    NSString *draft = [db getDraft:self.receiver];
-    [self setDraft:draft];
+
     
     [self addObserver];
+    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 -(void)addObserver {
     [super addObserver];
-    [[PeerOutbox instance] addBoxObserver:self];
+    [[CustomerOutbox instance] addBoxObserver:self];
     [[IMService instance] addConnectionObserver:self];
-    [[IMService instance] addPeerMessageObserver:self];
-    [[IMService instance] addLoginPointObserver:self];
+    [[IMService instance] addCustomerMessageObserver:self];
 }
 
 -(void)removeObserver {
     [super removeObserver];
-    [[PeerOutbox instance] removeBoxObserver:self];
+    [[CustomerOutbox instance] removeBoxObserver:self];
     [[IMService instance] removeConnectionObserver:self];
-    [[IMService instance] removePeerMessageObserver:self];
-    [[IMService instance] removeLoginPointObserver:self];
+    [[IMService instance] removeCustomerMessageObserver:self];
 }
 
 - (int64_t)sender {
@@ -89,142 +81,27 @@
 }
 
 - (BOOL)isMessageSending:(IMessage*)msg {
-    return [[IMService instance] isPeerMessageSending:self.peerUID id:msg.msgLocalID];
+    return [[IMService instance] isCustomerMessageSending:msg.receiver id:msg.msgLocalID];
 }
 
 - (BOOL)isInConversation:(IMessage*)msg {
-   BOOL r =  (msg.sender == self.currentUID && msg.receiver == self.peerUID) ||
-                (msg.receiver == self.currentUID && msg.sender == self.peerUID);
-    return r;
-}
-
-
--(BOOL)saveMessage:(IMessage*)msg {
-    int64_t cid = 0;
-    if (msg.sender == self.currentUID) {
-        cid = msg.receiver;
+    if (self.isStaff) {
+        return msg.receiver == self.peerUID;
     } else {
-        cid = msg.sender;
+        return YES;
     }
-    return [[PeerMessageDB instance] insertMessage:msg uid:cid];
-}
-
--(BOOL)removeMessage:(IMessage*)msg {
-    int64_t cid = 0;
-    if (msg.sender == self.currentUID) {
-        cid = msg.receiver;
-    } else {
-        cid = msg.sender;
-    }
-    return [[PeerMessageDB instance] removeMessage:msg.msgLocalID uid:cid];
-
-}
--(BOOL)markMessageFailure:(IMessage*)msg {
-    int64_t cid = 0;
-    if (msg.sender == self.currentUID) {
-        cid = msg.receiver;
-    } else {
-        cid = msg.sender;
-    }
-    return [[PeerMessageDB instance] markMessageFailure:msg.msgLocalID uid:cid];
-}
-
--(BOOL)markMesageListened:(IMessage*)msg {
-    int64_t cid = 0;
-    if (msg.sender == self.currentUID) {
-        cid = msg.receiver;
-    } else {
-        cid = msg.sender;
-    }
-    return [[PeerMessageDB instance] markMesageListened:msg.msgLocalID uid:cid];
-}
-
--(BOOL)eraseMessageFailure:(IMessage*)msg {
-    int64_t cid = 0;
-    if (msg.sender == self.currentUID) {
-        cid = msg.receiver;
-    } else {
-        cid = msg.sender;
-    }
-    return [[PeerMessageDB instance] eraseMessageFailure:msg.msgLocalID uid:cid];
-}
-
--(void) setNormalNavigationButtons{
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"对话"
-                                                             style:UIBarButtonItemStyleDone
-                                                            target:self
-                                                            action:@selector(returnMainTableViewController)];
-    
-    self.navigationItem.leftBarButtonItem = item;
 }
 
 - (void)returnMainTableViewController {
-    DraftDB *db = [DraftDB instance];
-    [db setDraft:self.peerUID draft:[self getDraft]];
-    
     [self removeObserver];
     [self stopPlayer];
     
-    NSNotification* notification = [[NSNotification alloc] initWithName:CLEAR_PEER_NEW_MESSAGE
+    NSNotification* notification = [[NSNotification alloc] initWithName:CLEAR_CUSTOMER_NEW_MESSAGE
                                                                  object:[NSNumber numberWithLongLong:self.peerUID]
                                                                userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - MessageObserver
-- (void)onPeerMessage:(IMMessage*)im {
-    if (im.sender != self.peerUID && im.receiver != self.peerUID) {
-        return;
-    }
-    int now = (int)time(NULL);
-    if (now - self.lastReceivedTimestamp > 1) {
-        [[self class] playMessageReceivedSound];
-        self.lastReceivedTimestamp = now;
-    }
-    
-    NSLog(@"receive msg:%@",im);
-    
-    IMessage *m = [[IMessage alloc] init];
-    m.sender = im.sender;
-    m.receiver = im.receiver;
-    m.msgLocalID = im.msgLocalID;
-    m.rawContent = im.content;
-    m.timestamp = im.timestamp;
-    
-    if (self.textMode && m.type != MESSAGE_TEXT) {
-        return;
-    }
-    
-    [self downloadMessageContent:m];
-    
-    [self insertMessage:m];
-}
-
-//服务器ack
-- (void)onPeerMessageACK:(int)msgLocalID uid:(int64_t)uid {
-    if (uid != self.peerUID) {
-        return;
-    }
-    IMessage *msg = [self getMessageWithID:msgLocalID];
-    msg.flags = msg.flags|MESSAGE_FLAG_ACK;
-}
-
-- (void)onPeerMessageFailure:(int)msgLocalID uid:(int64_t)uid {
-    if (uid != self.peerUID) {
-        return;
-    }
-    IMessage *msg = [self getMessageWithID:msgLocalID];
-    msg.flags = msg.flags|MESSAGE_FLAG_FAILURE;
-}
-
-//对方正在输入
-- (void)onPeerInputing:(int64_t)uid {
-    if (uid != self.peerUID) {
-        return;
-    }
 }
 
 
@@ -237,13 +114,10 @@
     }
 }
 
--(void)onLoginPoint:(LoginPoint*)lp {
-    NSLog(@"login point:%@, platform id:%d", lp.deviceID, lp.platformID);
-}
 
 - (void)loadConversationData {
     int count = 0;
-    id<IMessageIterator> iterator =  [[PeerMessageDB instance] newMessageIterator: self.peerUID];
+    id<IMessageIterator> iterator =  [[CustomerMessageDB instance] newMessageIterator:self.peerUID];
     IMessage *msg = [iterator next];
     while (msg) {
         if (self.textMode) {
@@ -267,6 +141,16 @@
         }
         msg = [iterator next];
     }
+    
+    self.isStaff = (self.peerUID != 0);
+    if (self.peerUID == 0) {
+        for (NSInteger i = self.messages.count - 1 ; i >= 0; i--) {
+            IMessage *msg = [self.messages objectAtIndex:i];
+            if (msg.sender != self.currentUID) {
+                self.peerUID = msg.sender;
+            }
+        }
+    }
 
     [self downloadMessageContent:self.messages count:count];
     [self checkMessageFailureFlag:self.messages count:count];
@@ -289,7 +173,7 @@
         return;
     }
     
-    id<IMessageIterator> iterator =  [[PeerMessageDB instance] newMessageIterator:self.peerUID last:last.msgLocalID];
+    id<IMessageIterator> iterator =  [[CustomerMessageDB instance] newMessageIterator:self.peerUID last:last.msgLocalID];
     
     int count = 0;
     IMessage *msg = [iterator next];
@@ -310,14 +194,14 @@
     if (count == 0) {
         return;
     }
-
+    
     [self downloadMessageContent:self.messages count:count];
     [self checkMessageFailureFlag:self.messages count:count];
     
     [self initTableViewData];
     
     [self.tableView reloadData];
-
+    
     int c = 0;
     int section = 0;
     int row = 0;
@@ -341,9 +225,9 @@
 -(void)checkMessageFailureFlag:(IMessage*)msg {
     if ([self isMessageOutgoing:msg]) {
         if (msg.type == MESSAGE_AUDIO) {
-            msg.uploading = [[PeerOutbox instance] isUploading:msg];
+            msg.uploading = [[CustomerOutbox instance] isUploading:msg];
         } else if (msg.type == MESSAGE_IMAGE) {
-            msg.uploading = [[PeerOutbox instance] isUploading:msg];
+            msg.uploading = [[CustomerOutbox instance] isUploading:msg];
         }
         
         //消息发送过程中，程序异常关闭
@@ -362,32 +246,141 @@
     }
 }
 
+
+-(BOOL)saveMessage:(IMessage*)msg {
+    int64_t cid = 0;
+    if (msg.sender == self.currentUID) {
+        cid = msg.receiver;
+    } else {
+        cid = msg.sender;
+    }
+    return [[CustomerMessageDB instance] insertMessage:msg uid:cid];
+}
+
+-(BOOL)removeMessage:(IMessage*)msg {
+    int64_t cid = 0;
+    if (msg.sender == self.currentUID) {
+        cid = msg.receiver;
+    } else {
+        cid = msg.sender;
+    }
+    return [[CustomerMessageDB instance] removeMessage:msg.msgLocalID uid:cid];
+    
+}
+-(BOOL)markMessageFailure:(IMessage*)msg {
+    int64_t cid = 0;
+    if (msg.sender == self.currentUID) {
+        cid = msg.receiver;
+    } else {
+        cid = msg.sender;
+    }
+    return [[CustomerMessageDB instance] markMessageFailure:msg.msgLocalID uid:cid];
+}
+
+-(BOOL)markMesageListened:(IMessage*)msg {
+    int64_t cid = 0;
+    if (msg.sender == self.currentUID) {
+        cid = msg.receiver;
+    } else {
+        cid = msg.sender;
+    }
+    return [[CustomerMessageDB instance] markMesageListened:msg.msgLocalID uid:cid];
+}
+
+-(BOOL)eraseMessageFailure:(IMessage*)msg {
+    int64_t cid = 0;
+    if (msg.sender == self.currentUID) {
+        cid = msg.receiver;
+    } else {
+        cid = msg.sender;
+    }
+    return [[CustomerMessageDB instance] eraseMessageFailure:msg.msgLocalID uid:cid];
+}
+
+
+-(void)onCustomerMessage:(CustomerMessage*)im {
+    if (self.isStaff && im.customer != self.peerUID) {
+        return;
+    }
+    
+    NSLog(@"receive msg:%@",im);
+    IMessage *m = [[IMessage alloc] init];
+    m.sender = im.sender;
+    m.receiver = im.receiver;
+    m.msgLocalID = im.msgLocalID;
+    m.rawContent = im.content;
+    m.timestamp = im.timestamp;
+    
+    if (self.textMode && m.type != MESSAGE_TEXT) {
+        return;
+    }
+    
+
+    if (!self.isStaff && m.sender != self.currentUID) {
+        //普通用户收到客服的回复消息,记录下客服的id
+        self.peerUID = m.sender;
+    }
+    
+    int now = (int)time(NULL);
+    if (now - self.lastReceivedTimestamp > 1) {
+        [[self class] playMessageReceivedSound];
+        self.lastReceivedTimestamp = now;
+    }
+    
+    [self downloadMessageContent:m];
+    [self insertMessage:m];
+}
+
+//服务器ack
+-(void)onCustomerMessageACK:(int)msgLocalID uid:(int64_t)uid {
+    if (self.isStaff && uid != self.peerUID) {
+        return;
+    }
+    IMessage *msg = [self getMessageWithID:msgLocalID];
+    msg.flags = msg.flags|MESSAGE_FLAG_ACK;
+}
+
+//消息发送失败
+-(void)onCustomerMessageFailure:(int)msgLocalID uid:(int64_t)uid {
+    if (self.isStaff && uid != self.peerUID) {
+        return;
+    }
+    IMessage *msg = [self getMessageWithID:msgLocalID];
+    msg.flags = msg.flags|MESSAGE_FLAG_FAILURE;
+}
+
 - (void)sendMessage:(IMessage *)msg withImage:(UIImage*)image {
     msg.uploading = YES;
-    [[PeerOutbox instance] uploadImage:msg withImage:image];
-    NSNotification* notification = [[NSNotification alloc] initWithName:LATEST_PEER_MESSAGE object:msg userInfo:nil];
+    [[CustomerOutbox instance] uploadImage:msg withImage:image];
+    NSNotification* notification = [[NSNotification alloc] initWithName:LATEST_CUSTOMER_MESSAGE object:msg userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)sendMessage:(IMessage*)message {
     if (message.type == MESSAGE_AUDIO) {
         message.uploading = YES;
-        [[PeerOutbox instance] uploadAudio:message];
+        [[CustomerOutbox instance] uploadAudio:message];
     } else if (message.type == MESSAGE_IMAGE) {
         message.uploading = YES;
-        [[PeerOutbox instance] uploadImage:message];
+        [[CustomerOutbox instance] uploadImage:message];
     } else {
-        IMMessage *im = [[IMMessage alloc] init];
+        CustomerMessage *im = [[CustomerMessage alloc] init];
         im.sender = message.sender;
         im.receiver = message.receiver;
         im.msgLocalID = message.msgLocalID;
         im.content = message.rawContent;
-        [[IMService instance] sendPeerMessage:im];
+        if (self.isStaff) {
+            im.customer = message.receiver;
+        } else {
+            im.customer = message.sender;
+        }
+        [[IMService instance] sendCustomerMessage:im];
     }
     
-    NSNotification* notification = [[NSNotification alloc] initWithName:LATEST_PEER_MESSAGE object:message userInfo:nil];
+    NSNotification* notification = [[NSNotification alloc] initWithName:LATEST_CUSTOMER_MESSAGE object:message userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
+
 
 #pragma mark - Outbox Observer
 - (void)onAudioUploadSuccess:(IMessage*)msg URL:(NSString*)url {
@@ -419,6 +412,5 @@
         m.uploading = NO;
     }
 }
-
 
 @end

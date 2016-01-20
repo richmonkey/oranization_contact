@@ -7,13 +7,12 @@
   of patent rights can be found in the PATENTS file in the same directory.
 */
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Outbox.h"
 
+@interface CustomerLoginViewController : UIViewController<UINavigationControllerDelegate> {
 
-@interface PeerOutbox : Outbox
+}
 
-+(PeerOutbox*)instance;
+@property(nonatomic) NSString *deviceToken;
 
 @end

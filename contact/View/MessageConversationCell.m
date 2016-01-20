@@ -7,7 +7,7 @@
 //
 
 #import "MessageConversationCell.h"
-#import "IMessage.h"
+#import <imkit/IMessage.h>
 
 #define kCatchWidth 74.0f
 
@@ -123,6 +123,8 @@
         [self.headView sd_setImageWithURL:[NSURL URLWithString:conv.avatarURL] placeholderImage:[UIImage imageNamed:@"GroupChat"]];
     } else if (self.conversation.type == CONVERSATION_SYSTEM) {
         //todo
+    } else if (self.conversation.type == CONVERSATION_CUSTOMER_SERVICE) {
+        [self.headView sd_setImageWithURL: [NSURL URLWithString:conv.avatarURL] placeholderImage:[UIImage imageNamed:@"PersonalChat"]];
     }
     
     self.messageContent.text = self.conversation.detail;
