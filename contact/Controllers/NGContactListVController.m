@@ -42,6 +42,7 @@ UITableViewDataSource>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"NGContactListVController view did load");
 
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];

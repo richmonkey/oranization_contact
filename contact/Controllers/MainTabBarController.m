@@ -87,7 +87,10 @@ alpha:(a)]
     
     self.viewControllers = [NSArray arrayWithObjects:nav0, nav1, nil];
     self.selectedIndex = 1;
-    
+
+    //加载view
+    (void)contactViewController.view;
+    (void)msgController.view;
     
     [[self tabBar] setTintColor:RGBACOLOR(48,176,87, 1)];
     [[self tabBar] setBarTintColor:RGBACOLOR(245, 245, 246, 1)];

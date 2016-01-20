@@ -18,6 +18,7 @@
 #import <imkit/CustomerMessageViewController.h>
 
 #import "MessageConversationCell.h"
+#import "MMSyncThread.h"
 
 //RGB颜色
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
@@ -51,6 +52,7 @@ alpha:(a)]
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"MessageListViewController view did load");
     
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.tableview = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
@@ -69,6 +71,7 @@ alpha:(a)]
     [[IMService instance] addConnectionObserver:self];
     [[IMService instance] addSystemMessageObserver:self];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newGroupMessage:) name:LATEST_GROUP_MESSAGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newMessage:) name:LATEST_PEER_MESSAGE object:nil];
     
@@ -565,7 +568,16 @@ alpha:(a)]
     }
 }
 
-#pragma mark - function
+
+- (void)onEndSync:(NSNotification*)notification {
+    NSLog(@"onEndSync");
+    for (Conversation *con in self.conversations) {
+         [self updateConversationName:con];
+    }
+}
+
+
+
 -(void) resetConversationsViewControllerNewState{
     BOOL shouldClearNewCount = YES;
     for (Conversation *conv in self.conversations) {
