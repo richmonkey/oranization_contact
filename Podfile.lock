@@ -1,0 +1,45 @@
+PODS:
+  - ASIHTTPRequest (1.8.2):
+    - ASIHTTPRequest/ASIWebPageRequest
+    - ASIHTTPRequest/CloudFiles
+    - ASIHTTPRequest/Core
+    - ASIHTTPRequest/S3
+  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/CloudFiles (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/Core (1.8.2):
+    - Reachability
+  - ASIHTTPRequest/S3 (1.8.2):
+    - ASIHTTPRequest/Core
+  - PLDatabase (2.0-alpha):
+    - PLDatabase/standard
+  - PLDatabase/common (2.0-alpha)
+  - PLDatabase/standard (2.0-alpha):
+    - PLDatabase/common
+    - sqlite3 (~> 3.8.0.2)
+    - sqlite3/unlock_notify
+  - Reachability (3.2)
+  - SBJson (2.2.3)
+  - sqlite3 (3.8.0.2):
+    - sqlite3/common
+  - sqlite3/common (3.8.0.2)
+  - sqlite3/unlock_notify (3.8.0.2):
+    - sqlite3/common
+  - SVProgressHUD (1.1.2)
+
+DEPENDENCIES:
+  - ASIHTTPRequest (~> 1.8.2)
+  - PLDatabase (~> 2.0-alpha)
+  - SBJson (~> 2.2.3)
+  - SVProgressHUD (~> 1.1.2)
+
+SPEC CHECKSUMS:
+  ASIHTTPRequest: 2c8335b49410c0e2ad42829c438e74d454b77590
+  PLDatabase: 5c4c6987159d5faa6f314b2899bd945d47c03e27
+  Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
+  SBJson: 10c134db061e139c51be95ea28d2f33122cbb538
+  sqlite3: 8a106866139218e144e077a45f102bba67e590f8
+  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
+
+COCOAPODS: 0.34.2
