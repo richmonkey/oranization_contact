@@ -12,6 +12,7 @@ PODS:
     - Reachability
   - ASIHTTPRequest/S3 (1.8.2):
     - ASIHTTPRequest/Core
+  - JSBadgeView (1.3.2)
   - PLDatabase (2.0-alpha):
     - PLDatabase/standard
   - PLDatabase/common (2.0-alpha)
@@ -30,12 +31,14 @@ PODS:
 
 DEPENDENCIES:
   - ASIHTTPRequest (~> 1.8.2)
+  - JSBadgeView (~> 1.3.2)
   - PLDatabase (~> 2.0-alpha)
   - SBJson (~> 2.2.3)
   - SVProgressHUD (~> 1.1.2)
 
 SPEC CHECKSUMS:
   ASIHTTPRequest: 2c8335b49410c0e2ad42829c438e74d454b77590
+  JSBadgeView: 75bec79d76e0eb01d57c9ce75b7c5ea8d6707955
   PLDatabase: 5c4c6987159d5faa6f314b2899bd945d47c03e27
   Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
   SBJson: 10c134db061e139c51be95ea28d2f33122cbb538

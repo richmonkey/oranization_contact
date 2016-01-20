@@ -52,9 +52,6 @@ alpha:(a)]
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(home:)];
-    self.navigationItem.leftBarButtonItem=newBackButton;
-    
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.tableview = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
   	self.tableview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -116,8 +113,6 @@ alpha:(a)]
     }];
     
     self.conversations = [NSMutableArray arrayWithArray:sortedArray];
-    
-
 
     self.navigationItem.title = @"对话";
     if ([[IMService instance] connectState] == STATE_CONNECTING) {
@@ -173,14 +168,6 @@ alpha:(a)]
     }
 }
 
--(void)home:(UIBarButtonItem *)sender {
-    [[IMService instance] removePeerMessageObserver:self];
-    [[IMService instance] removeGroupMessageObserver:self];
-    [[IMService instance] removeConnectionObserver:self];
-    [[IMService instance] removeSystemMessageObserver:self];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)updateNotificationDesc:(Conversation*)conv {
     IMessage *message = conv.message;
@@ -247,40 +234,6 @@ alpha:(a)]
             notification.notificationDesc = desc;
             conv.detail = notification.notificationDesc;
         }
-    }
-}
-
-
-+ (NSString *)getConversationTimeString:(NSDate *)date{
-    NSMutableString *outStr;
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorian components:NSUIntegerMax fromDate:date];
-    NSDateComponents *todayComponents = [gregorian components:NSIntegerMax fromDate:[NSDate date]];
-    
-    if (components.year == todayComponents.year &&
-        components.day == todayComponents.day &&
-        components.month == todayComponents.month) {
-        NSString *format = @"HH:mm";
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-        [formatter setDateFormat:format];
-        [formatter setTimeZone:[NSTimeZone systemTimeZone]];
-        
-        NSString *timeStr = [formatter stringFromDate:date];
-        
-        if (components.hour > 11) {
-            outStr = [NSMutableString stringWithFormat:@"%@ %@",@"下午",timeStr];
-        } else {
-            outStr = [NSMutableString stringWithFormat:@"%@ %@",@"上午",timeStr];
-        }
-        return outStr;
-    } else {
-        NSString *format = @"MM-dd HH:mm";
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-        [formatter setDateFormat:format];
-        [formatter setTimeZone:[NSTimeZone systemTimeZone]];
-        
-        return [formatter stringFromDate:date];
     }
 }
 
@@ -629,11 +582,15 @@ alpha:(a)]
 }
 
 - (void)setNewOnTabBar {
-
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UITabBarItem * cc =  [tabBar.items objectAtIndex: 1];
+    [cc setBadgeValue:@""];
 }
 
 - (void)clearNewOnTarBar {
-
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UITabBarItem * cc =  [tabBar.items objectAtIndex: 1];
+    [cc setBadgeValue:nil];
 }
 
 - (void)appWillResignActive {

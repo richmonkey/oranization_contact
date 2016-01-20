@@ -86,7 +86,7 @@ alpha:(a)]
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:msgController];
     
     self.viewControllers = [NSArray arrayWithObjects:nav0, nav1, nil];
-    self.selectedIndex = 0;
+    self.selectedIndex = 1;
     
     
     [[self tabBar] setTintColor:RGBACOLOR(48,176,87, 1)];
