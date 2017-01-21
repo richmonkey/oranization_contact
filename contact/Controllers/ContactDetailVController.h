@@ -6,9 +6,8 @@
 //  Copyright (c) 2014年 momo. All rights reserved.
 //
 
-#import "NGViewController.h"
 #import "MMContact.h"
 
-@interface NGContactDetailVController : UIViewController
+@interface ContactDetailVController : UIViewController
 @property (strong, nonatomic) MMFullContact *fullContact;
 @end

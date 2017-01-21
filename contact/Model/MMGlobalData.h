@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MMLogger.h"
 
 @interface MMGlobalData : NSObject {
     NSMutableDictionary *preference_;   // 配置

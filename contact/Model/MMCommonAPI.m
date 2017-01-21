@@ -15,8 +15,7 @@
 
 + (NSDate*) getDateBySting:(NSString*)stringDate {		
 	
-	if ((nil == stringDate) 
-		|| (0 == stringDate.length)){
+	if (0 == stringDate.length){
 		return nil;
 	}
 	
@@ -72,154 +71,7 @@
 	return retString;
 }
 
-+ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
-{
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
 
-+ (UIImage*)scaleAndRotateImage:(UIImage *)image scaleSize:(NSInteger)scaleSize{
-	int kMaxResolution = scaleSize; // Or whatever
-	
-    CGImageRef imgRef = image.CGImage;
-	
-    CGFloat width = CGImageGetWidth(imgRef);
-    CGFloat height = CGImageGetHeight(imgRef);
-	
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    CGRect bounds = CGRectMake(0, 0, width, height);
-    if (width > kMaxResolution || height > kMaxResolution) {
-        CGFloat ratio = width/height;
-        if (ratio > 1) {
-            bounds.size.width = kMaxResolution;
-            bounds.size.height = roundf(bounds.size.width / ratio);
-        }
-        else {
-            bounds.size.height = kMaxResolution;
-            bounds.size.width = roundf(bounds.size.height * ratio);
-        }
-    }
-	
-    CGFloat scaleRatio = bounds.size.width / width;
-    CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
-    CGFloat boundHeight;
-    UIImageOrientation orient = image.imageOrientation;
-    switch(orient) {
-			
-        case UIImageOrientationUp: //EXIF = 1
-            transform = CGAffineTransformIdentity;
-            break;
-			
-        case UIImageOrientationUpMirrored: //EXIF = 2
-            transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
-            transform = CGAffineTransformScale(transform, -1.0, 1.0);
-            break;
-			
-        case UIImageOrientationDown: //EXIF = 3
-            transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
-            transform = CGAffineTransformRotate(transform, M_PI);
-            break;
-			
-        case UIImageOrientationDownMirrored: //EXIF = 4
-            transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
-            transform = CGAffineTransformScale(transform, 1.0, -1.0);
-            break;
-			
-        case UIImageOrientationLeftMirrored: //EXIF = 5
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
-            bounds.size.width = boundHeight;
-            transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
-            transform = CGAffineTransformScale(transform, -1.0, 1.0);
-            transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
-            break;
-			
-        case UIImageOrientationLeft: //EXIF = 6
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
-            bounds.size.width = boundHeight;
-            transform = CGAffineTransformMakeTranslation(0.0, imageSize.width);
-            transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
-            break;
-			
-        case UIImageOrientationRightMirrored: //EXIF = 7
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
-            bounds.size.width = boundHeight;
-            transform = CGAffineTransformMakeScale(-1.0, 1.0);
-            transform = CGAffineTransformRotate(transform, M_PI / 2.0);
-            break;
-			
-        case UIImageOrientationRight: //EXIF = 8
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
-            bounds.size.width = boundHeight;
-            transform = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
-            transform = CGAffineTransformRotate(transform, M_PI / 2.0);
-            break;
-			
-        default:
-            [NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
-			
-    }
-	
-    UIGraphicsBeginImageContext(bounds.size);
-	
-    CGContextRef context = UIGraphicsGetCurrentContext();
-	
-    if (orient == UIImageOrientationRight || orient == UIImageOrientationLeft) {
-        CGContextScaleCTM(context, -scaleRatio, scaleRatio);
-        CGContextTranslateCTM(context, -height, 0);
-    }
-    else {
-        CGContextScaleCTM(context, scaleRatio, -scaleRatio);
-        CGContextTranslateCTM(context, 0, -height);
-    }
-	
-    CGContextConcatCTM(context, transform);
-	
-    CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
-    UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-	
-    return imageCopy;
-}
-
-+ (UIImage*)rotateImage:(UIImage*)image {
-    NSInteger scaleSize = MAX(image.size.width, image.size.height);
-    return [self scaleAndRotateImage:image scaleSize:scaleSize];
-}
-
-+ (BOOL)isNetworkReachable {
-	Reachability * curReach = [Reachability reachabilityForInternetConnection];
-	return [curReach currentReachabilityStatus] != NotReachable;
-}
-
-+ (NetworkStatus)getNetworkStatus {
-	Reachability * curReach = [Reachability reachabilityForInternetConnection];
-	return [curReach currentReachabilityStatus];
-}
-
-+ (NSString*)createGUIDStr
-{
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-	CFStringRef stringGUID = CFUUIDCreateString(NULL,theUUID);
-	CFRelease(theUUID);
-	return [(NSString *) stringGUID autorelease];
-}
-
-+ (NSString*)temporaryURLHost {
-    return  @"http://temporary.momo.im/";
-}
-
-+ (NSString*)originalImageURL:(NSString*)smallImageURL {
-    NSString* originImageUrl = [smallImageURL stringByReplacingOccurrencesOfString:@"_130." withString:@"_780."];
-    return originImageUrl;
-}
 
 + (NSString *) getStringByDate:(NSDate*)date byFormatter:(NSString *)stringFormatter {	
 	if (nil == date) {
@@ -238,7 +90,7 @@
 
 + (void)alert:(NSString *)message {
     UIAlertView *alert = [[UIAlertView alloc] init];
-    [alert setTitle:nil];
+    [alert setTitle:@""];
     [alert setMessage:message];
     [alert addButtonWithTitle:@"确定"];
     [alert show];
@@ -265,18 +117,6 @@
 	return firstLetter;
 }
 
-+ (CGRect)properRectForButton:(UIButton*)button maxSize:(CGSize)maxSize {
-	CGRect frame = button.frame;
-	CGSize size = [button sizeThatFits:button.frame.size];
-	if (size.width + 20 > maxSize.width) {
-		size.width = maxSize.width;
-	} else {
-		size.width += 20;
-	}
-	
-	frame.size = size;
-	return frame;
-}
 
 
 

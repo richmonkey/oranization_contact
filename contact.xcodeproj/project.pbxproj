@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D8FBE161A315D4B007A20D9 /* ContactDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */; };
-		1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1D8FBE191A317E4B007A20D9 /* ContactDetailVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8FBE181A317E4B007A20D9 /* ContactDetailVController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1041A2AB61700D2E5B5 /* UIButton+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC10A1A2AB61700D2E5B5 /* UIImage+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1061A2AB61700D2E5B5 /* UIImage+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC10B1A2AB61700D2E5B5 /* UIView+NGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1081A2AB61700D2E5B5 /* UIView+NGAdditions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1321A2ABD9600D2E5B5 /* NGAddition.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		1D9DC1361A2AC21300D2E5B5 /* ContactListVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1351A2AC21300D2E5B5 /* ContactListVController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC13B1A2AFA8000D2E5B5 /* ContactListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		1D9DC13C1A2AFA8000D2E5B5 /* ContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */; };
 		1D9DC13E1A2B057400D2E5B5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9DC13D1A2B057400D2E5B5 /* AddressBook.framework */; };
@@ -33,10 +33,9 @@
 		6D16D6091A08A36A001D0939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D6081A08A36A001D0939 /* Images.xcassets */; };
 		6D16D6371A08A6BB001D0939 /* DbStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6301A08A6BB001D0939 /* DbStruct.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6341A08A6BB001D0939 /* MMContact.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6361A08A6BB001D0939 /* MMModel.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6D16D63A1A08A6BB001D0939 /* MMModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6361A08A6BB001D0939 /* MMModel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D65C1A08A89C001D0939 /* MMPhoneticAbbr.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D65B1A08A89C001D0939 /* MMPhoneticAbbr.mm */; };
 		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D7A71A08AEB9001D0939 /* pinyin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7A41A08AEB9001D0939 /* pinyin.cc */; };
 		6D16D7AB1A08AFFB001D0939 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AA1A08AFFB001D0939 /* libz.dylib */; };
@@ -135,8 +134,8 @@
 		1D8FBE121A315D4B007A20D9 /* ContactDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailCell.h; sourceTree = "<group>"; };
 		1D8FBE131A315D4B007A20D9 /* ContactDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailCell.m; sourceTree = "<group>"; };
 		1D8FBE141A315D4B007A20D9 /* ContactDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactDetailCell.xib; sourceTree = "<group>"; };
-		1D8FBE171A317E4B007A20D9 /* NGContactDetailVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGContactDetailVController.h; sourceTree = "<group>"; };
-		1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGContactDetailVController.m; sourceTree = "<group>"; };
+		1D8FBE171A317E4B007A20D9 /* ContactDetailVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactDetailVController.h; sourceTree = "<group>"; };
+		1D8FBE181A317E4B007A20D9 /* ContactDetailVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactDetailVController.m; sourceTree = "<group>"; };
 		1D9DC0F71A2AB4C900D2E5B5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1D9DC0F81A2AB4C900D2E5B5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1D9DC0FB1A2AB4C900D2E5B5 /* NGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGViewController.h; sourceTree = "<group>"; };
@@ -149,8 +148,8 @@
 		1D9DC1081A2AB61700D2E5B5 /* UIView+NGAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NGAdditions.m"; sourceTree = "<group>"; };
 		1D9DC1311A2ABD9600D2E5B5 /* NGAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGAddition.h; sourceTree = "<group>"; };
 		1D9DC1321A2ABD9600D2E5B5 /* NGAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGAddition.m; sourceTree = "<group>"; };
-		1D9DC1341A2AC21300D2E5B5 /* NGContactListVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGContactListVController.h; sourceTree = "<group>"; };
-		1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGContactListVController.m; sourceTree = "<group>"; };
+		1D9DC1341A2AC21300D2E5B5 /* ContactListVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListVController.h; sourceTree = "<group>"; };
+		1D9DC1351A2AC21300D2E5B5 /* ContactListVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListVController.m; sourceTree = "<group>"; };
 		1D9DC1381A2AFA8000D2E5B5 /* ContactListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListCell.h; sourceTree = "<group>"; };
 		1D9DC1391A2AFA8000D2E5B5 /* ContactListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListCell.m; sourceTree = "<group>"; };
 		1D9DC13A1A2AFA8000D2E5B5 /* ContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListCell.xib; sourceTree = "<group>"; };
@@ -182,7 +181,7 @@
 		6D16D6331A08A6BB001D0939 /* MMContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMContact.h; sourceTree = "<group>"; };
 		6D16D6341A08A6BB001D0939 /* MMContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMContact.m; sourceTree = "<group>"; };
 		6D16D6351A08A6BB001D0939 /* MMModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMModel.h; sourceTree = "<group>"; };
-		6D16D6361A08A6BB001D0939 /* MMModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MMModel.mm; sourceTree = "<group>"; };
+		6D16D6361A08A6BB001D0939 /* MMModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMModel.m; sourceTree = "<group>"; };
 		6D16D6581A08A799001D0939 /* DefineEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineEnum.h; sourceTree = "<group>"; };
 		6D16D6591A08A799001D0939 /* ErrorType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ErrorType.h; sourceTree = "<group>"; };
 		6D16D65A1A08A89C001D0939 /* MMPhoneticAbbr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPhoneticAbbr.h; sourceTree = "<group>"; };
@@ -190,8 +189,6 @@
 		6D16D6CD1A08A980001D0939 /* MMGlobalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGlobalData.h; sourceTree = "<group>"; };
 		6D16D6CE1A08A980001D0939 /* MMGlobalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGlobalData.m; sourceTree = "<group>"; };
 		6D16D6CF1A08A980001D0939 /* MMGlobalDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGlobalDefine.h; sourceTree = "<group>"; };
-		6D16D6D11A08A995001D0939 /* MMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLogger.h; sourceTree = "<group>"; };
-		6D16D6D21A08A995001D0939 /* MMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLogger.m; sourceTree = "<group>"; };
 		6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonAPI.h; sourceTree = "<group>"; };
 		6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonAPI.m; sourceTree = "<group>"; };
 		6D16D7A31A08AEA6001D0939 /* DefineDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineDictionary.h; sourceTree = "<group>"; };
@@ -317,10 +314,10 @@
 				1D9DC0FC1A2AB4C900D2E5B5 /* NGViewController.m */,
 				1DC6CD101A830D4F001728D9 /* MyCompanyViewController.h */,
 				1DC6CD111A830D4F001728D9 /* MyCompanyViewController.m */,
-				1D9DC1341A2AC21300D2E5B5 /* NGContactListVController.h */,
-				1D9DC1351A2AC21300D2E5B5 /* NGContactListVController.m */,
-				1D8FBE171A317E4B007A20D9 /* NGContactDetailVController.h */,
-				1D8FBE181A317E4B007A20D9 /* NGContactDetailVController.m */,
+				1D9DC1341A2AC21300D2E5B5 /* ContactListVController.h */,
+				1D9DC1351A2AC21300D2E5B5 /* ContactListVController.m */,
+				1D8FBE171A317E4B007A20D9 /* ContactDetailVController.h */,
+				1D8FBE181A317E4B007A20D9 /* ContactDetailVController.m */,
 				6D9BC1081C3283EE00F0A2AE /* MainTabBarController.h */,
 				6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */,
 			);
@@ -465,8 +462,6 @@
 				6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */,
 				6D16D6CD1A08A980001D0939 /* MMGlobalData.h */,
 				6D16D6CE1A08A980001D0939 /* MMGlobalData.m */,
-				6D16D6D11A08A995001D0939 /* MMLogger.h */,
-				6D16D6D21A08A995001D0939 /* MMLogger.m */,
 				6D16D6CF1A08A980001D0939 /* MMGlobalDefine.h */,
 				6D16D6581A08A799001D0939 /* DefineEnum.h */,
 				6D16D6591A08A799001D0939 /* ErrorType.h */,
@@ -477,7 +472,7 @@
 				6D16D6331A08A6BB001D0939 /* MMContact.h */,
 				6D16D6341A08A6BB001D0939 /* MMContact.m */,
 				6D16D6351A08A6BB001D0939 /* MMModel.h */,
-				6D16D6361A08A6BB001D0939 /* MMModel.mm */,
+				6D16D6361A08A6BB001D0939 /* MMModel.m */,
 				6DAC109C1C3D6DBB007D87DD /* ContactCache.h */,
 				6DAC109D1C3D6DBB007D87DD /* ContactCache.m */,
 			);
@@ -815,7 +810,7 @@
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6DB34CB91C4FDB03006D78D4 /* MessageListViewController.m in Sources */,
-				1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */,
+				1D8FBE191A317E4B007A20D9 /* ContactDetailVController.m in Sources */,
 				6DAC108A1C3D6290007D87DD /* UIImageView+WebCache.m in Sources */,
 				6DAC108B1C3D6290007D87DD /* UIView+WebCacheOperation.m in Sources */,
 				6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */,
@@ -832,13 +827,12 @@
 				6DAC108E1C3D6290007D87DD /* UIView+Toast.m in Sources */,
 				6DAC107D1C3D6290007D87DD /* NSData+ImageContentType.m in Sources */,
 				6DAC10861C3D6290007D87DD /* UIImage+GIF.m in Sources */,
-				6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */,
 				6DB34CC31C4FDB0F006D78D4 /* MessageConversationCell.m in Sources */,
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
 				1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */,
-				1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */,
+				1D9DC1361A2AC21300D2E5B5 /* ContactListVController.m in Sources */,
 				6DAC10851C3D6290007D87DD /* UIButton+WebCache.m in Sources */,
-				6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */,
+				6D16D63A1A08A6BB001D0939 /* MMModel.m in Sources */,
 				1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */,
 				6DAC107E1C3D6290007D87DD /* SDImageCache.m in Sources */,
 				6D16D65C1A08A89C001D0939 /* MMPhoneticAbbr.mm in Sources */,

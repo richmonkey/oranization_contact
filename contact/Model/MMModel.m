@@ -7,10 +7,9 @@
 //
 
 #import "MMModel.h"
-#import "contact_match.h"
 
 #define DB_FILENAME @"momo.db"
-static pthread_key_t threadDBKey = NULL;
+static pthread_key_t threadDBKey = 0;
 
 @implementation MMModel
 

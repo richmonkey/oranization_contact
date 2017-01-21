@@ -15,7 +15,7 @@
 #import <imkit/PeerMessageDB.h>
 #import <imkit/GroupMessageDB.h>
 #import "MessageListViewController.h"
-#import "NGContactListVController.h"
+#import "ContactListVController.h"
 #import "MMContact.h"
 #import "Token.h"
 #import "ContactCache.h"
@@ -62,7 +62,7 @@ alpha:(a)]
 
     
     //创建界面
-    NGContactListVController *contactViewController = [[NGContactListVController alloc] init];
+    ContactListVController *contactViewController = [[ContactListVController alloc] init];
     contactViewController.tabBarItem.title = @"联系人";
     contactViewController.tabBarItem.selectedImage = [UIImage imageNamed:@"tabbar_contacts"];
     contactViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar_contacts"];

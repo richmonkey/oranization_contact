@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 momo. All rights reserved.
 //
 
-#import "NGContactListVController.h"
+#import "ContactListVController.h"
 #import "UIView+NGAdditions.h"
 #import "DbStruct.h"
 #import "MMCommonAPI.h"
@@ -14,7 +14,7 @@
 #import "MMContact.h"
 #import <AddressBook/AddressBook.h>
 #import "MMAddressBook.h"
-#import "NGContactDetailVController.h"
+#import "ContactDetailVController.h"
 #import "APIRequest.h"
 #import "Token.h"
 #import "LoginViewController.h"
@@ -22,7 +22,7 @@
 #import "DbStruct.h"
 #import "ContactCache.h"
 
-@interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
+@interface ContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic)dispatch_source_t refreshTimer;
 @property(nonatomic)int refreshFailCount;
@@ -41,7 +41,7 @@ UITableViewDataSource>
 
 @end
 
-@implementation NGContactListVController
+@implementation ContactListVController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,7 +64,7 @@ UITableViewDataSource>
     
     [self initContactArray];
     
-    __weak NGContactListVController *wself = self;
+    __weak ContactListVController *wself = self;
     dispatch_queue_t queue = dispatch_get_main_queue();
     self.refreshTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_event_handler(self.refreshTimer, ^{
@@ -599,7 +599,7 @@ UITableViewDataSource>
         DbContactSimple *contact = [array objectAtIndex:indexPath.row];
         MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
         
-        NGContactDetailVController *viewController = [NGContactDetailVController new];
+        ContactDetailVController *viewController = [ContactDetailVController new];
         viewController.hidesBottomBarWhenPushed = YES;
         viewController.fullContact = fullContact;
         [self.navigationController pushViewController:viewController animated:YES];
@@ -609,7 +609,7 @@ UITableViewDataSource>
         DbContactSimple *contact = [array objectAtIndex:indexPath.row];
         MMFullContact* fullContact = [[MMContactManager instance] getFullContact:contact.contactId withError:nil];
 
-        NGContactDetailVController *viewController = [NGContactDetailVController new];
+        ContactDetailVController *viewController = [ContactDetailVController new];
         viewController.fullContact = fullContact;
         [self.navigationController pushViewController:viewController animated:YES];
     }

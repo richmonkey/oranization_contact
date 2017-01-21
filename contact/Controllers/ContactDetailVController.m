@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 momo. All rights reserved.
 //
 
-#import "NGContactDetailVController.h"
+#import "ContactDetailVController.h"
 #import "UIView+NGAdditions.h"
 #import "ContactDetailCell.h"
 #import <AddressBook/AddressBook.h>
@@ -19,7 +19,7 @@
 #import "Token.h"
 #import <imkit/PeerMessageViewController.h>
 
-@interface NGContactDetailVController ()<UITableViewDelegate, UITableViewDataSource, MessageViewControllerUserDelegate>
+@interface ContactDetailVController ()<UITableViewDelegate, UITableViewDataSource, MessageViewControllerUserDelegate>
 @property(nonatomic, strong) UITableView *infoTableView;
 @property(nonatomic, strong) NSString *curPhone;
 
@@ -32,7 +32,7 @@
 
 @end
 
-@implementation NGContactDetailVController
+@implementation ContactDetailVController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

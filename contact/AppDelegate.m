@@ -7,9 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "LoginViewController.h"
-#import "NGContactListVController.h"
 #import "Token.h"
+#import "LoginViewController.h"
 #import "MainTabBarController.h"
 
 #import <imsdk/IMService.h>

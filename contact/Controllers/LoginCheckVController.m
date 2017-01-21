@@ -10,7 +10,6 @@
 #import "APIRequest.h"
 #import "TAHttpOperation.h"
 #import "AppDelegate.h"
-#import "NGContactListVController.h"
 #import "Token.h"
 #import "UIImage+NGAdditions.h"
 #import "SVProgressHUD.h"
