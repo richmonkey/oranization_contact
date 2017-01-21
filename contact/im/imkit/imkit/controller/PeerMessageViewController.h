@@ -18,13 +18,14 @@
 
 #define TEXT_MODE1
 #ifdef TEXT_MODE
-@interface PeerMessageViewController : TextMessageViewController<PeerMessageObserver,  TCPConnectionObserver, LoginPointObserver>
+@interface PeerMessageViewController : TextMessageViewController<PeerMessageObserver,  TCPConnectionObserver>
 #else
-@interface PeerMessageViewController : MessageViewController<PeerMessageObserver,  TCPConnectionObserver, LoginPointObserver>
+@interface PeerMessageViewController : MessageViewController<PeerMessageObserver,  TCPConnectionObserver>
 #endif
 
 @property(nonatomic, assign) int64_t currentUID;
 @property(nonatomic, assign) int64_t peerUID;
 @property(nonatomic, copy) NSString *peerName;
+
 
 @end

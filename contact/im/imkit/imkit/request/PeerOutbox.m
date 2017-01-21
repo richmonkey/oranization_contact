@@ -10,7 +10,7 @@
 #import "PeerOutbox.h"
 #import "IMHttpAPI.h"
 #import "../model/FileCache.h"
-#import <imsdk/IMService.h>
+#import "IMService.h"
 #import "PeerMessageDB.h"
 #import "GroupMessageDB.h"
 #import "wav_amr.h"
@@ -51,5 +51,15 @@
 
 -(void)markMessageFailure:(IMessage*)msg {
     [[PeerMessageDB instance] markMessageFailure:msg.msgLocalID uid:msg.receiver];
+}
+
+-(void)saveMessageAttachment:(IMessage*)msg url:(NSString*)url {
+    MessageAttachmentContent *att = [[MessageAttachmentContent alloc] initWithAttachment:msg.msgLocalID url:url];
+    IMessage *attachment = [[IMessage alloc] init];
+    attachment.sender = msg.sender;
+    attachment.receiver = msg.receiver;
+    attachment.rawContent = att.raw;
+    
+    [[PeerMessageDB instance] insertMessage:attachment uid:msg.receiver];
 }
 @end

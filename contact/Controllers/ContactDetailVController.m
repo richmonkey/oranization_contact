@@ -17,7 +17,7 @@
 #import "MMCommonAPI.h"
 #import "ContactCache.h"
 #import "Token.h"
-#import <imkit/PeerMessageViewController.h>
+#import <gobelieve/PeerMessageViewController.h>
 
 @interface ContactDetailVController ()<UITableViewDelegate, UITableViewDataSource, MessageViewControllerUserDelegate>
 @property(nonatomic, strong) UITableView *infoTableView;

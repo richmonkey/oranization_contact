@@ -7,7 +7,7 @@
 //
 
 #import "CustomerOutbox.h"
-#import <imsdk/IMService.h>
+#import "IMService.h"
 #import "CustomerMessageDB.h"
 
 @implementation CustomerOutbox
@@ -25,30 +25,40 @@
 -(id)init {
     self = [super init];
     if (self) {
-        self.isStaff = NO;
     }
     return self;
 }
 
 
-- (void)sendMessage:(IMessage*)msg{
+- (void)sendMessage:(IMessage*)m{
+    ICustomerMessage *msg = (ICustomerMessage*)m;
     CustomerMessage *im = [[CustomerMessage alloc] init];
-    im.sender = msg.sender;
-    im.receiver = msg.receiver;
+
+    im.customerAppID = msg.customerAppID;
+    im.customerID = msg.customerID;
+    im.storeID = msg.storeID;
+    im.sellerID = msg.sellerID;
     im.msgLocalID = msg.msgLocalID;
     im.content = msg.rawContent;
-    
-    if (self.isStaff) {
-        im.customer = msg.receiver;
-    } else {
-        im.customer = msg.sender;
-    }
     
     [[IMService instance] sendCustomerMessage:im];
 }
 
 -(void)markMessageFailure:(IMessage*)msg {
-    [[CustomerMessageDB instance] markMessageFailure:msg.msgLocalID uid:msg.receiver];
+    ICustomerMessage *cm = (ICustomerMessage*)msg;
+    [[CustomerMessageDB instance] markMessageFailure:cm.msgLocalID uid:cm.storeID];
 }
 
+-(void)saveMessageAttachment:(IMessage*)msg url:(NSString*)url {
+    ICustomerMessage *cm = (ICustomerMessage*)msg;
+    MessageAttachmentContent *att = [[MessageAttachmentContent alloc] initWithAttachment:msg.msgLocalID url:url];
+    ICustomerMessage *attachment = [[ICustomerMessage alloc] init];
+    attachment.storeID = cm.storeID;
+    attachment.sellerID = cm.sellerID;
+    attachment.customerID = cm.customerID;
+    attachment.customerAppID = cm.customerAppID;
+    attachment.rawContent = att.raw;
+    
+    [[CustomerMessageDB instance] insertMessage:attachment uid:cm.storeID];
+}
 @end

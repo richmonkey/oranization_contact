@@ -8,14 +8,15 @@
  */
 
 #import "MessageListViewController.h"
-#import <imkit/IMessage.h>
-#import <imsdk/IMService.h>
-#import <imkit/PeerMessageDB.h>
-#import <imkit/GroupMessageDB.h>
-#import <imkit/CustomerMessageDB.h>
-#import <imkit/PeerMessageViewController.h>
-#import <imkit/GroupMessageViewController.h>
-#import <imkit/CustomerMessageViewController.h>
+#import <gobelieve/IMessage.h>
+#import <gobelieve/IMService.h>
+#import <gobelieve/PeerMessageDB.h>
+#import <gobelieve/GroupMessageDB.h>
+#import <gobelieve/CustomerMessageDB.h>
+#import <gobelieve/PeerMessageViewController.h>
+#import <gobelieve/GroupMessageViewController.h>
+#import <gobelieve/CustomerMessageViewController.h>
+#import "Conversation.h"
 
 #import "MessageConversationCell.h"
 
@@ -79,17 +80,23 @@ alpha:(a)]
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
 
     id<ConversationIterator> iterator =  [[PeerMessageDB instance] newConversationIterator];
-    Conversation * conversation = [iterator next];
-    while (conversation) {
+    IMessage *msg = [iterator next];
+    while (msg) {
+        Conversation * conversation = [[Conversation alloc] init];
+        conversation.message = msg;
+        conversation.type = CONVERSATION_PEER;
         [self.conversations addObject:conversation];
-        conversation = [iterator next];
+        msg = [iterator next];
     }
     
     iterator = [[GroupMessageDB instance] newConversationIterator];
-    conversation = [iterator next];
-    while (conversation) {
+    msg = [iterator next];
+    while (msg) {
+        Conversation * conversation = [[Conversation alloc] init];
+        conversation.message = msg;
+        conversation.type = CONVERSATION_GROUP;
         [self.conversations addObject:conversation];
-        conversation = [iterator next];
+        msg = [iterator next];
     }
  
     for (Conversation *conv in self.conversations) {
@@ -173,7 +180,7 @@ alpha:(a)]
 - (void)updateNotificationDesc:(Conversation*)conv {
     IMessage *message = conv.message;
     if (message.type == MESSAGE_GROUP_NOTIFICATION) {
-        MessageNotificationContent *notification = message.notificationContent;
+        MessageGroupNotificationContent *notification = message.notificationContent;
         int type = notification.notificationType;
         if (type == NOTIFICATION_GROUP_CREATED) {
             if (self.currentUID == notification.master) {
@@ -318,14 +325,6 @@ alpha:(a)]
         
         msgController.groupID = con.cid;
         msgController.groupName = con.name;
-        msgController.currentUID = self.currentUID;
-        msgController.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:msgController animated:YES];
-    } else if (con.type == CONVERSATION_CUSTOMER_SERVICE) {
-        CustomerMessageViewController *msgController = [[CustomerMessageViewController alloc] init];
-        msgController.userDelegate = self.userDelegate;
-        msgController.peerUID = con.cid;
-        msgController.peerName = con.name;
         msgController.currentUID = self.currentUID;
         msgController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:msgController animated:YES];
@@ -498,7 +497,7 @@ alpha:(a)]
 }
 
 -(void)onGroupNotification:(NSString*)text {
-    MessageNotificationContent *notification = [[MessageNotificationContent alloc] initWithNotification:text];
+    MessageGroupNotificationContent *notification = [[MessageGroupNotificationContent alloc] initWithNotification:text];
     int64_t groupID = notification.groupID;
     
     IMessage *msg = [[IMessage alloc] init];

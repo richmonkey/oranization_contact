@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "IMessage.h"
+#include <dirent.h>
 
 @protocol ConversationIterator
--(Conversation*)next;
+-(IMessage*)next;
 @end
 
-@interface ConversationIterator : NSObject<ConversationIterator>
--(id)initWithPath:(NSString*)path type:(int)type;
+@interface FileConversationIterator : NSObject<ConversationIterator>
+@property(nonatomic, assign)DIR *dirp;
+@property(nonatomic, copy) NSString *path;
+
+-(id)initWithPath:(NSString*)path;
 
 @end

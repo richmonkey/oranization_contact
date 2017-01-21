@@ -8,12 +8,15 @@
 
 #import "MainTabBarController.h"
 
-#import <imsdk/IMService.h>
-#import <imkit/PeerMessageViewController.h>
-#import <imkit/MessageDB.h>
-#import <imkit/IMHttpAPI.h>
-#import <imkit/PeerMessageDB.h>
-#import <imkit/GroupMessageDB.h>
+#import <gobelieve/IMService.h>
+#import <gobelieve/PeerMessageViewController.h>
+#import <gobelieve/MessageDB.h>
+#import <gobelieve/IMHttpAPI.h>
+#import <gobelieve/PeerMessageDB.h>
+#import <gobelieve/GroupMessageDB.h>
+#import <gobelieve/PeerMessageHandler.h>
+#import <gobelieve/GroupMessageHandler.h>
+#import <gobelieve/SyncKeyHandler.h>
 #import "MessageListViewController.h"
 #import "ContactListVController.h"
 #import "MMContact.h"
@@ -37,6 +40,20 @@ alpha:(a)]
     return basePath;
 }
 
+-(BOOL)mkdir:(NSString*)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:path]) {
+        NSError *err;
+        BOOL r = [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&err];
+        
+        if (!r) {
+            NSLog(@"mkdir err:%@", err);
+        }
+        return r;
+    }
+    
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,14 +62,31 @@ alpha:(a)]
     Token *token = [Token instance];
     NSString *path = [self getDocumentPath];
     NSString *dbPath = [NSString stringWithFormat:@"%@/%lld", path, token.uid];
+    [self mkdir:dbPath];
     
     [PeerMessageDB instance].dbPath = [NSString stringWithFormat:@"%@/peer", dbPath];
     [GroupMessageDB instance].dbPath = [NSString stringWithFormat:@"%@/group", dbPath];
     
     [IMHttpAPI instance].accessToken = token.gobelieveToken;
     [IMService instance].token = token.gobelieveToken;
-    [IMService instance].uid = token.uid;
     
+    [PeerMessageHandler instance].uid = token.uid;
+    [GroupMessageHandler instance].uid = token.uid;
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@/synckey", dbPath];
+    SyncKeyHandler *handler = [[SyncKeyHandler alloc] initWithFileName:fileName];
+    [IMService instance].syncKeyHandler = handler;
+    
+    [IMService instance].syncKey = [handler syncKey];
+    NSLog(@"sync key:%lld", [handler syncKey]);
+    
+    [[IMService instance] clearSuperGroupSyncKey];
+    NSDictionary *groups = [handler superGroupSyncKeys];
+    for (NSNumber *k in groups) {
+        NSNumber *v = [groups objectForKey:k];
+        NSLog(@"group id:%@ sync key:%@", k, v);
+        [[IMService instance] addSuperGroupSyncKey:[v longLongValue] gid:[k longLongValue]];
+    }
     [[IMService instance] start];
     
     //加载联系人到cache中

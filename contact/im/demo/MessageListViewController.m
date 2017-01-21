@@ -8,16 +8,17 @@
  */
 
 #import "MessageListViewController.h"
-#import <imkit/IMessage.h>
-#import <imsdk/IMService.h>
-#import <imkit/PeerMessageDB.h>
-#import <imkit/GroupMessageDB.h>
-#import <imkit/CustomerMessageDB.h>
-#import <imkit/PeerMessageViewController.h>
-#import <imkit/GroupMessageViewController.h>
-#import <imkit/CustomerMessageViewController.h>
+#import <gobelieve/IMessage.h>
+#import <gobelieve/IMService.h>
+#import <gobelieve/PeerMessageDB.h>
+#import <gobelieve/GroupMessageDB.h>
+#import <gobelieve/CustomerMessageDB.h>
+#import <gobelieve/PeerMessageViewController.h>
+#import <gobelieve/GroupMessageViewController.h>
+#import <gobelieve/CustomerMessageViewController.h>
 
 #import "MessageConversationCell.h"
+#import "Conversation.h"
 
 //RGB颜色
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
@@ -25,12 +26,14 @@
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f \
 alpha:(a)]
 
-
+#define APPID 7
+#define KEFU_ID 54
 
 #define kConversationCellHeight         60
 
 @interface MessageListViewController()<UITableViewDelegate, UITableViewDataSource,
-    TCPConnectionObserver, PeerMessageObserver, GroupMessageObserver, SystemMessageObserver>
+    TCPConnectionObserver, PeerMessageObserver, GroupMessageObserver,
+    SystemMessageObserver, RTMessageObserver>
 @property (strong , nonatomic) NSMutableArray *conversations;
 @property (strong , nonatomic) UITableView *tableview;
 @end
@@ -52,7 +55,7 @@ alpha:(a)]
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(home:)];
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
     self.navigationItem.leftBarButtonItem=newBackButton;
     
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -71,27 +74,40 @@ alpha:(a)]
     [[IMService instance] addGroupMessageObserver:self];
     [[IMService instance] addConnectionObserver:self];
     [[IMService instance] addSystemMessageObserver:self];
+    [[IMService instance] addRTMessageObserver:self];
     
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newGroupMessage:) name:LATEST_GROUP_MESSAGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newMessage:) name:LATEST_PEER_MESSAGE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newCustomerMessage:) name:LATEST_CUSTOMER_MESSAGE object:nil];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(clearSinglePeerNewState:) name:CLEAR_PEER_NEW_MESSAGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(clearSingleGroupNewState:) name:CLEAR_GROUP_NEW_MESSAGE object:nil];
     
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
 
     id<ConversationIterator> iterator =  [[PeerMessageDB instance] newConversationIterator];
-    Conversation * conversation = [iterator next];
-    while (conversation) {
-        [self.conversations addObject:conversation];
-        conversation = [iterator next];
+    IMessage * msg = [iterator next];
+    while (msg) {
+        Conversation *c = [[Conversation alloc] init];
+        c.message = msg;
+        c.cid = (self.currentUID == msg.sender) ? msg.receiver : msg.sender;
+        c.type = CONVERSATION_PEER;
+        [self.conversations addObject:c];
+        msg = [iterator next];
     }
     
     iterator = [[GroupMessageDB instance] newConversationIterator];
-    conversation = [iterator next];
-    while (conversation) {
-        [self.conversations addObject:conversation];
-        conversation = [iterator next];
+    msg = [iterator next];
+    while (msg) {
+        Conversation *c = [[Conversation alloc] init];
+        c.message = msg;
+        c.cid = msg.receiver;
+        c.type = CONVERSATION_GROUP;
+        [self.conversations addObject:c];
+        msg = [iterator next];
     }
  
     for (Conversation *conv in self.conversations) {
@@ -99,8 +115,8 @@ alpha:(a)]
         [self updateConversationDetail:conv];
     }
     
-    id<IMessageIterator> iter = [[CustomerMessageDB instance] newMessageIterator:0];
-    IMessage *msg = nil;
+    id<IMessageIterator> iter = [[CustomerMessageDB instance] newMessageIterator:KEFU_ID];
+    msg = nil;
     //返回第一条不是附件的消息
     while (YES) {
         msg = [iter next];
@@ -112,17 +128,23 @@ alpha:(a)]
         }
     }
     if (!msg) {
-        msg = [[IMessage alloc] init];
-        msg.sender = 0;
-        msg.receiver = self.currentUID;
+        msg = [[ICustomerMessage alloc] init];
+        ICustomerMessage *m = (ICustomerMessage*)msg;
+        m.sender = 0;
+        m.receiver = self.currentUID;
+        m.storeID = KEFU_ID;
+        m.sellerID = 0;
+        m.customerID = self.currentUID;
+        m.customerAppID = APPID;
+        
         MessageTextContent *content = [[MessageTextContent alloc] initWithText:@"如果你在使用过程中有任何问题和建议，记得给我们发信反馈哦"];
-        msg.rawContent = content.raw;
-        msg.timestamp = (int)time(NULL);
+        m.rawContent = content.raw;
+        m.timestamp = (int)time(NULL);
     }
 
     Conversation *conv = [[Conversation alloc] init];
     conv.message = msg;
-    conv.cid = 0;
+    conv.cid = ((ICustomerMessage*)msg).storeID;
     conv.type = CONVERSATION_CUSTOMER_SERVICE;
     conv.name = @"客服";
     [self updateConversationDetail:conv];
@@ -208,6 +230,7 @@ alpha:(a)]
     [[IMService instance] removeGroupMessageObserver:self];
     [[IMService instance] removeConnectionObserver:self];
     [[IMService instance] removeSystemMessageObserver:self];
+    [[IMService instance] removeRTMessageObserver:self];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -215,7 +238,7 @@ alpha:(a)]
 - (void)updateNotificationDesc:(Conversation*)conv {
     IMessage *message = conv.message;
     if (message.type == MESSAGE_GROUP_NOTIFICATION) {
-        MessageNotificationContent *notification = message.notificationContent;
+        MessageGroupNotificationContent *notification = message.notificationContent;
         int type = notification.notificationType;
         if (type == NOTIFICATION_GROUP_CREATED) {
             if (self.currentUID == notification.master) {
@@ -284,7 +307,7 @@ alpha:(a)]
 + (NSString *)getConversationTimeString:(NSDate *)date{
     NSMutableString *outStr;
     NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components:NSUIntegerMax fromDate:date];
     NSDateComponents *todayComponents = [gregorian components:NSIntegerMax fromDate:[NSDate date]];
     
@@ -375,6 +398,9 @@ alpha:(a)]
     }
 }
 
+
+
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -400,7 +426,13 @@ alpha:(a)]
     } else if (con.type == CONVERSATION_CUSTOMER_SERVICE) {
         CustomerMessageViewController *msgController = [[CustomerMessageViewController alloc] init];
         msgController.userDelegate = self.userDelegate;
-        msgController.peerUID = con.cid;
+
+        msgController.appID = APPID;
+        if (con.cid == 0) {
+            msgController.storeID = KEFU_ID;
+        } else {
+            msgController.storeID = con.cid;
+        }
         msgController.peerName = con.name;
         msgController.currentUID = self.currentUID;
         msgController.hidesBottomBarWhenPushed = YES;
@@ -421,6 +453,12 @@ alpha:(a)]
     IMessage *m = notification.object;
     NSLog(@"new message:%lld, %lld", m.sender, m.receiver);
     [self onNewMessage:m cid:m.receiver];
+}
+
+- (void)newCustomerMessage:(NSNotification*) notification {
+    ICustomerMessage *m = notification.object;
+    NSLog(@"new message:%lld, %lld", m.sender, m.receiver);
+    [self onNewCustomerMessage:m cid:m.receiver];
 }
 
 - (void)clearSinglePeerNewState:(NSNotification*) notification {
@@ -544,6 +582,56 @@ alpha:(a)]
     }
 }
 
+
+-(void)onNewCustomerMessage:(ICustomerMessage*)msg cid:(int64_t)cid{
+    int index = -1;
+    for (int i = 0; i < [self.conversations count]; i++) {
+        Conversation *con = [self.conversations objectAtIndex:i];
+        if (con.type == CONVERSATION_CUSTOMER_SERVICE && con.cid == cid) {
+            index = i;
+            break;
+        }
+    }
+    
+    if (index != -1) {
+        Conversation *con = [self.conversations objectAtIndex:index];
+        con.message = msg;
+        
+        [self updateConversationDetail:con];
+        
+        if (self.currentUID == msg.receiver) {
+            con.newMsgCount += 1;
+            [self setNewOnTabBar];
+        }
+        
+        if (index != 0) {
+            //置顶
+            [self.conversations removeObjectAtIndex:index];
+            [self.conversations insertObject:con atIndex:0];
+            [self.tableview reloadData];
+        }
+    } else {
+        Conversation *con = [[Conversation alloc] init];
+        con.type = CONVERSATION_CUSTOMER_SERVICE;
+        con.cid = cid;
+        con.message = msg;
+        
+        [self updateConversationName:con];
+        [self updateConversationDetail:con];
+        
+        if (self.currentUID == msg.receiver) {
+            con.newMsgCount += 1;
+            [self setNewOnTabBar];
+        }
+        
+        [self.conversations insertObject:con atIndex:0];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+        NSArray *array = [NSArray arrayWithObject:path];
+        [self.tableview insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationMiddle];
+    }
+}
+
+
 -(void)onPeerMessage:(IMMessage*)im {
     IMessage *m = [[IMessage alloc] init];
     m.sender = im.sender;
@@ -574,7 +662,7 @@ alpha:(a)]
 }
 
 -(void)onGroupNotification:(NSString*)text {
-    MessageNotificationContent *notification = [[MessageNotificationContent alloc] initWithNotification:text];
+    MessageGroupNotificationContent *notification = [[MessageGroupNotificationContent alloc] initWithNotification:text];
     int64_t groupID = notification.groupID;
     
     IMessage *msg = [[IMessage alloc] init];
@@ -640,6 +728,10 @@ alpha:(a)]
             [self.tableview reloadData];
         }
     }
+}
+
+-(void)onRTMessage:(RTMessage*)rt {
+    NSLog(@"rt message:%lld %lld %@", rt.sender, rt.receiver, rt.content);
 }
 
 #pragma mark - function

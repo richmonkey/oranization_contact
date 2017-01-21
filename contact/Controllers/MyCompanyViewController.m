@@ -17,8 +17,8 @@
 #import "MBProgressHUD.h"
 #import "Token.h"
 #import "MMContact.h"
-#import <imsdk/IMService.h>
-#import <imkit/IMHttpAPI.h>
+#import <gobelieve/IMService.h>
+#import <gobelieve/IMHttpAPI.h>
 
 @interface MyCompanyViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *componyTableView;

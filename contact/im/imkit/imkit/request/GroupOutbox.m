@@ -10,7 +10,7 @@
 #import "GroupOutbox.h"
 #import "IMHttpAPI.h"
 #import "../model/FileCache.h"
-#import <imsdk/IMService.h>
+#import "IMService.h"
 #import "PeerMessageDB.h"
 #import "GroupMessageDB.h"
 #import "wav_amr.h"
@@ -57,6 +57,16 @@
 //override
 -(void)markMessageFailure:(IMessage*)msg {
     [[GroupMessageDB instance] markMessageFailure:msg.msgLocalID gid:msg.receiver];
+}
+
+-(void)saveMessageAttachment:(IMessage*)msg url:(NSString*)url {
+    MessageAttachmentContent *att = [[MessageAttachmentContent alloc] initWithAttachment:msg.msgLocalID url:url];
+    IMessage *attachment = [[IMessage alloc] init];
+    attachment.sender = msg.sender;
+    attachment.receiver = msg.receiver;
+    attachment.rawContent = att.raw;
+    
+    [[GroupMessageDB instance] insertMessage:attachment];
 }
 
 @end

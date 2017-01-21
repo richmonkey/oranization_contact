@@ -8,8 +8,11 @@
 */
 
 #import <Foundation/Foundation.h>
-#import <imsdk/IMService.h>
+#import "IMService.h"
 
 @interface PeerMessageHandler : NSObject<IMPeerMessageHandler>
 +(PeerMessageHandler*)instance;
+
+//当前登录的用户id
+@property(nonatomic, assign) int64_t uid;
 @end

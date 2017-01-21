@@ -11,32 +11,23 @@
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
 
-#import <imsdk/IMService.h>
-#import <imkit/PeerMessageHandler.h>
-#import <imkit/GroupMessageHandler.h>
-#import <imkit/PeerMessageDB.h>
-#import <imkit/GroupMessageDB.h>
-#import <imkit/IMHttpAPI.H>
+#import <gobelieve/IMService.h>
+#import <gobelieve/PeerMessageHandler.h>
+#import <gobelieve/GroupMessageHandler.h>
+#import <gobelieve/PeerMessageDB.h>
+#import <gobelieve/GroupMessageDB.h>
+#import <gobelieve/IMHttpAPI.H>
 
-#if ! __has_feature(objc_arc)
-#error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
-#endif
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    //app可以单独部署服务器，给予第三方应用更多的灵活性
-    [IMHttpAPI instance].apiURL = @"http://api.gobelieve.io";
-    [IMService instance].host = @"imnode.gobelieve.io";
-    
     [IMService instance].deviceID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"device id:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
     [IMService instance].peerMessageHandler = [PeerMessageHandler instance];
     [IMService instance].groupMessageHandler = [GroupMessageHandler instance];
     [[IMService instance] startRechabilityNotifier];
-
-    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     application.statusBarHidden = NO;

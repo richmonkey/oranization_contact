@@ -7,8 +7,9 @@
 //
 
 #import "MessageConversationCell.h"
-#import <imkit/IMessage.h>
+#import <gobelieve/IMessage.h>
 #import "JSBadgeView.h"
+#import "Conversation.h"
 
 #define kCatchWidth 74.0f
 
