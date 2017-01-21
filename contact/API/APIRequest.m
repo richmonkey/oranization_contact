@@ -202,8 +202,34 @@
     
     [[NSOperationQueue mainQueue] addOperation:request];
     return request;
+}
 
++(TAHttpOperation*)syncContact:(int64_t)syncKey success:(void(^)(NSDictionary *resp))success fail:(void(^)())fail {
+    NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithObject:@"application/json" forKey:@"Content-Type"];
+    NSString *auth = [NSString stringWithFormat:@"Bearer %@", [Token instance].accessToken];
+    [headers setObject:auth forKey:@"Authorization"];
     
-
+    NSString *path = [NSString stringWithFormat:@"/contact/sync?key=%lld", syncKey];
+    TAHttpOperation *request = [APIRequest requestWithPath:path withHeaders:headers];
+    
+    request.successCB = ^(TAHttpOperation*commObj, NSURLResponse *response, NSData *data) {
+        int statusCode = (int)[(NSHTTPURLResponse*)response statusCode];
+        if (statusCode != 200) {
+            NSDictionary *e = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"refresh token fail:%@", e);
+            fail();
+            return;
+        }
+    
+        NSDictionary *resp = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        success(resp);
+    };
+    
+    request.failCB = ^(TAHttpOperation*commObj, TAHttpOperationError error) {
+        fail();
+    };
+    
+    [[NSOperationQueue mainQueue] addOperation:request];
+    return request;
 }
 @end

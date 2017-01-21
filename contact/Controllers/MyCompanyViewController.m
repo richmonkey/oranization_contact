@@ -10,14 +10,12 @@
 #import "UIView+NGAdditions.h"
 #import "ContactDetailCell.h"
 #import "MMCommonAPI.h"
-#import "MMSyncThread.h"
 #import "MainTabBarController.h"
 #import "Organization.h"
 #import "APIRequest.h"
 #import "MMCommonAPI.h"
 #import "MBProgressHUD.h"
 #import "Token.h"
-#import "MMSyncThread.h"
 #import "MMContact.h"
 #import <imsdk/IMService.h>
 #import <imkit/IMHttpAPI.h>
@@ -142,9 +140,6 @@
                               [[Token instance] save];
                               
                               if (self.isLogin) {
-                                  [[MMSyncThread shareInstance] cancel];
-                                  [[MMSyncThread shareInstance] wait];
-                                  
                                   [[MMContactManager instance] clearContactDB];
                                   
                                   [[IMService instance] stop];

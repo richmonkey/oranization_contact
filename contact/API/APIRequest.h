@@ -28,4 +28,5 @@
 
 +(TAHttpOperation*)getOrganizations:(void(^)(NSArray *orgs))success fail:(void(^)())fail;
 
++(TAHttpOperation*)syncContact:(int64_t)syncKey success:(void(^)(NSDictionary *resp))success fail:(void(^)())fail;
 @end

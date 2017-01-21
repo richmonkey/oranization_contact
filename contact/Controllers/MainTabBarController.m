@@ -17,7 +17,6 @@
 #import "MessageListViewController.h"
 #import "NGContactListVController.h"
 #import "MMContact.h"
-#import "MMSyncThread.h"
 #import "Token.h"
 #import "ContactCache.h"
 //RGB颜色
@@ -60,8 +59,7 @@ alpha:(a)]
     ContactCache *cache = [ContactCache instance];
     MMErrorType error = 0;
     cache.contacts = [[MMContactManager instance] getSimpleContactList:&error];
-    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
+
     
     //创建界面
     NGContactListVController *contactViewController = [[NGContactListVController alloc] init];
@@ -147,9 +145,7 @@ alpha:(a)]
         if (!changed) {
             return;
         }else {
-            ContactCache *cache = [ContactCache instance];
-            MMErrorType error = 0;
-            cache.contacts = [[MMContactManager instance] getSimpleContactList:&error];
+        
         }
     }
 }

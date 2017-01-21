@@ -42,8 +42,6 @@
 		6D16D7A71A08AEB9001D0939 /* pinyin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7A41A08AEB9001D0939 /* pinyin.cc */; };
 		6D16D7AB1A08AFFB001D0939 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AA1A08AFFB001D0939 /* libz.dylib */; };
 		6D16D7AD1A08B003001D0939 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AC1A08B003001D0939 /* libsqlite3.dylib */; };
-		6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7AF1A08B287001D0939 /* MMContactSync.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7B21A08B287001D0939 /* MMSyncThread.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6D16D7B71A08C3FF001D0939 /* momo.db in Resources */ = {isa = PBXBuildFile; fileRef = 6D16D7B61A08C228001D0939 /* momo.db */; };
 		6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FF81C3D436B007D87DD /* contact_match.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -207,10 +205,6 @@
 		6D16D7A81A08AFF0001D0939 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		6D16D7AA1A08AFFB001D0939 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6D16D7AC1A08B003001D0939 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		6D16D7AE1A08B287001D0939 /* MMContactSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMContactSync.h; sourceTree = "<group>"; };
-		6D16D7AF1A08B287001D0939 /* MMContactSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMContactSync.m; sourceTree = "<group>"; };
-		6D16D7B11A08B287001D0939 /* MMSyncThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSyncThread.h; sourceTree = "<group>"; };
-		6D16D7B21A08B287001D0939 /* MMSyncThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSyncThread.m; sourceTree = "<group>"; };
 		6D16D7B61A08C228001D0939 /* momo.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = momo.db; sourceTree = "<group>"; };
 		6D9BC1081C3283EE00F0A2AE /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		6D9BC1091C3283EE00F0A2AE /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
@@ -466,10 +460,6 @@
 		6D16D6251A08A57B001D0939 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
-				6D16D7AE1A08B287001D0939 /* MMContactSync.h */,
-				6D16D7AF1A08B287001D0939 /* MMContactSync.m */,
-				6D16D7B11A08B287001D0939 /* MMSyncThread.h */,
-				6D16D7B21A08B287001D0939 /* MMSyncThread.m */,
 			);
 			path = Sync;
 			sourceTree = "<group>";
@@ -843,7 +833,6 @@
 				6DAC107B1C3D6290007D87DD /* MBProgressHUD.m in Sources */,
 				6DAC107C1C3D6290007D87DD /* MKAnnotationView+WebCache.m in Sources */,
 				6DAC10891C3D6290007D87DD /* UIImageView+HighlightedWebCache.m in Sources */,
-				6D16D7B31A08B287001D0939 /* MMContactSync.m in Sources */,
 				6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */,
 				6DAC109E1C3D6DBB007D87DD /* ContactCache.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
@@ -874,7 +863,6 @@
 				6D16D5FD1A08A36A001D0939 /* main.m in Sources */,
 				1D9DC1091A2AB61700D2E5B5 /* UIButton+NGAdditions.m in Sources */,
 				1D9DC1361A2AC21300D2E5B5 /* NGContactListVController.m in Sources */,
-				6D16D7B51A08B287001D0939 /* MMSyncThread.m in Sources */,
 				6DAC10851C3D6290007D87DD /* UIButton+WebCache.m in Sources */,
 				6D16D63A1A08A6BB001D0939 /* MMModel.mm in Sources */,
 				1D9DC0FF1A2AB4C900D2E5B5 /* LoginViewController.m in Sources */,

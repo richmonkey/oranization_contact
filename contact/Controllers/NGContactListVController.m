@@ -14,17 +14,21 @@
 #import "MMContact.h"
 #import <AddressBook/AddressBook.h>
 #import "MMAddressBook.h"
-#import "MMSyncThread.h"
 #import "NGContactDetailVController.h"
 #import "APIRequest.h"
 #import "Token.h"
 #import "LoginViewController.h"
 #import "MyCompanyViewController.h"
+#import "MMServerContactManager.h"
+#import "DbStruct.h"
+#import "ContactCache.h"
 
 @interface NGContactListVController ()<UITableViewDelegate, UISearchBarDelegate,UISearchDisplayDelegate,
 UITableViewDataSource>
 @property(nonatomic)dispatch_source_t refreshTimer;
 @property(nonatomic)int refreshFailCount;
+
+@property(nonatomic, assign) BOOL syncing;
 
 @property(nonatomic, strong) UITableView *contactTable;
 @property (strong, nonatomic) UISearchDisplayController* searchController;
@@ -44,16 +48,12 @@ UITableViewDataSource>
     [super viewDidLoad];
     NSLog(@"NGContactListVController view did load");
 
-    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
-
     self.contactArray = [NSArray array];
     self.searchArray = [NSMutableArray array];
     self.contactsDictionary = [NSMutableDictionary dictionary];
     self.contactNameIndexArray = [NSMutableArray array];
     self.filterContactsDictionary = [NSMutableDictionary dictionary];
     self.filterContactNameIndexArray = [NSMutableArray array];
-
     
     UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(actionRefresh)];
     self.navigationItem.rightBarButtonItem = refreshItem;
@@ -63,7 +63,6 @@ UITableViewDataSource>
     
     [self createCustomView];
     
-    [[MMSyncThread shareInstance] start];
     [self initContactArray];
     
     __weak NGContactListVController *wself = self;
@@ -79,6 +78,224 @@ UITableViewDataSource>
     NSLog(@"contact list controller dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(void)syncContact {
+    if (self.syncing) {
+        return;
+    }
+
+    self.syncing = YES;
+    int64_t syncKey = [self loadSyncKey];;
+    [APIRequest syncContact:syncKey success:^(NSDictionary *resp) {
+        self.syncing = NO;
+        NSArray *contacts = [resp objectForKey:@"contacts"];
+        NSArray *contactIDs = [[MMContactManager instance] getContactSyncInfoList:nil];
+        for (NSDictionary *dict in contacts) {
+            int deleted = [[dict objectForKey:@"deleted"] intValue];
+            if (!deleted) {
+                MMMomoContact *contact = [[self class] decodeContact:dict];
+                NSLog(@"contact id:%lld", contact.contactId);
+                NSInteger index = [contactIDs indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+                    DbContactSyncInfo *info = (DbContactSyncInfo*)obj;
+                    if(info.contactId == contact.contactId)
+                        return YES;
+                    return NO;
+                }];
+                if (NSNotFound == index) {
+                    if ([[MMContactManager instance] insertContact:contact withDataList:contact.properties] != MM_DB_OK) {
+                        NSLog(@"insert contact fail, contact id:%lld", contact.contactId);
+                    }
+                    
+                    
+                } else {
+                    if ([[MMContactManager instance] updateContact:contact withDataList:contact.properties] != MM_DB_OK) {
+                        NSLog(@"update contact fail contact id:%lld", contact.contactId);
+                    }
+                }
+            } else {
+                int64_t cid = [[dict objectForKey:@"id"] longLongValue];
+                [[MMContactManager instance] deleteContact:cid];
+            }
+        }
+        
+        int64_t newSyncKey = [[resp objectForKey:@"sync_key"] longLongValue];
+        BOOL changed = (newSyncKey != syncKey);
+        if (!changed) {
+            [MMCommonAPI alert:@"已经是最新"];
+            NSLog(@"unchanged");
+            return;
+        } else {
+            [self saveSyncKey:newSyncKey];
+            //不是最新则刷新界面
+            [self updateContactArray];
+            
+            ContactCache *cache = [ContactCache instance];
+            MMErrorType error = 0;
+            cache.contacts = [[MMContactManager instance] getSimpleContactList:&error];
+        }
+    } fail:^{
+        self.syncing = NO;
+        NSLog(@"sync fail");
+        [MMCommonAPI alert:@"更新失败"];
+    }];
+}
+
+-(int64_t)loadSyncKey {
+    NSString *path = [self getDocumentPath];
+    NSString *fileName = [NSString stringWithFormat:@"%@/synckey", path];
+    NSDictionary *dict = [self loadDictionary:fileName];
+    return [[dict objectForKey:@"sync_key"] longLongValue];
+}
+
+-(void)saveSyncKey:(int64_t)key {
+    NSString *path = [self getDocumentPath];
+    NSString *fileName = [NSString stringWithFormat:@"%@/synckey", path];
+    NSDictionary *dict = @{@"sync_key":@(key)};
+    [self storeDictionary:dict file:fileName];
+}
+
+-(NSString*)getDocumentPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+-(void)storeDictionary:(NSDictionary*) dictionaryToStore file:(NSString*)fileName {
+    if (dictionaryToStore != nil) {
+        [dictionaryToStore writeToFile:fileName atomically:YES];
+    }
+}
+
+-(NSDictionary*)loadDictionary:(NSString*)fileName {
+    NSDictionary* panelLibraryContent = [NSDictionary dictionaryWithContentsOfFile:fileName];
+    return panelLibraryContent;
+}
+
++(int)getImProperty:(NSString*)protocol {
+    if ([protocol isEqualToString:@"91u"]) {
+        return kMoIm91U;
+    } else if ([protocol isEqualToString:@"qq"] ) {
+        return kMoImQQ;
+    } else if ([protocol isEqualToString:@"msn"]) {
+        return kMoImMSN;
+    } else if ([protocol isEqualToString:@"icq"]) {
+        return kMoImICQ;
+    } else if ([protocol isEqualToString:@"gtalk"]) {
+        return kMoImGtalk;
+    } else if ([protocol isEqualToString:@"yahoo"]) {
+        return kMoImYahoo;
+    } else if ([protocol isEqualToString:@"skype"]) {
+        return kMoImSkype;
+    } else if ([protocol isEqualToString:@"aim"]) {
+        return kMoImAIM;
+    } else if ([protocol isEqualToString:@"jabber"]) {
+        return kMoImJabber;
+    } else if ([protocol isEqualToString:@"wechat"]) {
+        return kMoImWeChat;
+    } else {
+        assert(0);
+    }
+    
+    return 0;
+}
+
+
++(MMMomoContact*)decodeContact:(NSDictionary*)dic {
+    
+    MMMomoContact *contact = [[MMMomoContact alloc] init];
+    
+    contact.contactId = [[dic objectForKey:@"id"] intValue];
+    if (contact.contactId > 0) {
+        
+        contact.lastName = PARSE_NULL_STR([dic objectForKey:@"family_name"]);
+        contact.firstName = PARSE_NULL_STR([dic objectForKey:@"given_name"]);
+        contact.middleName = PARSE_NULL_STR([dic objectForKey:@"middle_name"]);
+        contact.nickName = PARSE_NULL_STR([dic objectForKey:@"nickname"]);
+        contact.department = PARSE_NULL_STR([dic objectForKey:@"department"]);
+        contact.jobTitle = PARSE_NULL_STR([dic objectForKey:@"title"]);
+        
+    }
+    
+    contact.birthday = [MMCommonAPI getDateBySting:[dic objectForKey:@"birthday"]];
+    contact.organization = [dic objectForKey:@"organization"];
+    contact.companyName = [dic objectForKey:@"group_name"];
+    
+    contact.note = [dic objectForKey:@"note"];
+    
+    contact.modifyDate = [[dic objectForKey:@"modified_at"] longLongValue];
+   	contact.avatarUrl = [dic objectForKey:@"avatar"];
+    
+    NSMutableArray *properties = [NSMutableArray array];
+    for (NSDictionary *propertyDic in [dic objectForKey:@"tels"]) {
+        DbData *property = [[DbData alloc] init];
+        
+        property.property = kMoTel;
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        if ([[propertyDic objectForKey:@"pref"] boolValue]) {
+            property.isMainTelephone = YES;
+        }
+        [properties addObject:property];
+    }
+    for (NSDictionary *propertyDic in [dic objectForKey:@"emails"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = kMoMail;
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        [properties addObject:property];
+    }
+    
+    for (NSDictionary *propertyDic in [dic objectForKey:@"urls"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = kMoUrl;
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        [properties addObject:property];
+    }
+    
+    for (NSDictionary *propertyDic in [dic objectForKey:@"relations"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = kMoPerson;
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        [properties addObject:property];
+    }
+    
+    for (NSDictionary *propertyDic in [dic objectForKey:@"events"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = kMoBday;
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        [properties addObject:property];
+    }
+    
+    for (NSDictionary *propertyDic in [dic objectForKey:@"addresses"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = kMoAdr;
+        NSString *postal = [propertyDic objectForKey:@"postal"];
+        NSString *country = [propertyDic objectForKey:@"country"];
+        NSString *region = [propertyDic objectForKey:@"region"];
+        NSString *city = [propertyDic objectForKey:@"city"];
+        NSString *street = [propertyDic objectForKey:@"street"];
+        property.value = [DbData AddressValue:country region:region city:city
+                                       street:street postal:postal];
+        property.label = [propertyDic objectForKey:@"type"];
+        [properties addObject:property];
+    }
+    
+    for (NSDictionary *propertyDic in [dic objectForKey:@"ims"]) {
+        DbData *property = [[DbData alloc] init];
+        property.property = [self getImProperty:[propertyDic objectForKey:@"protocol"]];
+        property.label = [propertyDic objectForKey:@"type"];
+        property.value = [propertyDic objectForKey:@"value"];
+        [properties addObject:property];
+    }
+    contact.properties = properties;
+    return contact;
+}
+
+
+
 
 -(void)prepareTimer {
     Token *token = [Token instance];
@@ -168,7 +385,9 @@ UITableViewDataSource>
     //初次加载,本地联系人空时候进行同步
     NSArray *companyNames = [[MMContactManager instance] getCompanyList:nil];
     if (!companyNames.count) {
-        [self synContanct];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self syncContact];
+        });
     }
 }
 
@@ -181,31 +400,6 @@ UITableViewDataSource>
     [self.contactTable reloadData];
 }
 
-- (void)synContanct {
-    //wait sync thread started
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[MMSyncThread shareInstance] beginSync];
-    });
-}
-
-- (void)onEndSync:(NSNotification*)notification {
-    NSLog(@"onEndSync");
-    BOOL r = [[notification.object objectForKey:@"result"] boolValue];
-    if (!r) {
-        [MMCommonAPI alert:@"更新失败"];
-        return;
-    }else {
-        BOOL changed = [[notification.object objectForKey:@"changed"] boolValue];
-        if (!changed) {
-            [MMCommonAPI alert:@"已经是最新"];
-            NSLog(@"unchanged");
-            return;
-        }else {
-            //不是最新则刷新界面
-            [self updateContactArray];
-        }
-    }
-}
 
 
 
@@ -452,7 +646,7 @@ UITableViewDataSource>
 }
 
 - (void)actionRefresh {
-    [[MMSyncThread shareInstance] beginSync];
+    [self syncContact];
 }
 
 

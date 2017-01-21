@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 #import "AppDelegate.h"
-#import "MMSyncThread.h"
+
 
 int main(int argc, char * argv[])
 {
@@ -21,11 +21,6 @@ int main(int argc, char * argv[])
         if (sqlite3_config(SQLITE_CONFIG_MULTITHREAD) != SQLITE_OK) {
             NSLog(@"sqlite3_config failed");
         }
-        
-        
-        [MMSyncThread shareInstance];
-        [MMRequest shareInstance];
-        
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

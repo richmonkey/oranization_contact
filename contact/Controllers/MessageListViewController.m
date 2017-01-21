@@ -18,7 +18,6 @@
 #import <imkit/CustomerMessageViewController.h>
 
 #import "MessageConversationCell.h"
-#import "MMSyncThread.h"
 
 //RGB颜色
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
@@ -71,7 +70,6 @@ alpha:(a)]
     [[IMService instance] addConnectionObserver:self];
     [[IMService instance] addSystemMessageObserver:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onEndSync:) name:kMMEndSync object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newGroupMessage:) name:LATEST_GROUP_MESSAGE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver: self selector:@selector(newMessage:) name:LATEST_PEER_MESSAGE object:nil];
     
@@ -567,16 +565,6 @@ alpha:(a)]
         }
     }
 }
-
-
-- (void)onEndSync:(NSNotification*)notification {
-    NSLog(@"onEndSync");
-    for (Conversation *con in self.conversations) {
-         [self updateConversationName:con];
-    }
-}
-
-
 
 -(void) resetConversationsViewControllerNewState{
     BOOL shouldClearNewCount = YES;
