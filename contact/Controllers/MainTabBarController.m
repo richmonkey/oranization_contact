@@ -9,11 +9,9 @@
 #import "MainTabBarController.h"
 
 #import <imsdk/IMService.h>
-#import <imkit/TextMessageViewController.h>
-#import <imkit/MessageViewController.h>
-#import <imkit/IMHttpAPI.h>
 #import <imkit/PeerMessageViewController.h>
 #import <imkit/MessageDB.h>
+#import <imkit/IMHttpAPI.h>
 #import <imkit/PeerMessageDB.h>
 #import <imkit/GroupMessageDB.h>
 #import "MessageListViewController.h"
