@@ -57,6 +57,8 @@
 		6DB34CC31C4FDB0F006D78D4 /* MessageConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB34CC11C4FDB0F006D78D4 /* MessageConversationCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DB34CC41C4FDB0F006D78D4 /* MessageConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DB34CC21C4FDB0F006D78D4 /* MessageConversationCell.xib */; };
 		6DF6D1C71E33C2C9003AA63B /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF6D1C61E33C2C9003AA63B /* Conversation.m */; };
+		6DF6D1CB1E33C6FE003AA63B /* NewCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF6D1CA1E33C6FE003AA63B /* NewCount.m */; };
+		6DF6D1CE1E33C84E003AA63B /* LevelDB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6DF6D1CD1E33C84E003AA63B /* LevelDB.mm */; };
 		A00E25554B280452964A0FD6 /* libPods-contact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07FDBC4F94D1E1F276D4FDB5 /* libPods-contact.a */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +162,10 @@
 		6DB34CC21C4FDB0F006D78D4 /* MessageConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageConversationCell.xib; sourceTree = "<group>"; };
 		6DF6D1C51E33C2C9003AA63B /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
 		6DF6D1C61E33C2C9003AA63B /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		6DF6D1C91E33C6FE003AA63B /* NewCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCount.h; sourceTree = "<group>"; };
+		6DF6D1CA1E33C6FE003AA63B /* NewCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCount.m; sourceTree = "<group>"; };
+		6DF6D1CC1E33C84E003AA63B /* LevelDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDB.h; sourceTree = "<group>"; };
+		6DF6D1CD1E33C84E003AA63B /* LevelDB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelDB.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +335,10 @@
 		6D16D62E1A08A6BB001D0939 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6DF6D1CC1E33C84E003AA63B /* LevelDB.h */,
+				6DF6D1CD1E33C84E003AA63B /* LevelDB.mm */,
+				6DF6D1C91E33C6FE003AA63B /* NewCount.h */,
+				6DF6D1CA1E33C6FE003AA63B /* NewCount.m */,
 				6DF6D1C51E33C2C9003AA63B /* Conversation.h */,
 				6DF6D1C61E33C2C9003AA63B /* Conversation.m */,
 				6DAC0FFB1C3D43EF007D87DD /* Organization.h */,
@@ -508,6 +518,7 @@
 				6DAC0FFA1C3D436B007D87DD /* contact_match.cc in Sources */,
 				6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */,
 				1D9DC10A1A2AB61700D2E5B5 /* UIImage+NGAdditions.m in Sources */,
+				6DF6D1CE1E33C84E003AA63B /* LevelDB.mm in Sources */,
 				6DF6D1C71E33C2C9003AA63B /* Conversation.m in Sources */,
 				6D16D6391A08A6BB001D0939 /* MMContact.m in Sources */,
 				6D9BC10A1C3283EE00F0A2AE /* MainTabBarController.m in Sources */,
@@ -519,6 +530,7 @@
 				1D9DC1411A2B08E400D2E5B5 /* MMAddressBook.m in Sources */,
 				6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */,
 				6DAC109E1C3D6DBB007D87DD /* ContactCache.m in Sources */,
+				6DF6D1CB1E33C6FE003AA63B /* NewCount.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6DB34CB91C4FDB03006D78D4 /* MessageListViewController.m in Sources */,

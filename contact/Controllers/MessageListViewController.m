@@ -17,7 +17,8 @@
 #import <gobelieve/GroupMessageViewController.h>
 #import <gobelieve/CustomerMessageViewController.h>
 #import "Conversation.h"
-
+#import "Token.h"
+#import "NewCount.h"
 #import "MessageConversationCell.h"
 
 //RGB颜色
@@ -79,11 +80,13 @@ alpha:(a)]
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
 
+    int64_t uid = [Token instance].uid;
     id<ConversationIterator> iterator =  [[PeerMessageDB instance] newConversationIterator];
     IMessage *msg = [iterator next];
     while (msg) {
-        Conversation * conversation = [[Conversation alloc] init];
+        Conversation *conversation = [[Conversation alloc] init];
         conversation.message = msg;
+        conversation.cid = msg.sender == uid ? msg.receiver : msg.sender;
         conversation.type = CONVERSATION_PEER;
         [self.conversations addObject:conversation];
         msg = [iterator next];
@@ -92,8 +95,9 @@ alpha:(a)]
     iterator = [[GroupMessageDB instance] newConversationIterator];
     msg = [iterator next];
     while (msg) {
-        Conversation * conversation = [[Conversation alloc] init];
+        Conversation *conversation = [[Conversation alloc] init];
         conversation.message = msg;
+        conversation.cid = msg.receiver;
         conversation.type = CONVERSATION_GROUP;
         [self.conversations addObject:conversation];
         msg = [iterator next];
@@ -102,6 +106,11 @@ alpha:(a)]
     for (Conversation *conv in self.conversations) {
         [self updateConversationName:conv];
         [self updateConversationDetail:conv];
+        if (conv.type == CONVERSATION_PEER) {
+            conv.newMsgCount = [NewCount getNewCount:conv.cid];
+        } else if (conv.type == CONVERSATION_GROUP) {
+            conv.newMsgCount = [NewCount getGroupNewCount:conv.cid];
+        }
     }
 
     NSArray *sortedArray = [self.conversations sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -353,6 +362,7 @@ alpha:(a)]
         if (conv.type == CONVERSATION_PEER && conv.cid == usrid) {
             if (conv.newMsgCount > 0) {
                 conv.newMsgCount = 0;
+                [NewCount setNewCount:0 uid:conv.cid];
                 [self resetConversationsViewControllerNewState];
             }
         }
@@ -366,6 +376,7 @@ alpha:(a)]
         if (conv.type == CONVERSATION_GROUP && conv.cid == groupID) {
             if (conv.newMsgCount > 0) {
                 conv.newMsgCount = 0;
+                [NewCount setGroupNewCount:0 gid:conv.cid];
                 [self resetConversationsViewControllerNewState];
             }
         }
@@ -389,6 +400,7 @@ alpha:(a)]
         [self updateConversationDetail:con];
         if (self.currentUID != msg.sender) {
             con.newMsgCount += 1;
+            [NewCount setGroupNewCount:con.newMsgCount gid:con.cid];
             [self setNewOnTabBar];
         }
         
@@ -405,6 +417,7 @@ alpha:(a)]
         
         if (self.currentUID != msg.sender) {
             con.newMsgCount += 1;
+            [NewCount setGroupNewCount:con.newMsgCount gid:con.cid];
             [self setNewOnTabBar];
         }
         
@@ -437,6 +450,7 @@ alpha:(a)]
         
         if (self.currentUID == msg.receiver) {
             con.newMsgCount += 1;
+            [NewCount setNewCount:con.newMsgCount uid:con.cid];
             [self setNewOnTabBar];
         }
         
@@ -457,6 +471,7 @@ alpha:(a)]
         
         if (self.currentUID == msg.receiver) {
             con.newMsgCount += 1;
+            [NewCount setNewCount:con.newMsgCount uid:con.cid];
             [self setNewOnTabBar];
         }
 

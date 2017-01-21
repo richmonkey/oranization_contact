@@ -6,5 +6,6 @@ target 'contact' do
     pod 'ASIHTTPRequest', '~> 1.8.2'
     pod 'SVProgressHUD', '~> 1.1.2'
     pod 'JSBadgeView', '~> 1.3.2'
+    pod 'leveldb-library', '~> 1.18.2'    
 end
 
