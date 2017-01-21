@@ -38,7 +38,6 @@
 		6D16D6D01A08A980001D0939 /* MMGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6CE1A08A980001D0939 /* MMGlobalData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D6D31A08A995001D0939 /* MMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6D21A08A995001D0939 /* MMLogger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D6E01A08AAB3001D0939 /* MMCommonAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7271A08AC1B001D0939 /* MMThread.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D16D7A71A08AEB9001D0939 /* pinyin.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D16D7A41A08AEB9001D0939 /* pinyin.cc */; };
 		6D16D7AB1A08AFFB001D0939 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AA1A08AFFB001D0939 /* libz.dylib */; };
 		6D16D7AD1A08B003001D0939 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D7AC1A08B003001D0939 /* libsqlite3.dylib */; };
@@ -48,8 +47,6 @@
 		6DAC0FFF1C3D43EF007D87DD /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFC1C3D43EF007D87DD /* Organization.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC10001C3D43EF007D87DD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC0FFE1C3D43EF007D87DD /* Token.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10031C3D447E007D87DD /* APIRequest.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10051C3D447E007D87DD /* MMServerContactManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10071C3D447E007D87DD /* MMRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6DAC100D1C3D447E007D87DD /* TAHttpOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAC10091C3D447E007D87DD /* TAHttpOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6DAC102B1C3D5BC1007D87DD /* libimkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC10221C3D5B9E007D87DD /* libimkit.a */; };
 		6DAC102C1C3D5BC1007D87DD /* libimsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DAC10161C3D5B97007D87DD /* libimsdk.a */; };
@@ -197,8 +194,6 @@
 		6D16D6D21A08A995001D0939 /* MMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLogger.m; sourceTree = "<group>"; };
 		6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCommonAPI.h; sourceTree = "<group>"; };
 		6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCommonAPI.m; sourceTree = "<group>"; };
-		6D16D7261A08AC1B001D0939 /* MMThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMThread.h; sourceTree = "<group>"; };
-		6D16D7271A08AC1B001D0939 /* MMThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMThread.m; sourceTree = "<group>"; };
 		6D16D7A31A08AEA6001D0939 /* DefineDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineDictionary.h; sourceTree = "<group>"; };
 		6D16D7A41A08AEB9001D0939 /* pinyin.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pinyin.cc; sourceTree = "<group>"; };
 		6D16D7A51A08AEB9001D0939 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
@@ -216,10 +211,6 @@
 		6DAC0FFE1C3D43EF007D87DD /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
 		6DAC10021C3D447E007D87DD /* APIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRequest.h; sourceTree = "<group>"; };
 		6DAC10031C3D447E007D87DD /* APIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRequest.m; sourceTree = "<group>"; };
-		6DAC10041C3D447E007D87DD /* MMServerContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMServerContactManager.h; sourceTree = "<group>"; };
-		6DAC10051C3D447E007D87DD /* MMServerContactManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMServerContactManager.m; sourceTree = "<group>"; };
-		6DAC10061C3D447E007D87DD /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
-		6DAC10071C3D447E007D87DD /* MMRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRequest.m; sourceTree = "<group>"; };
 		6DAC10081C3D447E007D87DD /* TAHttpOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAHttpOperation.h; sourceTree = "<group>"; };
 		6DAC10091C3D447E007D87DD /* TAHttpOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAHttpOperation.m; sourceTree = "<group>"; };
 		6DAC100F1C3D5B97007D87DD /* imsdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = imsdk.xcodeproj; path = im/imsdk/imsdk.xcodeproj; sourceTree = "<group>"; };
@@ -415,7 +406,6 @@
 				1D9DC1371A2AFA8000D2E5B5 /* View */,
 				1D9DC1021A2AB61700D2E5B5 /* Categories */,
 				1D9DC0F21A2AB4C900D2E5B5 /* Controllers */,
-				6D16D6251A08A57B001D0939 /* Sync */,
 				6D16D6861A08A921001D0939 /* third-party */,
 				6D16D62E1A08A6BB001D0939 /* Model */,
 				6D16D5FF1A08A36A001D0939 /* AppDelegate.h */,
@@ -457,13 +447,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		6D16D6251A08A57B001D0939 /* Sync */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sync;
-			sourceTree = "<group>";
-		};
 		6D16D62E1A08A6BB001D0939 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,8 +461,6 @@
 				6D16D7A41A08AEB9001D0939 /* pinyin.cc */,
 				6D16D7A51A08AEB9001D0939 /* pinyin.h */,
 				6D16D7A31A08AEA6001D0939 /* DefineDictionary.h */,
-				6D16D7261A08AC1B001D0939 /* MMThread.h */,
-				6D16D7271A08AC1B001D0939 /* MMThread.m */,
 				6D16D6DE1A08AAB3001D0939 /* MMCommonAPI.h */,
 				6D16D6DF1A08AAB3001D0939 /* MMCommonAPI.m */,
 				6D16D6CD1A08A980001D0939 /* MMGlobalData.h */,
@@ -519,10 +500,6 @@
 			children = (
 				6DAC10021C3D447E007D87DD /* APIRequest.h */,
 				6DAC10031C3D447E007D87DD /* APIRequest.m */,
-				6DAC10041C3D447E007D87DD /* MMServerContactManager.h */,
-				6DAC10051C3D447E007D87DD /* MMServerContactManager.m */,
-				6DAC10061C3D447E007D87DD /* MMRequest.h */,
-				6DAC10071C3D447E007D87DD /* MMRequest.m */,
 				6DAC10081C3D447E007D87DD /* TAHttpOperation.h */,
 				6DAC10091C3D447E007D87DD /* TAHttpOperation.m */,
 			);
@@ -836,7 +813,6 @@
 				6DAC100A1C3D447E007D87DD /* APIRequest.m in Sources */,
 				6DAC109E1C3D6DBB007D87DD /* ContactCache.m in Sources */,
 				1D9DC1011A2AB4C900D2E5B5 /* NGViewController.m in Sources */,
-				6DAC100C1C3D447E007D87DD /* MMRequest.m in Sources */,
 				1D9DC1331A2ABD9600D2E5B5 /* NGAddition.m in Sources */,
 				6DB34CB91C4FDB03006D78D4 /* MessageListViewController.m in Sources */,
 				1D8FBE191A317E4B007A20D9 /* NGContactDetailVController.m in Sources */,
@@ -848,10 +824,8 @@
 				6D16D6011A08A36A001D0939 /* AppDelegate.m in Sources */,
 				6DAC10821C3D6290007D87DD /* SDWebImageDownloaderOperation.m in Sources */,
 				6DAC108C1C3D6290007D87DD /* ESImageViewController.m in Sources */,
-				6DAC100B1C3D447E007D87DD /* MMServerContactManager.m in Sources */,
 				6DAC10801C3D6290007D87DD /* SDWebImageDecoder.m in Sources */,
 				1D8FBE151A315D4B007A20D9 /* ContactDetailCell.m in Sources */,
-				6D16D7281A08AC1B001D0939 /* MMThread.m in Sources */,
 				6DAC108D1C3D6290007D87DD /* ESModalImageViewAnimationController.m in Sources */,
 				1DC6CD121A830D4F001728D9 /* MyCompanyViewController.m in Sources */,
 				6DAC10001C3D43EF007D87DD /* Token.m in Sources */,

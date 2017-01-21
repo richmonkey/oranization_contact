@@ -19,7 +19,6 @@
 #import "Token.h"
 #import "LoginViewController.h"
 #import "MyCompanyViewController.h"
-#import "MMServerContactManager.h"
 #import "DbStruct.h"
 #import "ContactCache.h"
 

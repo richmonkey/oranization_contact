@@ -9,7 +9,6 @@
 #import "MMContact.h"
 #import "MMPhoneticAbbr.h"
 #import "MMCommonAPI.h"
-#import "MMServerContactManager.h"
 
 @implementation NSString (NSStringCompare)
 

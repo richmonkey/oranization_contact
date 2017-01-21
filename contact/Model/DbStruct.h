@@ -118,3 +118,5 @@
 +(void)ParseAddressValue:(NSString*)value country:(NSString**)country region:(NSString**)region city:(NSString**)city street:(NSString**)street postal:(NSString**)postal;
 @end
 
+typedef MMFullContact MMMomoContact;
+

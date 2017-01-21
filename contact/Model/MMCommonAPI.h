@@ -11,7 +11,7 @@
 #import "ErrorType.h"
 #import "Reachability.h"
 
-@class MMWebViewController;
+
 @interface MMCommonAPI : NSObject {
 
 }
